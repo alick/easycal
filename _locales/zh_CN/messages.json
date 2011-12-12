@@ -1,0 +1,14 @@
+{
+"extName":{
+	"message":"划词日程",
+	"description":"Easy Calendar"
+},
+"extDescript":{
+	"message":"选中一段文字，右击鼠标将其存为你的日程。",
+	"description":"Select some text, right click and save as your schedule."
+},
+"extMenuTitle":{
+	"message":"将选中文本添加到划词日程",
+	"description":"Add Selection to EasyCal"
+}
+}

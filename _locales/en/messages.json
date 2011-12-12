@@ -1,0 +1,11 @@
+{
+"extName":{
+	"message":"EasyCal"
+},
+"extDescript":{
+	"message":"Select some text, right click and save as your schedule."
+},
+"extMenuTitle":{
+	"message":"Add Selection to EasyCal"
+}
+}
