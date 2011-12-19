@@ -14,7 +14,19 @@ function genericOnClick(info, tab) {
 
     var this_time = new Date();
     var timestamp = this_time.getTime();
-    var storekey = timestamp;
+    var sched_index = getItem('sched_index');
+    console.log('sched_index: "'+sched_index+'"');
+    if (sched_index == null) {
+        sched_index = '0';
+    }
+    var storekey = "sched" + sched_index;
+    var schedule = {
+        id: sched_index,
+        add_time: timestamp,
+        summary: my_selection,
+        content: my_selection,
+        sched_time: timestamp+10000,
+    };
 
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
     console.log("item " + info.menuItemId + " was clicked");
@@ -22,12 +34,13 @@ function genericOnClick(info, tab) {
     console.log("tab: " + JSON.stringify(tab));
 
     // store into local storage
-    setItem(storekey, JSON.stringify(info));
+    setItem(storekey, JSON.stringify(schedule));
     var stored = getItem(storekey);
     log("stored item: " + storekey + "=>" + stored);
     var storedObj = JSON.parse(stored);
-    log("selectioned: " + storedObj.selectionText);
+    log("schedule summary: " + storedObj.summary);
 
+    setItem('sched_index', ++sched_index);
     //clearStrg();
     //stored = getItem('selection'); // should be null
     //log("stored item:" + stored);
