@@ -40,3 +40,5 @@ function log(txt) {
         console.log(txt);
     }
 }
+
+var logging = 1;

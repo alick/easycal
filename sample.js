@@ -58,6 +58,5 @@ var title = chrome.i18n.getMessage("extMenuTitle");
 var id = chrome.contextMenus.create({"title": title, "contexts":["selection"],
                                        "onclick": genericOnClick});
 //console.log("'" + context + "' item:" + id);
-var logging = 1;
 
 
