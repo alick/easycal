@@ -33,7 +33,7 @@ function genericOnClick(info, tab) {
         add_time: timestamp,
         summary: my_selection,
         content: my_selection,
-        sched_time: timestamp+10000,
+        sched_time: timestamp + 1000 * 60 * 60 * 24,
     };
 
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
