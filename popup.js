@@ -16,8 +16,6 @@ window.onload = function(){
           weekStartDay:1*/
     });
 
-    g_schedules = getAllSchedules();
-
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
@@ -27,27 +25,19 @@ window.onload = function(){
 
 };
 
-function getAllSchedules () {
+function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
         return null;
     }
-    var sched_list = [];
+    var sched_table = "<table>";
+
     for (var i = 0; i < maxid_plus1; ++i) {
         var schedule_str = getItem('sched' + i);
         if (schedule_str == null) {
             continue;
         }
-        var schedule = JSON.parse(schedule_str);
-        sched_list.push(schedule);
-    }
-    return sched_list;
-}
-
-function getSchedulesByTime(obj) {
-    var sched_table = "<table>";
-    for (var sched in g_schedules) {
-        s = g_schedules[sched];
+        var s = JSON.parse(schedule_str);
         var time = new Date(s.sched_time);
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
@@ -85,7 +75,7 @@ function getSchedulesByTime(obj) {
             // How to deal with L10N action messages?
             if (action == "Remove") {
                 console.log("To remove " + sched_id);
-                // remove a key-value pair in LocalStorage
+                // remove the key-value pair in LocalStorage
                 removeItem(sched_id);
                 // remove the table row in current GUI
                 $("#" + sched_id).remove();
