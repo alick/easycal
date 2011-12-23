@@ -28,6 +28,20 @@ function getItem(key) {
     return value;
 }
 
+function removeItem(key) {
+    var value;
+    log('Removing key [' + key + ']');
+    try {
+        value = window.localStorage.removeItem(key);  // <-- Local storage!
+    }catch(e) {
+        log("Error inside removeItem() for key:" + key);
+        log(e);
+        value = "null";
+    }
+    log("Returning value: " + value);
+    return value;
+}
+
 // Clears all key/value pairs in local storage.
 function clearStrg() {
     log('about to clear local storage');

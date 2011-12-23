@@ -16,7 +16,7 @@ window.onload = function(){
           weekStartDay:1*/
     });
 
-    schedules = getAllSchedules();
+    g_schedules = getAllSchedules();
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
@@ -24,6 +24,7 @@ window.onload = function(){
         document.getElementById("calendar_result").innerHTML = obj.day + "/" + obj.month + "/" + obj.year;
         getSchedulesByTime(obj);
     });
+
 };
 
 function getAllSchedules () {
@@ -45,8 +46,8 @@ function getAllSchedules () {
 
 function getSchedulesByTime(obj) {
     var sched_table = "<table>";
-    for (var sched in schedules) {
-        s = schedules[sched];
+    for (var sched in g_schedules) {
+        s = g_schedules[sched];
         var time = new Date(s.sched_time);
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
@@ -55,12 +56,54 @@ function getSchedulesByTime(obj) {
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td><td>";
-            sched_html += s.summary + "</td><td>SET</td></tr>";
-            console.debug(sched_html);
+            sched_html += s.summary + "</td><td class=\"setting\">SETTING</td></tr>";
             sched_table += sched_html;
         }
     }
     sched_table += "</table>";
     document.getElementById('sched').innerHTML = sched_table;
-    console.debug(document.getElementById('sched').innerHTML);
+    $(".setting").unbind();
+    $(".setting").click(function(){
+        var offset = $(this).offset();
+        console.log("cord: (" + offset.left + ", " + offset.top + ")");
+        var sched_id = $(this).parent().attr("id");
+        console.log("parent id: " + sched_id);
+        $(".popup-menu").attr("id", "pm" + sched_id);
+        $(".popup-menu").css({
+            "visibility" : "visible",
+            "display" : "block",
+            "top" : offset.top,
+            "left" : offset.left,
+            "z-index" : 5,
+        });
+        $(".popup-menu-close").one("click", closePopupMenu);
+        $(".popup-menu-item").one("click", function(){
+            var action = $(this).html();
+            // strip first two characters "pm"
+            var sched_id = $(this).parent().attr("id").substring(2);
+            // FIXME
+            // How to deal with L10N action messages?
+            if (action == "Remove") {
+                console.log("To remove " + sched_id);
+                // remove a key-value pair in LocalStorage
+                removeItem(sched_id);
+                // remove the table row in current GUI
+                $("#" + sched_id).remove();
+                closePopupMenu();
+            } else {
+                console.warn("Not supported yet!");
+                closePopupMenu();
+            }
+        });
+    });
+}
+
+function closePopupMenu() {
+    $(".popup-menu").css({
+        "visibility" : "hidden",
+        "display" : "none",
+        "z-index" : -1,
+    });
+    $(".popup-menu-close").unbind('click');
+    $(".popup-menu-item").unbind('click');
 }
