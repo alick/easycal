@@ -1,0 +1,55 @@
+<html>
+
+<body>
+
+<fieldset>
+<legend>日程安排：</legend>
+
+<form action="/***.js" method="post">
+
+<br>
+时间：
+<input type="text" style= "overflow-x:visible;width:50;" name="year">年
+<input type="text" style= "overflow-x:visible;width:30;" name="month">月
+<input type="text" style= "overflow-x:visible;width:30;" name="day">日
+<input type="text" style= "overflow-x:visible;width:30;" name="hour">时
+<input type="text" style= "overflow-x:visible;width:30;" name="minute">分
+<br />
+<br>
+地点：
+<input type="text" name="address">
+<br />
+内容：
+<textarea cols="50" rows="4" id="content" name="content"></textarea>
+<br />
+
+<br><br><td>选择日程类型</td></br></br>
+
+<input type="radio" name="sex" value="male" /> 会议
+<br />
+<input type="radio" name="sex" value="female" /> 纪念日
+<br />
+<input type="radio" name="sex" value="female" /> deadline
+<br />
+
+<br>
+提前
+<input type="text" style= "overflow-x:visible;width:50;" name="RemindTime">
+<select name="RemindStytle">
+<option value="year">year</option>
+<option value="month">month</option>
+<option value="day">day</option>
+<option value="hour">hour</option>
+<option value="minute" selected="selected">minute</option>
+<option value="second">second</option>
+</select>
+进行提醒
+</br>
+<br><br/>
+<input type="submit" value="Submit" />
+</form>
+
+</fieldset>
+
+</body>
+</html>
