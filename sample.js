@@ -34,6 +34,7 @@ function genericOnClick(info, tab) {
         summary: my_selection,
         content: my_selection,
         sched_time: timestamp + 1000 * 60 * 60 * 24,  // Using the same time tomorrow as the schedule time
+        sched_loc: '',
     };
     
     // ================= time extraction =======================
@@ -145,6 +146,18 @@ function genericOnClick(info, tab) {
     schedule.sched_time = now_time;
     
     // =========================================================
+    
+    // ================= location extraction =======================
+    var patt_loc = /地点[:：](\S+)/;
+    var results_loc = patt_loc.exec(my_selection);
+    
+    if (results_loc) {
+        schedule.sched_loc = results_loc[1];
+        console.log('location detected: '+schedule.sched_loc);
+    }
+    
+    // =========================================================
+
 
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
     chrome.tabs.create({"url":"test.html"});
