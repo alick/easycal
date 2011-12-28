@@ -11,6 +11,7 @@ chrome.extension.onRequest.addListener(
             g_schedule = request;
             console.log("time: " + g_schedule.sched_time);
             console.log("summary: " + g_schedule.summary);
+            fillForm();
             sendResponse({farewell: "OK. Goodbye."});
         }
         else {
@@ -18,3 +19,42 @@ chrome.extension.onRequest.addListener(
         }
     });
 
+function fillForm() {
+    if (g_schedule) {
+        console.log('Filling the form...');
+        var time = new Date(g_schedule.sched_time);
+        $('#year').val(time.getFullYear());
+        $('#month').val(time.getMonth() + 1);
+        $('#day').val(time.getDate());
+        $('#hour').val(time.getHours());
+        $('#minute').val(time.getMinutes());
+        $('#second').val(time.getSeconds());
+
+        $('#address').val(g_schedule.sched_loc);
+        $('#content').val(g_schedule.content);
+    }
+};
+
+$(document).ready(function(){
+    $('#submit').bind('click', function(){
+        console.log('Storing schedule...');
+        // FIXME
+        // add all input values
+        g_schedule.sched_loc = $('#address').val();
+        g_schedule.type = $('input:radio[name=type]:checked').val();
+        //g_schedule.remind = $('select[name=remindUnit]').val();
+        console.log('sched:');
+        console.log(g_schedule);
+
+        // store into local storage
+        var storekey = "sched" + g_schedule.id;
+        setItem(storekey, JSON.stringify(g_schedule));
+
+        setItem('sched_index', ++g_schedule.id);
+
+        // prevent going to other page
+        // TODO
+        // maybe close this tab???
+        return false;
+    });
+});

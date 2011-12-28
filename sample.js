@@ -160,7 +160,7 @@ function genericOnClick(info, tab) {
 
 
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
-    chrome.tabs.create({"url":"test.html"});
+    chrome.tabs.create({"url":"editcal.html"});
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendRequest(tab.id, schedule,
             function(response) {
@@ -172,17 +172,6 @@ function genericOnClick(info, tab) {
     console.log("info: " + JSON.stringify(info));
     console.log("tab: " + JSON.stringify(tab));
 
-    // store into local storage
-    //setItem(storekey, JSON.stringify(schedule));
-    //var stored = getItem(storekey);
-    //log("stored item: " + storekey + "=>" + stored);
-    //var storedObj = JSON.parse(stored);
-    //log("schedule summary: " + storedObj.summary);
-
-    //setItem('sched_index', ++sched_index);
-    //clearStrg();
-    //stored = getItem('selection'); // should be null
-    //log("stored item:" + stored);
 }
 
 var title = chrome.i18n.getMessage("extMenuTitle");
