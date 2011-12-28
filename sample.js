@@ -142,7 +142,7 @@ function genericOnClick(info, tab) {
             now_time.setHours(19, 0, 0, 0);
         }
     }
-   
+    console.log('time detected: '+now_time.toLocaleString());
     schedule.sched_time = now_time;
     
     // =========================================================
