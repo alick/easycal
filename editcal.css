@@ -1,6 +1,9 @@
 #content {
     vertical-align: top;
 }
+#address {
+    width: 30em;
+}
 
 fieldset {
     width: 50%;
