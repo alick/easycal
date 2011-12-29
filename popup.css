@@ -1,14 +1,10 @@
-.popup-menu {
-    position: absolute;
-    visibility: hidden;
-    display: block;
-    overflow: auto;
-    border: 1px solid red;
-    background-color: gray;
+#calendar {
+    margin: 10px 0 10px 0;
+    /*border: 1px dashed red;*/
+    width: 205px;
+    height: 230px;
 }
-.popup-menu-item:hover {
-    background-color: yellow;
-}
-.setting:hover {
-    background-color: yellow;
+
+.summary {
+    font-size: smaller;
 }

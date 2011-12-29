@@ -19,7 +19,6 @@ window.onload = function(){
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
-        document.getElementById("calendar_result").innerHTML = obj.day + "/" + obj.month + "/" + obj.year;
         getSchedulesByTime(obj);
     });
 
@@ -45,8 +44,11 @@ function getSchedulesByTime(obj) {
             console.debug("time: " + time.toISOString());
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
-            sched_html += time.getHours() + ":" + time.getMinutes() + "</td><td>";
-            sched_html += s.summary + "</td><td><img src=\"Edit.png\" alt=\"Edit\" title=\"Edit\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td><td><img src=\"Delete-New.png\" alt=\"Remove\" title=\"Remove\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td></tr>";
+            sched_html += time.getHours() + ":" + time.getMinutes() + "</td>"
+            sched_html += '<td class="summary" title=' + s.content + '>';
+            sched_html += s.summary + "</td>";
+            sched_html += '<td><img src="Edit.png" alt="Edit" title="Edit" height="20px" width="20px" class="popup-menu-item"></td>';
+            sched_html += '<td><img src="Delete-New.png" alt="Remove" title="Remove" height="20px" width="20px" class="popup-menu-item"></td></tr>';
             sched_table += sched_html;
         }
     }
@@ -62,21 +64,10 @@ function getSchedulesByTime(obj) {
             removeItem(sched_id);
             // remove the table row in current GUI
             $("#" + sched_id).remove();
-            //closePopupMenu();
         }
         else{
             console.warn("Not supported yet!");
-            //closePopupMenu();
         }
     });
 }
 
-function closePopupMenu() {
-    $(".popup-menu").css({
-        "visibility" : "hidden",
-        "display" : "none",
-        "z-index" : -1,
-    });
-    $(".popup-menu-close").unbind('click');
-    $(".popup-menu-item").unbind('click');
-}
