@@ -58,14 +58,26 @@ function getSchedulesByTime(obj) {
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
         var sched_id = $(this).parent().parent().attr("id");
-        if(action == "Remove"){
+        if (action == "Remove") {
             console.log("To remove " + sched_id);
             // remove the key-value pair in LocalStorage
             removeItem(sched_id);
             // remove the table row in current GUI
             $("#" + sched_id).remove();
-        }
-        else{
+        } else if (action == "Edit") {
+            var sched_str = getItem(sched_id);
+            var request = {
+                newsched: false,
+                schedule_str: sched_str,
+            };
+            chrome.tabs.create({"url":"editcal.html", active:false},
+                function(tab){
+                    console.log('to sendRequest');
+                    console.log(request);
+                    chrome.extension.sendRequest(request);
+                    chrome.tabs.update(tab.id, {active: true});
+                });
+        } else {
             console.warn("Not supported yet!");
         }
     });

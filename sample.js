@@ -163,7 +163,11 @@ function genericOnClick(info, tab) {
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
     chrome.tabs.create({"url":"editcal.html"});
     chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, schedule,
+        var request = {
+            newsched: true,
+            schedule_str: JSON.stringify(schedule),
+        };
+        chrome.tabs.sendRequest(tab.id, request,
             function(response) {
             console.log(response.farewell);
         });

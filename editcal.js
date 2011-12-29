@@ -8,7 +8,9 @@ chrome.extension.onRequest.addListener(
         console.log(request.sched_time);
         if (request) {
             // global schedule variable
-            g_schedule = request;
+            g_newsched = request.newsched;
+            g_schedule = JSON.parse(request.schedule_str);
+            console.log("newsched:" + g_newsched);
             console.log("time: " + g_schedule.sched_time);
             console.log("summary: " + g_schedule.summary);
             fillForm();
@@ -61,7 +63,7 @@ $(document).ready(function(){
         g_schedule.sched_time.setMonth(userMonth);
         g_schedule.sched_time.setDate(userDate);
         g_schedule.sched_time.setHours(userHour, userMinute);
-        
+
         g_schedule.sched_loc = $('#address').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
@@ -82,7 +84,9 @@ $(document).ready(function(){
         var storekey = "sched" + g_schedule.id;
         setItem(storekey, JSON.stringify(g_schedule));
 
-        setItem('sched_index', ++g_schedule.id);
+        if (g_newsched) {
+            setItem('sched_index', ++g_schedule.id);
+        }
 
         alert("Your schedule has been successfully saved ^_^");
         // close this tab
