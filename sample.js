@@ -35,6 +35,7 @@ function genericOnClick(info, tab) {
         content: my_selection,
         sched_time: timestamp + 1000 * 60 * 60 * 24,  // Using the same time tomorrow as the schedule time
         sched_loc: '',
+		sched_remindtime:1000*60*15,//remind the user 15min before the deadline
     };
     
     // ================= time extraction =======================

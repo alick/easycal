@@ -65,6 +65,16 @@ $(document).ready(function(){
         g_schedule.sched_loc = $('#address').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
+		
+		var timebefore =Number($('#remindTime').val());
+		var timestyle=$('select[name=remindUnit]').val();
+		if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
+		if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
+		if(timestyle=="day") g_schedule.sched_remindtime = timebefore*1000*60*60*24;
+		if(timestyle=="hour") g_schedule.sched_remindtime = timebefore*1000*60*60;
+		if(timestyle=="minute") g_schedule.sched_remindtime = timebefore*1000*60;
+		if(timestyle=="second") g_schedule.sched_remindtime = timebefore*1000;
+		
         console.log('sched:');
         console.log(g_schedule);
 
@@ -76,7 +86,7 @@ $(document).ready(function(){
 
         alert("Your schedule has been successfully saved ^_^");
         // close this tab
-        window.close();
+        //window.close();
         // prevent going to other page
         return false;
     });
