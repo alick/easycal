@@ -40,6 +40,27 @@ $(document).ready(function(){
         console.log('Storing schedule...');
         // FIXME
         // add all input values
+        var userYear = Number($('#year').val());
+        var userMonth = Number($('#month').val()-1);
+        var userDate = Number($('#day').val());
+        var userHour = Number($('#hour').val());
+        var userMinute = Number($('#minute').val());
+        var userSecond = Number($('#second').val());
+        if (userMonth<0) userMonth = 0;
+        if (userMonth>11) userMonth = 11;
+        if (userDate<1) userDate = 1;
+        if (userDate>31) userDate = 31;
+        if (userHour<0) userHour = 0;
+        if (userHour>23) userHour = 23;
+        if (userMinute<0) userMinute = 0;
+        if (userMinute>59) userMinute = 59;
+        if (userSecond<0) userSecond = 0;
+        if (userSecond>59) userSecond = 59;
+        g_schedule.sched_time.setFullYear(userYear);
+        g_schedule.sched_time.setMonth(userMonth);
+        g_schedule.sched_time.setDate(userDate);
+        g_schedule.sched_time.setHours(userHour, userMinute, userSecond);
+        
         g_schedule.sched_loc = $('#address').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
