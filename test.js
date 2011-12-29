@@ -32,6 +32,8 @@ function fillForm() {
 
         $('#address').val(g_schedule.sched_loc);
         $('#content').val(g_schedule.content);
+        $('input:radio[name=type][value=meeting]')[0].checked = true;
+        $('#remindTime').val('15');
     }
 };
 
@@ -54,12 +56,11 @@ $(document).ready(function(){
         if (userHour>23) userHour = 23;
         if (userMinute<0) userMinute = 0;
         if (userMinute>59) userMinute = 59;
-        if (userSecond<0) userSecond = 0;
-        if (userSecond>59) userSecond = 59;
+        g_schedule.sched_time = new Date()
         g_schedule.sched_time.setFullYear(userYear);
         g_schedule.sched_time.setMonth(userMonth);
         g_schedule.sched_time.setDate(userDate);
-        g_schedule.sched_time.setHours(userHour, userMinute, userSecond);
+        g_schedule.sched_time.setHours(userHour, userMinute);
         
         g_schedule.sched_loc = $('#address').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
