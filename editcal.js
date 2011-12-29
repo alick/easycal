@@ -90,7 +90,7 @@ $(document).ready(function(){
 
         alert("Your schedule has been successfully saved ^_^");
         // close this tab
-        //window.close();
+        window.close();
         // prevent going to other page
         return false;
     });
