@@ -46,7 +46,7 @@ function getSchedulesByTime(obj) {
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td><td>";
-            sched_html += s.summary + "</td><td><span class=\"popup-menu-item\">Remove</span></td><td><span class=\"popup-menu-item\">Edit</span></td></tr>";
+            sched_html += s.summary + "</td><td><img src=\"Edit.png\" alt=\"Edit\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td><td><img src=\"Delete.png\" alt=\"Remove\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td></tr>";
             sched_table += sched_html;
         }
     }
@@ -54,7 +54,7 @@ function getSchedulesByTime(obj) {
     document.getElementById('sched').innerHTML = sched_table;
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
-        var action = $(this).html();
+        var action = $(this).attr("alt");
         var sched_id = $(this).parent().parent().attr("id");
         if(action == "Remove"){
             console.log("To remove " + sched_id);
