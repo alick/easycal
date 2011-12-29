@@ -69,42 +69,6 @@ function getSchedulesByTime(obj) {
             //closePopupMenu();
         }
     });
-/*
-    $(".setting").unbind();
-    $(".setting").click(function(){
-        var offset = $(this).offset();
-        console.log("cord: (" + offset.left + ", " + offset.top + ")");
-        var sched_id = $(this).parent().attr("id");
-        console.log("parent id: " + sched_id);
-        $(".popup-menu").attr("id", "pm" + sched_id);
-        $(".popup-menu").css({
-            "visibility" : "visible",
-            "display" : "block",
-            "top" : offset.top,
-            "left" : offset.left,
-            "z-index" : 5,
-        });
-        $(".popup-menu-close").one("click", closePopupMenu);
-        $(".popup-menu-item").one("click", function(){
-            var action = $(this).html();
-            // strip first two characters "pm"
-            var sched_id = $(this).parent().attr("id").substring(2);
-            // FIXME
-            // How to deal with L10N action messages?
-            if (action == "Remove") {
-                console.log("To remove " + sched_id);
-                // remove the key-value pair in LocalStorage
-                removeItem(sched_id);
-                // remove the table row in current GUI
-                $("#" + sched_id).remove();
-                closePopupMenu();
-            } else {
-                console.warn("Not supported yet!");
-                closePopupMenu();
-            }
-        });
-    });
-*/
 }
 
 function closePopupMenu() {
