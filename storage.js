@@ -49,10 +49,10 @@ function clearStrg() {
     log('cleared');
 }
 
+logging = false;
 function log(txt) {
     if(logging) {
         console.log(txt);
     }
 }
 
-var logging = 1;

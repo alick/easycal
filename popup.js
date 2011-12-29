@@ -70,13 +70,13 @@ function getSchedulesByTime(obj) {
                 newsched: false,
                 schedule_str: sched_str,
             };
-            chrome.tabs.create({"url":"editcal.html"});
-            chrome.tabs.getSelected(null, function(tab) {
-                chrome.tabs.sendRequest(tab.id, request,
-                    function(response) {
-                        console.log(response.farewell);
-                    });
-            });
+            chrome.tabs.create({"url":"editcal.html", active:false},
+                function(tab){
+                    console.log('to sendRequest');
+                    console.log(request);
+                    chrome.extension.sendRequest(request);
+                    chrome.tabs.update(tab.id, {active: true});
+                });
         } else {
             console.warn("Not supported yet!");
         }
