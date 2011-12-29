@@ -46,12 +46,30 @@ function getSchedulesByTime(obj) {
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td><td>";
-            sched_html += s.summary + "</td><td class=\"setting\">SETTING</td></tr>";
+            sched_html += s.summary + "</td><td><span class=\"popup-menu-item\">Remove</span></td><td><span class=\"popup-menu-item\">Edit</span></td></tr>";
             sched_table += sched_html;
         }
     }
     sched_table += "</table>";
     document.getElementById('sched').innerHTML = sched_table;
+    $(".popup-menu-item").unbind();
+    $(".popup-menu-item").click(function(){
+        var action = $(this).html();
+        var sched_id = $(this).parent().parent().attr("id");
+        if(action == "Remove"){
+            console.log("To remove " + sched_id);
+            // remove the key-value pair in LocalStorage
+            removeItem(sched_id);
+            // remove the table row in current GUI
+            $("#" + sched_id).remove();
+            //closePopupMenu();
+        }
+        else{
+            console.warn("Not supported yet!");
+            //closePopupMenu();
+        }
+    });
+/*
     $(".setting").unbind();
     $(".setting").click(function(){
         var offset = $(this).offset();
@@ -86,6 +104,7 @@ function getSchedulesByTime(obj) {
             }
         });
     });
+*/
 }
 
 function closePopupMenu() {
