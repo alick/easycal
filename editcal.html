@@ -3,8 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>TITLE</title>
+    <title>Edit Your Schedule</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="editcal.css" />
     <script type="text/javascript" src="jquery.js"> </script>
     <script type="text/javascript" src="storage.js"> </script>
     <script type="text/javascript" src="test.js"> </script>
@@ -18,11 +19,11 @@
 
 <br>
 时间：
-<input type="text" style= "overflow-x:visible;width:50;" id="year">年
-<input type="text" style= "overflow-x:visible;width:30;" id="month">月
-<input type="text" style= "overflow-x:visible;width:30;" id="day">日
-<input type="text" style= "overflow-x:visible;width:30;" id="hour">时
-<input type="text" style= "overflow-x:visible;width:30;" id="minute">分
+<input type="text" style= "overflow-x:visible;width:4em;" id="year">年
+<input type="text" style= "overflow-x:visible;width:2em;" id="month">月
+<input type="text" style= "overflow-x:visible;width:2em;" id="day">日
+<input type="text" style= "overflow-x:visible;width:2em;" id="hour">时
+<input type="text" style= "overflow-x:visible;width:2em;" id="minute">分
 <br />
 <br>
 地点：
@@ -34,7 +35,7 @@
 
 <br><br><td>选择日程类型</td></br></br>
 
-<input type="radio" name="type" value="meeting"/> 会议
+<input type="radio" name="type" value="meeting" checked="checked"/> 会议
 <br />
 <input type="radio" name="type" value="memorial"/> 纪念日
 <br />
@@ -43,7 +44,7 @@
 
 <br>
 提前
-<input type="text" style= "overflow-x:visible;width:50;" id="remindTime">
+<input type="text" style= "overflow-x:visible;width:3em;" id="remindTime">
 <select name="remindUnit">
 <option value="year">year</option>
 <option value="month">month</option>

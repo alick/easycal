@@ -52,9 +52,10 @@ $(document).ready(function(){
 
         setItem('sched_index', ++g_schedule.id);
 
+        alert("Your schedule has been successfully saved ^_^");
+        // close this tab
+        window.close();
         // prevent going to other page
-        // TODO
-        // maybe close this tab???
         return false;
     });
 });
