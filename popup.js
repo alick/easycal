@@ -46,7 +46,7 @@ function getSchedulesByTime(obj) {
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td><td>";
-            sched_html += s.summary + "</td><td><img src=\"Edit.png\" alt=\"Edit\" title=\"Edit\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td><td><img src=\"Delete.png\" alt=\"Remove\" title=\"Remove\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td></tr>";
+            sched_html += s.summary + "</td><td><img src=\"Edit.png\" alt=\"Edit\" title=\"Edit\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td><td><img src=\"Delete-New.png\" alt=\"Remove\" title=\"Remove\" height=\"20px\" width=\"20px\" class=\"popup-menu-item\"></td></tr>";
             sched_table += sched_html;
         }
     }
