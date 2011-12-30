@@ -1,8 +1,34 @@
 #calendar {
     margin: 10px 0 10px 0;
-    /*border: 1px dashed red;*/
-    width: 205px;
+    /*padding: 2px;*/
+    border: 2px solid #B6D1EE;
+    width: 212px;
     height: 230px;
+}
+
+#sched {
+    border: 2px solid #B6D1EE;
+}
+
+#schedhead {
+    background-color: #B6D1EE;
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 1em;
+}
+
+.triangle {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    vertical-align: bottom;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border-top: 1.2em solid white;
+    border-left: 1.2em solid #B6D1EE;
+    /*border-left-color: #B6D1EE;*/
 }
 
 .summary {
