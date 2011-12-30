@@ -50,7 +50,12 @@ function getSchedulesByTime(obj) {
                 sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
             }
             sched_html += '<td class="summary" title=' + s.content + '>';
-            sched_html += s.summary + "</td>";
+            var disp_str = s.summary;
+            if (disp_str.length > 13) {
+                disp_str = disp_str.substr(0, 12) + '...';
+            }
+            sched_html += disp_str + "</td>";
+            //sched_html += s.summary + "</td>";
             sched_html += '<td><img src="Edit.png" alt="Edit" title="Edit" height="20px" width="20px" class="popup-menu-item"></td>';
             sched_html += '<td><img src="Delete-New.png" alt="Remove" title="Remove" height="20px" width="20px" class="popup-menu-item"></td></tr>';
             sched_table += sched_html;
