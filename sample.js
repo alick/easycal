@@ -1,13 +1,6 @@
 // Copyright (c) 2011 wangheda All rights reserved
 // Use of this source code is governed by GPL license
 
-if (typeof SCHEDULE_TYPE == "undefined") {
-    var SCHEDULE_TYPE = {
-        DEFAULT: 0,
-        MEETING: 1,
-    };
-}
-
 // A generic onclick callback function.
 function genericOnClick(info, tab) {
     var my_selection = info.selectionText;
@@ -29,7 +22,7 @@ function genericOnClick(info, tab) {
     var storekey = "sched" + sched_index;
     var schedule = {
         id: sched_index,
-        type: SCHEDULE_TYPE.DEFAULT,
+        type: "default",
         add_time: timestamp,
         summary: my_selection,
         content: my_selection,
