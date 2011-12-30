@@ -1,11 +1,18 @@
-#content {
-    vertical-align: top;
-}
-#address {
-    width: 30em;
-}
-
 fieldset {
     width: 50%;
     margin: 0 25% 0 25%;
+}
+
+#address {
+    width: 30em;
+}
+#summary {
+    vertical-align: top;
+}
+#content {
+    vertical-align: top;
+}
+
+.warning {
+    color: red;
 }
