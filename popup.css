@@ -8,3 +8,7 @@
 .summary {
     font-size: smaller;
 }
+
+.time {
+    text-align: right;
+}

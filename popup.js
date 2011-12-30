@@ -43,7 +43,7 @@ function getSchedulesByTime(obj) {
             (time.getDate() == obj.day)) {
             console.debug("time: " + time.toISOString());
             var sched_html = "";
-            sched_html += "<tr id=\"sched" + s.id + "\"><td>";
+            sched_html += '<tr id="sched' + s.id + '"><td class="time">';
             if (Number(time.getMinutes()) < 10) {
                 sched_html += time.getHours() + ":0" + time.getMinutes() + "</td>";
             } else {
