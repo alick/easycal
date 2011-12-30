@@ -13,43 +13,44 @@
 <body>
 
 <fieldset>
-<legend>日程安排：</legend>
+<legend>编辑日程</legend>
 
 <form action="" method="post">
 
-<br>
-时间：
+<div class="sch_div" id="div_time">
+时间:&nbsp;
 <input type="text" maxlength="4" style="width:4em;" id="year">年
 <input type="text" maxlength="2" style="width:2em;" id="month">月
 <input type="text" maxlength="2" style="width:2em;" id="day">日
 <input type="text" maxlength="2" style="width:2em;" id="hour">时
 <input type="text" maxlength="2" style="width:2em;" id="minute">分
 <input type="text" maxlength="2" style="width:2em;" id="second">秒
-<br />
-<br>
-地点：
+</div>
+
+<div class="sch_div" id="div_loc">
+地点:&nbsp;
 <input type="text" id="address">
-<br />
+</div>
 
+<div class="sch_div" id="div_abstr">
+摘要:&nbsp;
+<input type="text" id="summary" name="summary"></input>
+</div>
 
-摘要：
-<textarea cols="50" rows="1" id="summary" name="summary"></textarea>
-<br />
-内容：
+<div class="sch_div" id="div_content">
+内容:&nbsp;
 <textarea cols="50" rows="4" id="content" name="content"></textarea>
-<br />
+</div>
 
-<br><br><td>选择日程类型</td></br></br>
-
+<div class="sch_div" id="div_type">
+类型:&nbsp;
 <input type="radio" name="type" value="meeting" checked="checked"/> 会议
-<br />
 <input type="radio" name="type" value="memorial"/> 纪念日
-<br />
 <input type="radio" name="type" value="deadline"/> deadline
-<br />
+</div>
 
-<br>
-提前
+<div class="sch_div" id="div_remind">
+提醒:&nbsp;&nbsp;提前&nbsp;
 <input type="text" style= "overflow-x:visible;width:3em;" id="remindTime">
 <select name="remindUnit">
 <option value="year">year</option>
@@ -59,10 +60,12 @@
 <option value="minute" selected="selected">minute</option>
 <option value="second">second</option>
 </select>
-进行提醒
-</br>
-<br><br/>
-<input type="submit" id="submit" value="Submit" />
+</div>
+
+<div id="div_submit">
+<input type="submit" id="submit" value="提交" />
+</div>
+
 </form>
 
 </fieldset>

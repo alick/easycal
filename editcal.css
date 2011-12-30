@@ -1,18 +1,36 @@
 fieldset {
-    width: 50%;
-    margin: 0 25% 0 25%;
+    width: 27em;
+    margin: 2% 30% 0 30%;
+/*    background-image: url(back_test.gif);*/
 }
 
 #address {
-    width: 30em;
+    width: 27em;
 }
 #summary {
+    width: 27em;
     vertical-align: top;
 }
 #content {
+    width: 27em;
     vertical-align: top;
 }
 
 .warning {
     color: red;
 }
+
+#div_submit {
+    text-align: center;
+}
+
+#submit {
+    padding: 0.5em 3em 0.5em 3em;
+    margin: 1em 1em 1em 1em;
+}
+
+.sch_div {
+    white-space: nowrap;
+    margin: 0.25em 0em 0.25em 0em;
+}
+    
