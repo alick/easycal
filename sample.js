@@ -46,7 +46,8 @@ function genericOnClick(info, tab) {
     var patt5 = /(\d+)日/;
     var patt6 = /([今明])[天晚]/;
     
-    var patt_t = /(\d+)[:：](\d+)/;
+    var patt_t = /([上中下]午|晚上*)(\d+)[:：](\d+)/;
+    var patt_t_0 = /(\d+)[:：](\d+)/;
     var patt_t_1 = /([上中下]午|晚上*)(\d+)[时点](\d+)[分]*/;
     var patt_t_2 = /(\d+)[时点](\d+)[分]*/
     var patt_t_3 = /([上中下]午|晚上*)(\d+)[时点]/;
@@ -61,6 +62,7 @@ function genericOnClick(info, tab) {
     var results6 = patt6.exec(my_selection);
     
     var results_t = patt_t.exec(my_selection);
+    var results_t_0 = patt_t_0.exec(my_selection);
     var results_t_1 = patt_t_1.exec(my_selection);
     var results_t_2 = patt_t_2.exec(my_selection);
     var results_t_3 = patt_t_3.exec(my_selection);
@@ -99,7 +101,18 @@ function genericOnClick(info, tab) {
 
     // time
     if (results_t) {
-        now_time.setHours(Number(results_t[1]), Number(results_t[2]), 0, 0);
+        if (results_t[1] == "中午" && Number(results_t[2])<=2 
+           || results_t[1] == "下午" && Number(results_t[2])<=11 
+           || results_t[1] == "晚上" && Number(results_t[2])<=11 && Number(results_t[2])>4
+           || results_t[1] == "晚" && Number(results_t[2])<=11 && Number(results_t[2])>4) {
+            now_time.setHours(Number(results_t[2])+12, Number(results_t[3]), 0, 0);
+        }
+        else {
+            now_time.setHours(Number(results_t[2]), Number(results_t[3]), 0, 0);
+        }
+    }
+    else if (results_t_0) {
+        now_time.setHours(Number(results_t_0[1]), Number(results_t_0[2]), 0, 0);
     }
     else if (results_t_1) {
         if (results_t_1[1] == "中午" && Number(results_t_1[2])<=2 
