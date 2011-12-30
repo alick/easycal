@@ -72,6 +72,7 @@ function getSchedulesByTime(obj) {
     }
     sched_table += "</table>";
     document.getElementById('sched').innerHTML = sched_table;
+    $('tr:odd').css('background-color', 'lavender');
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
