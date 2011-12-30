@@ -1,47 +1,29 @@
-// SEE ALSO http://code.google.com/chrome/extensions/messaging.html
-chrome.extension.onRequest.addListener(
-    function(request, sender, sendResponse) {
-        console.log(sender.tab ?
-                    "request from a content script:" + sender.tab.url :
-                    "request from the extension");
-        console.log(request);
-        console.log(request.sched_time);
-        if (request) {
-            // global schedule variable
-            g_newsched = request.newsched;
-            g_schedule = JSON.parse(request.schedule_str);
-            console.log("newsched:" + g_newsched);
-            console.log("time: " + g_schedule.sched_time);
-            console.log("summary: " + g_schedule.summary);
-            fillForm();
-            sendResponse({farewell: "OK. Goodbye."});
-        }
-        else {
-            sendResponse({}); // snub them.
-        }
-    });
-
-function fillForm() {
-    if (g_schedule) {
-        console.log('Filling the form...');
-        var time = new Date(g_schedule.sched_time);
-        $('#year').val(time.getFullYear());
-        $('#month').val(time.getMonth() + 1);
-        $('#day').val(time.getDate());
-        $('#hour').val(time.getHours());
-        $('#minute').val(time.getMinutes());
-        $('#second').val(time.getSeconds());
-
-        $('#address').val(g_schedule.sched_loc);
-        $('#summary').val(g_schedule.summary);
-        $('#content').val(g_schedule.content);
-        $('input:radio[name=type][value=meeting]')[0].checked = true;
-        $('#remindTime').val('15');
-    }
-};
-
 $(document).ready(function(){
-    $('#submit').bind('click', function(){
+    // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
+    chrome.extension.onRequest.addListener(
+        function(request, sender, sendResponse) {
+            console.log(sender.tab ?
+                "request from a content script:" + sender.tab.url :
+                "request from the extension");
+            console.log(request);
+            console.log(request.sched_time);
+            if (request) {
+                // global schedule variable
+                g_newsched = request.newsched;
+                g_schedule = JSON.parse(request.schedule_str);
+                console.log("newsched:" + g_newsched);
+                console.log("time: " + g_schedule.sched_time);
+                console.log("summary: " + g_schedule.summary);
+                fillForm();
+                sendResponse({farewell: "OK. Goodbye."});
+            }
+            else {
+                sendResponse({}); // snub them.
+            }
+        });
+
+    $('#submit').bind('click', function(event){
+        event.preventDefault();
         // FIXME
         // add all input values
         var userYear = Number($('#year').val());
@@ -62,7 +44,7 @@ $(document).ready(function(){
         if ((userMonth<0) || (userMonth>11) ||
             (userDate<1) || (userDate>31) ||
             (userHour<0) || (userHour>23) ||
-            (userMinute<0) || (userMinute>59)
+            (userMinute<0) || (userMinute>59) ||
             (userSecond<0) || (userSecond>59)) {
             //$('#time').append('<p class="warning">Invalid time setting.</p>');
             alert('Invalid time setting.');
@@ -103,8 +85,27 @@ $(document).ready(function(){
 
         alert("Your schedule has been successfully saved ^_^");
         // close this tab
-        //window.close();
+        window.close();
         // prevent going to other page
         return false;
     });
 });
+
+function fillForm() {
+    if (g_schedule) {
+        console.log('Filling the form...');
+        var time = new Date(g_schedule.sched_time);
+        $('#year').val(time.getFullYear());
+        $('#month').val(time.getMonth() + 1);
+        $('#day').val(time.getDate());
+        $('#hour').val(time.getHours());
+        $('#minute').val(time.getMinutes());
+        $('#second').val(time.getSeconds());
+
+        $('#address').val(g_schedule.sched_loc);
+        $('#summary').val(g_schedule.summary);
+        $('#content').val(g_schedule.content);
+        $('input:radio[name=type][value=meeting]')[0].checked = true;
+        $('#remindTime').val('15');
+    }
+};
