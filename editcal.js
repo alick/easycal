@@ -86,18 +86,25 @@ $(document).ready(function(){
         if (g_newsched) {
             setItem('sched_index', ++g_schedule.id);
         }
-
+        
         //alert("Your schedule has been successfully saved ^_^");
         // Create a notification:
+        AUTO_CLOSE_DELAY_SECONDS = 2;
         var notification = webkitNotifications.createNotification(
                 'huaci.png',  // icon url - can be relative
-                'Hey!',  // notification title
-                'Your schedule has been successfully saved ^_^'  // notification body text
+                chrome.i18n.getMessage('extNotifyTitle'), //'完成',  notification title
+                chrome.i18n.getMessage('extNotifySubtitle') //'日程已经保存', notification body text
                 );
         notification.show();
+        setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
 
-        // close this tab
-        window.close();
+
+        // close this tab 
+        // NOTE: if you close this tab, setTimeout will be out of its function domain.
+        // I close the window after cancel the notification. Is there any better solution? 
+        // Like, put notification in background, the tab only deliver a message to the background.
+        // window.close();
+        
         // prevent going to other page
         return false;
     });

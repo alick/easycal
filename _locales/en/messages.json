@@ -7,5 +7,13 @@
 },
 "extMenuTitle":{
 	"message":"Add Selection to EasyCal"
+},
+"extNotifyTitle":{
+	"message":"OK",
+	"description":"OK"
+},
+"extNotifySubtitle":{
+	"message":"Your schedule has been successfully saved ^_^",
+	"description":"Your schedule has been successfully saved ^_^"
 }
 }
