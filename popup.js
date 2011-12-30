@@ -1,7 +1,7 @@
 window.onload = function(){
     g_globalObject = new JsDatePick({
         useMode:1,
-        isStripped:true,
+        isStripped:false,
         target:"calendar"
         /*selectedDate:{
           day:5,
@@ -72,6 +72,13 @@ function getSchedulesByTime(obj) {
     }
     sched_table += "</table>";
     document.getElementById('sched').innerHTML = sched_table;
+    if (sched_table === "<table></table>") {
+        $('#schedhead').css("display", "none");
+        $('#sched').css("display", "none");
+        return;
+    }
+    $('#sched').css("display", "block");
+    $('#schedhead').css('display', 'inline');
     $('tr:odd').css('background-color', 'lavender');
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
