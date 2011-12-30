@@ -16,6 +16,15 @@ window.onload = function(){
           weekStartDay:1*/
     });
 
+    // Display schedules of today.
+    var today = new Date();
+    var today_obj = {
+        year: today.getFullYear(),
+        month: today.getMonth() + 1,
+        day: today.getDate(),
+    };
+    getSchedulesByTime(today_obj);
+
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
