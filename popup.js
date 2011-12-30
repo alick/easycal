@@ -44,7 +44,11 @@ function getSchedulesByTime(obj) {
             console.debug("time: " + time.toISOString());
             var sched_html = "";
             sched_html += "<tr id=\"sched" + s.id + "\"><td>";
-            sched_html += time.getHours() + ":" + time.getMinutes() + "</td>"
+            if (Number(time.getMinutes()) < 10) {
+                sched_html += time.getHours() + ":0" + time.getMinutes() + "</td>";
+            } else {
+                sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
+            }
             sched_html += '<td class="summary" title=' + s.content + '>';
             sched_html += s.summary + "</td>";
             sched_html += '<td><img src="Edit.png" alt="Edit" title="Edit" height="20px" width="20px" class="popup-menu-item"></td>';
