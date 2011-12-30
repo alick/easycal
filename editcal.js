@@ -58,6 +58,7 @@ $(document).ready(function(){
         if (userHour>23) userHour = 23;
         if (userMinute<0) userMinute = 0;
         if (userMinute>59) userMinute = 59;
+        // Not ending with semicolon is not an error in Javascript :)
         g_schedule.sched_time = new Date()
         g_schedule.sched_time.setFullYear(userYear);
         g_schedule.sched_time.setMonth(userMonth);
