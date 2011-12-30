@@ -31,8 +31,10 @@
     /*border-left-color: #B6D1EE;*/
 }
 
-.summary {
+.summary a {
+    color: black;
     font-size: smaller;
+    text-decoration: none;
 }
 
 .time {

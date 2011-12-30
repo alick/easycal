@@ -3,7 +3,7 @@
   "description": "__MSG_extDescript__",
   "version": "1.0",
   "icons": { "16": "huaci-small.png", "48": "huaci.png", "128": "huaci.png" },
-  "permissions": ["contextMenus", "tabs"],
+  "permissions": ["contextMenus", "tabs", "notifications"],
   "background_page": "background.html",
   "browser_action":{
   "default_icon":"huaci.png",
