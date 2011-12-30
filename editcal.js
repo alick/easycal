@@ -87,7 +87,15 @@ $(document).ready(function(){
             setItem('sched_index', ++g_schedule.id);
         }
 
-        alert("Your schedule has been successfully saved ^_^");
+        //alert("Your schedule has been successfully saved ^_^");
+        // Create a notification:
+        var notification = webkitNotifications.createNotification(
+                'huaci.png',  // icon url - can be relative
+                'Hey!',  // notification title
+                'Your schedule has been successfully saved ^_^'  // notification body text
+                );
+        notification.show();
+
         // close this tab
         window.close();
         // prevent going to other page
