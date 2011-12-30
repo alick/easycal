@@ -33,6 +33,7 @@ function fillForm() {
         $('#second').val(time.getSeconds());
 
         $('#address').val(g_schedule.sched_loc);
+		$('#summary').val(g_schedule.summary);
         $('#content').val(g_schedule.content);
         $('input:radio[name=type][value=meeting]')[0].checked = true;
         $('#remindTime').val('15');
@@ -58,7 +59,7 @@ $(document).ready(function(){
         if (userHour>23) userHour = 23;
         if (userMinute<0) userMinute = 0;
         if (userMinute>59) userMinute = 59;
-        g_schedule.sched_time = new Date()
+        g_schedule.sched_time = new Date();
         g_schedule.sched_time.setFullYear(userYear);
         g_schedule.sched_time.setMonth(userMonth);
         g_schedule.sched_time.setDate(userDate);
@@ -66,6 +67,7 @@ $(document).ready(function(){
 
         g_schedule.sched_loc = $('#address').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
+		g_schedule.summary = $('#summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
 		
 		var timebefore =Number($('#remindTime').val());
@@ -90,7 +92,7 @@ $(document).ready(function(){
 
         alert("Your schedule has been successfully saved ^_^");
         // close this tab
-        window.close();
+        //window.close();
         // prevent going to other page
         return false;
     });
