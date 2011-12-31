@@ -18,5 +18,9 @@
 "extNotifySubtitle":{
 	"message":"日程已经成功保存到EasyCal",
 	"description":"Your schedule has been successfully saved ^_^"
+},
+"extNewRemind":{
+	"message":"日程",
+	"description":"Remind"
 }
 }
