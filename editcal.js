@@ -91,9 +91,9 @@ $(document).ready(function(){
         // Create a notification:
         AUTO_CLOSE_DELAY_SECONDS = 2;
         var notification = webkitNotifications.createNotification(
-                'huaci.png',  // icon url - can be relative
-                chrome.i18n.getMessage('extNotifyTitle'), //'完成',  notification title
-                chrome.i18n.getMessage('extNotifySubtitle') //'日程已经保存', notification body text
+                'huaci.png',// icon url - can be relative
+                chrome.i18n.getMessage('extNotifyTitle'),//'瀹屾垚',  notification title
+                chrome.i18n.getMessage('extNotifySubtitle')//'鏃ョ▼宸茬粡淇濆瓨', notification body text
                 );
         notification.show();
         setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
