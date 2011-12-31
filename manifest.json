@@ -1,7 +1,7 @@
 {
   "name": "__MSG_extName__",
   "description": "__MSG_extDescript__",
-  "version": "1.0",
+  "version": "1.1",
   "icons": { "16": "huaci-small.png", "48": "huaci.png", "128": "huaci.png" },
   "permissions": ["contextMenus", "tabs", "notifications"],
   "background_page": "background.html",
