@@ -4,7 +4,7 @@ window.onload = function(){
     sl = getSchedulesList();
     g_globalObject = new JsDatePick({
         useMode:1,
-        isStripped:false,
+        isStripped:true,
         target:"calendar",
         SchedulesList:sl,
         /*selectedDate:{
