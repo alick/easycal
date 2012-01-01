@@ -95,13 +95,14 @@ function getSchedulesByTime(obj) {
             }
             sched_html += disp_str + "</a></td>";
             //sched_html += s.summary + "</td>";
-            sched_html += '<td><img src="Edit-New.png" alt="Edit" title="Edit" height="20px" width="20px" class="popup-menu-item"></td>';
-            sched_html += '<td><img src="Delete-New.png" alt="Remove" title="Remove" height="20px" width="20px" class="popup-menu-item"></td></tr>';
+            sched_html += '<td><img src="Edit-New.png" alt="Edit" title="修改" height="20px" width="20px" class="popup-menu-item"></td>';
+            sched_html += '<td><img src="Delete-New.png" alt="Remove" title="删除" height="20px" width="20px" class="popup-menu-item"></td></tr>';
             sched_table += sched_html;
             sched_table += "</table></div>";
             // This is to add a invisible editing div
             var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;'>";
             editing_div += 
+                "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>修改日程</div>" +
                 "<div style='padding:0.5em 0 0 0.5em;'>" + 
                 "<div class='sch_div' id='div_time'>" + 
                 "时间: " + 
@@ -140,7 +141,7 @@ function getSchedulesByTime(obj) {
                 "</select>" + 
                 "</div>" + 
                 
-                "<div id='div_submit' style='text-align: center;'>" + 
+                "<div id='div_submit' style='text-align:center;background-color:#C0C0C0;padding:0.2em 0.5em 0.2em 0.5em;'>" + 
                 "<input type='submit' class='popup-menu-item' alt='Edit_Save' id='submit' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;'/> " + 
                 "<input type='submit' class='popup-menu-item' alt='Edit_Cancel' id='cancel' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;' />" + 
                 "</div>" + 
@@ -151,13 +152,66 @@ function getSchedulesByTime(obj) {
             sched_table += "</div>";
         }
     }
-    //sched_table += "</table>";
-    document.getElementById('sched').innerHTML = sched_table;
-    if (sched_table === "<table></table>") {
-        $('#schedhead').css("display", "none");
-        $('#sched').css("display", "none");
-        return;
+    
+    // Add tips if there is no schedule
+    if (sched_table == "") {
+        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>这一天没有日程，你可以<a href='#' class='popup-menu-item' alt='New'>新建日程</a></div>";
     }
+    
+    // Add '+' sign
+    sched_table += "<div id='div_add' style='text-align:center;'><img class='popup-menu-item' alt='New' src='popup_add.png'></div>";
+    
+    var time = new Date();
+    var adding_div = 
+        "<div id='div_new' style='display:none;font-size:0.6em;'>" +
+        "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>新建日程</div>" +
+        "<div style='padding:0.5em 0 0 0.5em;'>" + 
+        "<div class='sch_div' id='div_time'>" + 
+        "时间: " + 
+        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear()+"'>-" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+time.getMonth()+1+"'>-" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate()+"'>   " + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+time.getHours()+1+"'>:" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>" + 
+        "</div>" + 
+        
+        "<div class='sch_div' id='div_loc'>" + 
+        "地点: " + 
+        "<input type='text' style='width:14em;height:1em;' id='address'>" + 
+        "</div>" + 
+        
+        
+        "<div class='sch_div' id='div_content'>" + 
+        "内容: " + 
+        "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
+        "</div>" + 
+        
+        "<div class='sch_div' id='div_type'>" + 
+        "类型: " + 
+        "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> 会议" + 
+        "<input type='radio' name='type' id='memorial' value='memorial'/> 纪念日" + 
+        "<input type='radio' name='type' id='deadline' value='deadline'/> 截止日期" + 
+        "</div>" + 
+        
+        "<div class='sch_div' id='div_remind'>" + 
+        "提醒: 提前 " + 
+        "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime' value='15'>" + 
+        "<select id='remindUnit' name='remindUnit'>" + 
+        "<option value='day'>天</option>" + 
+        "<option value='hour'>小时</option>" + 
+        "<option value='minute' selected='selected'>分</option>" + 
+        "</select>" + 
+        "</div>" + 
+        
+        "<div id='div_submit' style='text-align:center;background-color:#C0C0C0;padding:0.2em 0.5em 0.2em 0.5em;'>" + 
+        "<input type='submit' class='popup-menu-item' alt='New_Save' id='submit' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;'/> " + 
+        "<input type='submit' class='popup-menu-item' alt='New_Cancel' id='cancel' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;' />" + 
+        "</div>" + 
+        "</div>" + 
+        "</div>";
+    sched_table += adding_div;
+    
+    document.getElementById('sched').innerHTML = sched_table;
     $('#sched').css("display", "block");
     $('#schedhead').css('display', 'inline');
     $('tr:odd').css('background-color', '#FAE6E6');
@@ -241,6 +295,29 @@ function getSchedulesByTime(obj) {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
             // Hide
             $("#" + sched_id + "_edit").css("display", "none");
+        } else if (action == "New") {
+            // Show Adding, Hide tip and adding button
+            $("#div_new").css("display", "block");
+            $("##div_tips").css("display", "none");
+            $("#div_add").css("display", "none");
+                        
+        } else if (action == "New_Save") {
+            // Save form to new schedule, refresh g_ScheduleList, jsDatePick and sched list
+            // Save form
+            popup_new();
+            // refresh schedule list
+            g_ScheduleList = getSchedulesList();
+            // refresh jsDatePick
+            g_globalObject.repopulateMainBox()
+            // refresh sched
+            getSchedulesByTime(obj);
+            
+        } else if (action == "New_Cancel") {
+            // Hide Adding, Show tip and adding button
+            $("#div_new").css("display", "none");
+            $("##div_tips").css("display", "block");
+            $("#div_add").css("display", "block");
+            
         } else {
             console.warn("Not supported yet!"+action);
         }
@@ -308,5 +385,86 @@ function popup_save(sched_id, s) {
 
     // store into local storage
     var storekey = "sched" + s.id;
+    setItem(storekey, JSON.stringify(s));
+}
+
+
+function popup_new() {
+    // FIXME
+    // add all input values
+    var userYear = Number($("#div_new > div > div#div_time > input#year")[0]["value"]);
+    var userMonth = Number($("#div_new > div > div#div_time > input#month")[0]["value"]-1);
+    var userDate = Number($("#div_new > div > div#div_time > input#day")[0]["value"]);
+    var userHour = Number($("#div_new > div > div#div_time > input#hour")[0]["value"]);
+    var userMinute = Number($("#div_new > div > div#div_time > input#minute")[0]["value"]);
+    var userSecond = 0;
+
+    //TODO
+    // warn about stuff like 2011-02-30
+    // Check input value.
+    if ((userMonth<0) || (userMonth>11) ||
+        (userDate<1) || (userDate>31) ||
+        (userHour<0) || (userHour>23) ||
+        (userMinute<0) || (userMinute>59) ||
+        (userSecond<0) || (userSecond>59)) {
+        return false;
+    }
+
+    var s = {
+        id: 0,
+        type: "meeting",
+        add_time: new Date().getTime(),
+        summary: "",
+        content: "",
+        sched_time: new Date().getTime(),  // Using the same time tomorrow as the schedule time
+        sched_loc: '',
+		sched_remindtime:1000*60*15,//remind the user 15min before the deadline
+    };
+    
+    // Get the Unique sched_index; Note that the method 
+    var sched_index = getItem('sched_index');
+    s.id = sched_index;
+    setItem('sched_index', ++sched_index);
+
+    console.log('Storing schedule...');
+    // Not ending with semicolon is not an error in Javascript :)
+    s.sched_time = new Date();
+    s.sched_time.setFullYear(userYear);
+    s.sched_time.setMonth(userMonth);
+    s.sched_time.setDate(userDate);
+    s.sched_time.setHours(userHour, userMinute, userSecond);
+
+    s.sched_loc = $("#div_new > div > div#div_loc > input#address").val();
+    s.content = $("#div_new > div > div#div_content > #content")[0]["value"];
+    s.summary = s.content;
+    s.type = $("#div_new > div > #div_type > input:radio[checked=checked]").attr('value');
+
+    var timebefore = $("#div_new > div > div#div_remind > #remindTime")[0]["value"];
+    var timestyle = $("#div_new > div > div#div_remind > #remindUnit").val();
+
+    s.timebefore = timebefore;
+    s.timestyle = timestyle
+
+    //if(timestyle=="year") s.sched_remindtime = timebefore*1000*60*60*24*365;
+    //if(timestyle=="month") s.sched_remindtime = timebefore*1000*60*60*24*30;
+    
+    // s.sched_remindtime is the timestamp due to remind 
+    s.sched_remindtime = new Date();
+    if(timestyle=="day") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60*24);
+    }
+    if(timestyle=="hour") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60);
+    }
+    if(timestyle=="minute") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60);
+    }
+    //if(timestyle=="second") s.sched_remindtime = timebefore*1000;
+
+    console.log('sched:');
+    console.log(s);
+
+    // store into local storage
+    var storekey = 'sched'+s.id;
     setItem(storekey, JSON.stringify(s));
 }
