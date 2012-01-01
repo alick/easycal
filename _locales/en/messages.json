@@ -15,5 +15,9 @@
 "extNotifySubtitle":{
 	"message":"Your schedule has been successfully saved ^_^",
 	"description":"Your schedule has been successfully saved ^_^"
+},
+"extNewRemind":{
+	"message":"Schedule",
+	"description":"Remind"
 }
 }

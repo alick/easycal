@@ -31,7 +31,7 @@ $(document).ready(function(){
         var userDate = Number($('#day').val());
         var userHour = Number($('#hour').val());
         var userMinute = Number($('#minute').val());
-        var userSecond = Number($('#second').val());
+        var userSecond = 0;//Delete second Number($('#second').val());
 
         console.debug(userYear);
         console.debug(userMonth);
@@ -58,7 +58,7 @@ $(document).ready(function(){
         g_schedule.sched_time.setFullYear(userYear);
         g_schedule.sched_time.setMonth(userMonth);
         g_schedule.sched_time.setDate(userDate);
-        g_schedule.sched_time.setHours(userHour, userMinute);
+        g_schedule.sched_time.setHours(userHour, userMinute, userSecond);
 
         g_schedule.sched_loc = $('#address').val();
         g_schedule.summary = $('#summary').val();
@@ -67,14 +67,25 @@ $(document).ready(function(){
 		g_schedule.summary = $('#summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
 
+
+
         var timebefore =Number($('#remindTime').val());
         var timestyle=$('select[name=remindUnit]').val();
-        if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
-        if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
-        if(timestyle=="day") g_schedule.sched_remindtime = timebefore*1000*60*60*24;
-        if(timestyle=="hour") g_schedule.sched_remindtime = timebefore*1000*60*60;
-        if(timestyle=="minute") g_schedule.sched_remindtime = timebefore*1000*60;
-        if(timestyle=="second") g_schedule.sched_remindtime = timebefore*1000;
+        //if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
+        //if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
+        
+        // g_schedule.sched_remindtime is the timestamp due to remind 
+        g_schedule.sched_remindtime = new Date();
+        if(timestyle=="day") {
+            g_schedule.sched_remindtime.setTime(g_schedule.sched_time.getTime() - timebefore*1000*60*60*24);
+        }
+        if(timestyle=="hour") {
+            g_schedule.sched_remindtime.setTime(g_schedule.sched_time.getTime() - timebefore*1000*60*60);
+        }
+        if(timestyle=="minute") {
+            g_schedule.sched_remindtime.setTime(g_schedule.sched_time.getTime() - timebefore*1000*60);
+        }
+        //if(timestyle=="second") g_schedule.sched_remindtime = timebefore*1000;
 
         console.log('sched:');
         console.log(g_schedule);
@@ -91,9 +102,9 @@ $(document).ready(function(){
         // Create a notification:
         AUTO_CLOSE_DELAY_SECONDS = 2;
         var notification = webkitNotifications.createNotification(
-                'huaci.png',  // icon url - can be relative
-                chrome.i18n.getMessage('extNotifyTitle'), //'完成',  notification title
-                chrome.i18n.getMessage('extNotifySubtitle') //'日程已经保存', notification body text
+                'huaci.png',// icon url - can be relative
+                chrome.i18n.getMessage('extNotifyTitle'),//'瀹屾垚',  notification title
+                chrome.i18n.getMessage('extNotifySubtitle')//'鏃ョ▼宸茬粡淇濆瓨', notification body text
                 );
         notification.show();
         setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
@@ -119,7 +130,7 @@ function fillForm() {
         $('#day').val(time.getDate());
         $('#hour').val(time.getHours());
         $('#minute').val(time.getMinutes());
-        $('#second').val(time.getSeconds());
+        //$('#second').val(time.getSeconds());
 
         $('#address').val(g_schedule.sched_loc);
         $('#summary').val(g_schedule.summary);
