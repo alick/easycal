@@ -1,8 +1,12 @@
+g_globalObject = {}
+
 window.onload = function(){
+    sl = getSchedulesList();
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:false,
-        target:"calendar"
+        target:"calendar",
+        SchedulesList:sl,
         /*selectedDate:{
           day:5,
           month:9,
@@ -33,6 +37,29 @@ window.onload = function(){
 
 };
 
+
+function getSchedulesList() {
+    var maxid_plus1 = getItem('sched_index');
+    if (maxid_plus1 == null) {
+        return {};
+    }
+    var sched_table = "<table>";
+
+    SchedulesList = {}
+    for (var i = 0; i < maxid_plus1; ++i) {
+        var schedule_str = getItem('sched' + i);
+        if (schedule_str == null) {
+            continue;
+        }
+        var s = JSON.parse(schedule_str);
+        var time = new Date(s.sched_time);
+        
+        SchedulesList[time.getFullYear().toString()+'-'+time.getMonth().toString()+'-'+time.getDate().toString()] = 1;
+    }
+    return SchedulesList;
+}
+
+
 function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
@@ -47,6 +74,8 @@ function getSchedulesByTime(obj) {
         }
         var s = JSON.parse(schedule_str);
         var time = new Date(s.sched_time);
+        
+        // write shcedule table
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
             (time.getDate() == obj.day)) {
@@ -87,6 +116,15 @@ function getSchedulesByTime(obj) {
         var sched_id = $(this).parent().parent().attr("id");
         if (action == "Remove") {
             console.log("To remove " + sched_id);
+            // remove the g_ScheduleList[XXXX-XX-XX]
+            var schedule_str = getItem(sched_id);
+            if (schedule_str != null) {
+                var s = JSON.parse(schedule_str);
+                var time = new Date(s.sched_time);
+                delete g_ScheduleList[time.getFullYear().toString()+'-'+time.getMonth().toString()+'-'+time.getDate().toString()];
+            }
+            g_globalObject.repopulateMainBox()
+            
             // remove the key-value pair in LocalStorage
             removeItem(sched_id);
             // remove the table row in current GUI

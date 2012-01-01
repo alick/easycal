@@ -1,22 +1,26 @@
 #calendar {
-    margin: 10px 0 10px 0;
+    margin: 3px 3px 1em 3px;
     /*padding: 2px;*/
-    border: 2px solid #B6D1EE;
+    /*border: 2px solid #000000;/*#B6D1EE;*/
+    outline:#B6D1EE medium solid;
     width: 212px;
-    height: 230px;
-}
-
-#sched {
-    border: 2px solid #B6D1EE;
+    height: 250px;
 }
 
 #schedhead {
     background-color: #B6D1EE;
     display: block;
-    margin: 0;
+    margin: 0 0 1em 0 ;
     padding: 0;
-    height: 1em;
+    height: 1.2em;
+    outline:#B6D1EE medium solid;
 }
+
+#sched {
+    margin: 0.2em 0 0 0 ;
+    outline:#B6D1EE medium solid;
+}
+
 
 .triangle {
     margin: 0;
