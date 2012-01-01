@@ -59,6 +59,11 @@ function getSchedulesList() {
 }
 
 
+function myCmp(a, b) {
+    return a[0] - b[0];
+}
+
+
 function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
@@ -66,13 +71,33 @@ function getSchedulesByTime(obj) {
     }
     //var sched_table = "<table>";
     var sched_table = "";
-
+    
+    //sort
+    TodayScheduleList = Array();
     for (var i = 0; i < maxid_plus1; ++i) {
         var schedule_str = getItem('sched' + i);
         if (schedule_str == null) {
             continue;
         }
         var s = JSON.parse(schedule_str);
+        var time = new Date(s.sched_time);
+        
+        // write shcedule table
+        if ((time.getFullYear() == obj.year) &&
+            ((time.getMonth() + 1) == obj.month) &&
+            (time.getDate() == obj.day)) {
+            TodayScheduleList.push(Array(time.getTime(), s));
+        }
+    }
+    TodayScheduleList.sort(myCmp);
+
+    for (var i = 0; i < TodayScheduleList.length; ++i) {
+        //var schedule_str = getItem('sched' + i);
+        //if (schedule_str == null) {
+        //    continue;
+        //}
+        
+        var s = TodayScheduleList[i][1]
         var time = new Date(s.sched_time);
         
         // write shcedule table
