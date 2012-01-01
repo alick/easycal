@@ -187,7 +187,7 @@ function getSchedulesByTime(obj) {
     // Add '+' sign
     sched_table += "<div id='div_add' style='text-align:center;'><img class='popup-menu-item' alt='New' src='popup_add.png'></div>";
     
-    var time = new Date();
+    var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
     var adding_div = 
         "<div id='div_new' style='display:none;font-size:0.6em;'>" +
         "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>新建日程</div>" +
@@ -198,7 +198,7 @@ function getSchedulesByTime(obj) {
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+(time.getMonth()+1).toString()+"'>-" + 
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate().toString()+"'>   " + 
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+(time.getHours()+1).toString()+"'>:" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='0'>" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>" + 
         "</div>" + 
         
         "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
@@ -282,7 +282,9 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
                         $("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"] = time.getDate().toString();
                         $("#" + sched_id + "_edit > div > div#div_time > input#hour")[0]["value"] = time.getHours().toString();
-                        $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = time.getMinutes().toString();
+                        strMin = time.getMinutes().toString();
+                        if (strMin.length == 1) strMin = '0'+strMin;
+                        $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = strMin;
                         $("#" + sched_id + "_edit > div > div#div_loc > input#address").val(s.sched_loc);
                         $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
                         $("#" + sched_id + "_edit > div > #div_type > input:radio[value="+s.type+"]")[0].checked = true;
