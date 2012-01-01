@@ -234,8 +234,8 @@ function getSchedulesByTime(obj) {
                 g_ScheduleList = getSchedulesList();
                 // refresh jsDatePick
                 g_globalObject.repopulateMainBox()
-                // remove the table row in current GUI
-                $("#div_" + sched_id).remove();
+                // refresh sched
+                getSchedulesByTime(obj);
             }
         } else if (action == "Edit") {
             var schedule_str = getItem(sched_id);
