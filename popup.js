@@ -174,7 +174,8 @@ function getSchedulesByTime(obj) {
             if (schedule_str != null) {
                 var s = JSON.parse(schedule_str);
                 var time = new Date(s.sched_time);
-                delete g_ScheduleList[time.getFullYear().toString()+'-'+time.getMonth().toString()+'-'+time.getDate().toString()];
+                // refresh schedule list
+                g_ScheduleList = getSchedulesList();
             }
             g_globalObject.repopulateMainBox()
             
