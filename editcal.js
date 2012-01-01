@@ -68,9 +68,13 @@ $(document).ready(function(){
         //g_schedule.remind = $('select[name=remindUnit]').val();
 
 
-
-        var timebefore =Number($('#remindTime').val());
+        g_schedule.timebefore = Number($('#remindTime').val());
+        var timebefore = Number($('#remindTime').val());
         var timestyle=$('select[name=remindUnit]').val();
+
+        g_schedule.timebefore = timebefore;
+        g_schedule.timestyle = timestyle
+
         //if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
         //if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
         

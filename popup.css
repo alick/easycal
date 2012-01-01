@@ -1,11 +1,14 @@
+#outer_frame {
+    padding: 0.5em 2em 0.5em 1em;
+}
+
 #calendar {
-    margin: 3px 3px 1em 3px;
+    margin: 3px 10% 1em 10%;
     padding: 0 0 0 0px;
-    /*padding: 2px;*/
-    /*border: 2px solid #000000;/*#B6D1EE;*/
     outline:#B6D1EE medium solid;
     width: 198px;
     height: 250px;
+    position:center;
 }
 
 #schedhead {
@@ -18,9 +21,9 @@
 }
 
 #sched {
-    margin: 0.2em 3px 0 3px;
+    margin: 0.4em 0.4em 0 3px;
     outline:#B6D1EE medium solid;
-    width: 198px;
+    width: 16em;
 }
 
 
@@ -40,8 +43,13 @@
 */
 
 td.summary {
-    width: 6em;
+    width: 10em;
 }
+
+td.time {
+    width:3em;
+}
+
 .summary a {
     color: black;
     font-size: smaller;
