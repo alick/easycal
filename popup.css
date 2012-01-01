@@ -54,6 +54,7 @@ td.time {
     color: black;
     font-size: smaller;
     text-decoration: none;
+    cursor: text; /* fake a non-anchor */
 }
 
 .time {
