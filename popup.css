@@ -39,6 +39,9 @@
 }
 */
 
+td.summary {
+    width: 6em;
+}
 .summary a {
     color: black;
     font-size: smaller;
