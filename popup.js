@@ -174,16 +174,15 @@ function getSchedulesByTime(obj) {
             if (schedule_str != null) {
                 var s = JSON.parse(schedule_str);
                 var time = new Date(s.sched_time);
+                // remove the key-value pair in LocalStorage
+                removeItem(sched_id);
                 // refresh schedule list
                 g_ScheduleList = getSchedulesList();
+                // refresh jsDatePick
+                g_globalObject.repopulateMainBox()
+                // remove the table row in current GUI
+                $("#div_" + sched_id).remove();
             }
-            g_globalObject.repopulateMainBox()
-            
-            // remove the key-value pair in LocalStorage
-            removeItem(sched_id);
-            
-            // remove the table row in current GUI
-            $("#div_" + sched_id).remove();
         } else if (action == "Edit") {
             var schedule_str = getItem(sched_id);
             if (schedule_str != null) {
