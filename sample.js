@@ -14,7 +14,11 @@ function genericOnClick(info, tab) {
 
     var this_time = new Date();
     var timestamp = this_time.getTime();
+    
+    // Get uniqe key
     var sched_index = getItem('sched_index');
+    setItem('sched_index', sched_index+1);
+    
     console.log('sched_index: "'+sched_index+'"');
     if (sched_index == null) {
         sched_index = '0';

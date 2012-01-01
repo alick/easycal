@@ -98,9 +98,10 @@ $(document).ready(function(){
         var storekey = "sched" + g_schedule.id;
         setItem(storekey, JSON.stringify(g_schedule));
 
-        if (g_newsched) {
-            setItem('sched_index', ++g_schedule.id);
-        }
+        // should not increase shed_index here, should increase that right after getTime('sched_index');
+        //if (g_newsched) {
+        //    setItem('sched_index', ++g_schedule.id);
+        //}
         
         //alert("Your schedule has been successfully saved ^_^");
         // Create a notification:

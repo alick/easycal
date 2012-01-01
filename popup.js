@@ -67,7 +67,7 @@ function myCmp(a, b) {
 function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
-        return null;
+        setItem('sched_index', 0);
     }
     //var sched_table = "<table>";
     var sched_table = "";
@@ -86,7 +86,7 @@ function getSchedulesByTime(obj) {
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
             (time.getDate() == obj.day)) {
-            TodayScheduleList.push(Array(time.getTime(), s));
+            TodayScheduleList.push(Array(Number(time.getTime()), s));
         }
     }
     TodayScheduleList.sort(myCmp);
@@ -129,7 +129,7 @@ function getSchedulesByTime(obj) {
             editing_div += 
                 "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>修改日程</div>" +
                 "<div style='padding:0.5em 0 0 0.5em;'>" + 
-                "<div class='sch_div' id='div_time'>" + 
+                "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
                 "时间: " + 
                 "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear()+"'>-" + 
                 "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+time.getMonth()+"'>-" + 
@@ -138,25 +138,26 @@ function getSchedulesByTime(obj) {
                 "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='"+time.getMinutes()+"'>" + 
                 "</div>" + 
                 
-                "<div class='sch_div' id='div_loc'>" + 
+                "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
+                "内容: " + 
+                "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
+                "</div>" + 
+
+                "<div class='sch_div' id='div_loc' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
                 "地点: " + 
                 "<input type='text' style='width:14em;height:1em;' id='address'>" + 
                 "</div>" + 
                 
                 
-                "<div class='sch_div' id='div_content'>" + 
-                "内容: " + 
-                "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
-                "</div>" + 
                 
-                "<div class='sch_div' id='div_type'>" + 
+                "<div class='sch_div' id='div_type' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
                 "类型: " + 
                 "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> 会议" + 
                 "<input type='radio' name='type' id='memorial' value='memorial'/> 纪念日" + 
                 "<input type='radio' name='type' id='deadline' value='deadline'/> 截止日期" + 
                 "</div>" + 
                 
-                "<div class='sch_div' id='div_remind'>" + 
+                "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
                 "提醒: 提前 " + 
                 "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime'>" + 
                 "<select id='remindUnit' name='remindUnit'>" + 
@@ -191,34 +192,35 @@ function getSchedulesByTime(obj) {
         "<div id='div_new' style='display:none;font-size:0.6em;'>" +
         "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>新建日程</div>" +
         "<div style='padding:0.5em 0 0 0.5em;'>" + 
-        "<div class='sch_div' id='div_time'>" + 
+        "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
         "时间: " + 
-        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear()+"'>-" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+time.getMonth()+1+"'>-" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate()+"'>   " + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+time.getHours()+1+"'>:" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>" + 
+        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear().toString()+"'>-" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+(time.getMonth()+1).toString()+"'>-" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate().toString()+"'>   " + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+(time.getHours()+1).toString()+"'>:" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='0'>" + 
         "</div>" + 
         
-        "<div class='sch_div' id='div_loc'>" + 
+        "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
+        "内容: " + 
+        "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
+        "</div>" + 
+
+        "<div class='sch_div' id='div_loc' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
         "地点: " + 
         "<input type='text' style='width:14em;height:1em;' id='address'>" + 
         "</div>" + 
         
         
-        "<div class='sch_div' id='div_content'>" + 
-        "内容: " + 
-        "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
-        "</div>" + 
         
-        "<div class='sch_div' id='div_type'>" + 
+        "<div class='sch_div' id='div_type' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
         "类型: " + 
         "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> 会议" + 
         "<input type='radio' name='type' id='memorial' value='memorial'/> 纪念日" + 
         "<input type='radio' name='type' id='deadline' value='deadline'/> 截止日期" + 
         "</div>" + 
         
-        "<div class='sch_div' id='div_remind'>" + 
+        "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0.1em 0.1em;'>" + 
         "提醒: 提前 " + 
         "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime' value='15'>" + 
         "<select id='remindUnit' name='remindUnit'>" + 
@@ -323,7 +325,7 @@ function getSchedulesByTime(obj) {
         } else if (action == "New") {
             // Show Adding, Hide tip and adding button
             $("#div_new").css("display", "block");
-            $("##div_tips").css("display", "none");
+            $("#div_tips").css("display", "none");
             $("#div_add").css("display", "none");
                         
         } else if (action == "New_Save") {
@@ -340,7 +342,7 @@ function getSchedulesByTime(obj) {
         } else if (action == "New_Cancel") {
             // Hide Adding, Show tip and adding button
             $("#div_new").css("display", "none");
-            $("##div_tips").css("display", "block");
+            $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
             
         } else {
