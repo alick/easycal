@@ -7,6 +7,10 @@
     height: 250px;
 }
 
+#sched {
+    outline:#B6D1EE medium solid;
+}
+
 #schedhead {
     background-color: #B6D1EE;
     display: block;
@@ -21,7 +25,7 @@
     outline:#B6D1EE medium solid;
 }
 
-
+/*
 .triangle {
     margin: 0;
     padding: 0;
@@ -32,8 +36,9 @@
     line-height: 0;
     border-top: 1.2em solid white;
     border-left: 1.2em solid #B6D1EE;
-    /*border-left-color: #B6D1EE;*/
+    border-left-color: #B6D1EE;
 }
+*/
 
 .summary a {
     color: black;
