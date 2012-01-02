@@ -17,7 +17,7 @@ $('#easycal-mist').css({
     top: 0,
     left: 0,
     width: "100%",
-    height: "100%",
+    height: $('body').css('height'),
     'z-index': 1,
     'background-color': 'rgba(180, 180, 180, 0.9)',
 });
