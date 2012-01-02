@@ -6,8 +6,8 @@ $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
                            ' fieldset');
 $('#easycal-editcal').css({
     position: "absolute",
-    top: "10%",
-    left: "20%",
+    top: (window.pageYOffset + window.innerHeight / 10),
+    left: (window.pageXOffset + window.innerWidth / 5),
     width: "50%",
     'z-index': 1002,
     'background-color': 'white',
