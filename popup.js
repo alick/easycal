@@ -329,7 +329,7 @@ function getSchedulesByTime(obj) {
         } else if (action == "Edit_Cancel") {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
             // Hide
-            $('.warning').remove();
+            $("#" + sched_id + "_edit .warning").remove();
             $("#" + sched_id + "_edit").css("display", "none");
         } else if (action == "New") {
             // Show Adding, Hide tip and adding button
@@ -340,19 +340,21 @@ function getSchedulesByTime(obj) {
         } else if (action == "New_Save") {
             // Save form to new schedule, refresh g_ScheduleList, jsDatePick and sched list
             // Save form
-            popup_new();
-            // refresh schedule list
-            g_ScheduleList = getSchedulesList();
-            // refresh jsDatePick
-            g_globalObject.repopulateMainBox();
-            // refresh sched
-            getSchedulesByTime(obj);
+            if (popup_new() == true) {
+                // refresh schedule list
+                g_ScheduleList = getSchedulesList();
+                // refresh jsDatePick
+                g_globalObject.repopulateMainBox();
+                // refresh sched
+                getSchedulesByTime(obj);
+            }
             
         } else if (action == "New_Cancel") {
             // Hide Adding, Show tip and adding button
             $("#div_new").css("display", "none");
             $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
+            $('#div_new .warning').remove();
             
         } else {
             console.warn("Not supported yet!"+action);
@@ -368,7 +370,6 @@ function popup_save(sched_id, s) {
     var userMinute = Number($("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"]);
     var userSecond = 0;
 
-    console.log('Storing schedule...');
     s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
     // Checking time in the Javascript way.
     if (s.sched_time.getFullYear() != userYear ||
@@ -422,6 +423,7 @@ function popup_save(sched_id, s) {
     console.log('sched:');
     console.log(s);
 
+    console.log('Storing schedule...');
     // store into local storage
     var storekey = "sched" + s.id;
     setItem(storekey, JSON.stringify(s));
@@ -431,7 +433,6 @@ function popup_save(sched_id, s) {
 
 
 function popup_new() {
-    // FIXME
     // add all input values
     var userYear = Number($("#div_new > div > div#div_time > input#year")[0]["value"]);
     var userMonth = Number($("#div_new > div > div#div_time > input#month")[0]["value"]-1);
@@ -440,26 +441,15 @@ function popup_new() {
     var userMinute = Number($("#div_new > div > div#div_time > input#minute")[0]["value"]);
     var userSecond = 0;
 
-    //TODO
-    // warn about stuff like 2011-02-30
-    // Check input value.
-    if ((userMonth<0) || (userMonth>11) ||
-        (userDate<1) || (userDate>31) ||
-        (userHour<0) || (userHour>23) ||
-        (userMinute<0) || (userMinute>59) ||
-        (userSecond<0) || (userSecond>59)) {
-        return false;
-    }
-
     var s = {
         id: 0,
         type: "meeting",
         add_time: new Date().getTime(),
         summary: "",
         content: "",
-        sched_time: new Date().getTime(),  // Using the same time tomorrow as the schedule time
+        sched_time: new Date().getTime(),  // Using the same time
         sched_loc: '',
-		sched_remindtime:1000*60*15,//remind the user 15min before the deadline
+        sched_remindtime:1000*60*15,//remind the user 15min before the deadline
     };
     
     // Get the Unique sched_index; Note that the method 
@@ -467,13 +457,28 @@ function popup_new() {
     s.id = sched_index;
     setItem('sched_index', ++sched_index);
 
-    console.log('Storing schedule...');
-    // Not ending with semicolon is not an error in Javascript :)
-    s.sched_time = new Date();
-    s.sched_time.setFullYear(userYear);
-    s.sched_time.setMonth(userMonth);
-    s.sched_time.setDate(userDate);
-    s.sched_time.setHours(userHour, userMinute, userSecond);
+    s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
+    // Checking time in the Javascript way.
+    if (s.sched_time.getFullYear() != userYear ||
+            s.sched_time.getMonth() != userMonth ||
+            s.sched_time.getDate() != userDate ||
+            s.sched_time.getHours() != userHour ||
+            s.sched_time.getMinutes() != userMinute ||
+            s.sched_time.getSeconds() != userSecond) {
+
+        var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
+        console.warn(msg);
+
+        // FIXME
+        // #div_time is duplicate.
+        var div = $('#div_new #div_time');
+        if (div.html().indexOf(msg) == -1) {
+            div.append('<span class="warning">' + msg + '</span>');
+        } else {
+            div.find(".warning").append("!");
+        }
+        return false;
+    }
 
     s.sched_loc = $("#div_new > div > div#div_loc > input#address").val();
     s.content = $("#div_new > div > div#div_content > #content")[0]["value"];
@@ -505,9 +510,12 @@ function popup_new() {
     console.log('sched:');
     console.log(s);
 
+    console.log('Storing schedule...');
     // store into local storage
     var storekey = 'sched'+s.id;
     setItem(storekey, JSON.stringify(s));
+
+    return true;
 }
 
 // DEBUGGING CODE
