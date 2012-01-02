@@ -187,7 +187,7 @@ function getSchedulesByTime(obj) {
     }
     
     // Add '+' sign
-    sched_table += "<div id='div_add' style='text-align:center;padding:0.5em 0em 0.1em 0em;'><img class='popup-menu-item' alt='New' src='popup_add.png'></div>";
+    sched_table += "<div id='div_add' style='text-align:center;padding:0.5em 0em 0.1em 0em;'><img class='popup-menu-item' title='新建日程' alt='New' src='popup_add.png'></div>";
     
     var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
     var adding_div = 
