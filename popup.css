@@ -1,27 +1,31 @@
+
 #outer_frame {
     padding: 0.5em 2em 0.5em 1em;
+    backgound-image:url(background-img.png);
+    background-repeat:repeat-y;
 }
 
 #calendar {
-    margin: 3px 10% 1em 10%;
-    padding: 0 0 0 0px;
+    margin: 0.4em 0.4em 1em 0.4em;
     outline:#B6D1EE medium solid;
-    width: 198px;
-    height: 250px;
-    position:center;
+    width: 16em;
+    height: 245px;
+    text-align:center;
+    overflow:hidden;
+    background-color:#F5F5F5;
 }
 
 #schedhead {
     background-color: #B6D1EE;
     display: block;
-    margin: 0 3px 1em 3px;
+    margin: 0 3px 0.2em 0.4em;
     padding: 0;
     height: 1.2em;
     outline:#B6D1EE medium solid;
 }
 
 #sched {
-    margin: 0.4em 0.4em 0 3px;
+    margin: 0.2em 0.4em 0 0.4em;
     outline:#B6D1EE medium solid;
     width: 16em;
 }

@@ -68,7 +68,9 @@ function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
         setItem('sched_index', 0);
+        maxid_plus1 = 0;
     }
+    maxid_plus1 = Number(maxid_plus1)
     //var sched_table = "<table>";
     var sched_table = "";
     
@@ -97,7 +99,7 @@ function getSchedulesByTime(obj) {
         //    continue;
         //}
         
-        var s = TodayScheduleList[i][1]
+        var s = TodayScheduleList[i][1];
         var time = new Date(s.sched_time);
         
         // write shcedule table
@@ -185,7 +187,7 @@ function getSchedulesByTime(obj) {
     }
     
     // Add '+' sign
-    sched_table += "<div id='div_add' style='text-align:center;'><img class='popup-menu-item' alt='New' src='popup_add.png'></div>";
+    sched_table += "<div id='div_add' style='text-align:center;padding:0.5em 0em 0.1em 0em;'><img class='popup-menu-item' alt='New' src='popup_add.png'></div>";
     
     var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
     var adding_div = 
@@ -260,7 +262,7 @@ function getSchedulesByTime(obj) {
                 // refresh schedule list
                 g_ScheduleList = getSchedulesList();
                 // refresh jsDatePick
-                g_globalObject.repopulateMainBox()
+                g_globalObject.repopulateMainBox();
                 // refresh sched
                 getSchedulesByTime(obj);
             }
@@ -289,7 +291,7 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
                         $("#" + sched_id + "_edit > div > #div_type > input:radio[value="+s.type+"]")[0].checked = true;
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
-                        $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle)          
+                        $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                     }
                 } else {
                     // Hide and save and refresh
@@ -298,7 +300,7 @@ function getSchedulesByTime(obj) {
                     // refresh schedule list
                     g_ScheduleList = getSchedulesList();
                     // refresh jsDatePick
-                    g_globalObject.repopulateMainBox()
+                    g_globalObject.repopulateMainBox();
                     // refresh sched
                     getSchedulesByTime(obj);
                 }
@@ -316,7 +318,7 @@ function getSchedulesByTime(obj) {
                 // refresh schedule list
                 g_ScheduleList = getSchedulesList();
                 // refresh jsDatePick
-                g_globalObject.repopulateMainBox()
+                g_globalObject.repopulateMainBox();
                 // refresh sched
                 getSchedulesByTime(obj);
             }
@@ -337,7 +339,7 @@ function getSchedulesByTime(obj) {
             // refresh schedule list
             g_ScheduleList = getSchedulesList();
             // refresh jsDatePick
-            g_globalObject.repopulateMainBox()
+            g_globalObject.repopulateMainBox();
             // refresh sched
             getSchedulesByTime(obj);
             
@@ -391,7 +393,7 @@ function popup_save(sched_id, s) {
     var timestyle = $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val();
 
     s.timebefore = timebefore;
-    s.timestyle = timestyle
+    s.timestyle = timestyle;
 
     //if(timestyle=="year") s.sched_remindtime = timebefore*1000*60*60*24*365;
     //if(timestyle=="month") s.sched_remindtime = timebefore*1000*60*60*24*30;
@@ -451,7 +453,7 @@ function popup_new() {
     };
     
     // Get the Unique sched_index; Note that the method 
-    var sched_index = getItem('sched_index');
+    var sched_index = Number(getItem('sched_index'));
     s.id = sched_index;
     setItem('sched_index', ++sched_index);
 
@@ -472,7 +474,7 @@ function popup_new() {
     var timestyle = $("#div_new > div > div#div_remind > #remindUnit").val();
 
     s.timebefore = timebefore;
-    s.timestyle = timestyle
+    s.timestyle = timestyle;
 
     //if(timestyle=="year") s.sched_remindtime = timebefore*1000*60*60*24*365;
     //if(timestyle=="month") s.sched_remindtime = timebefore*1000*60*60*24*30;

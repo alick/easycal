@@ -17,12 +17,14 @@ function genericOnClick(info, tab) {
     
     // Get uniqe key
     var sched_index = getItem('sched_index');
-    setItem('sched_index', sched_index+1);
-    
     console.log('sched_index: "'+sched_index+'"');
     if (sched_index == null) {
-        sched_index = '0';
+        setItem('sched_index', 0);
+        sched_index = 0;
     }
+    sched_index = Number(sched_index);
+    setItem('sched_index', sched_index+1);
+    
     var storekey = "sched" + sched_index;
     var schedule = {
         id: sched_index,
