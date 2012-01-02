@@ -294,17 +294,19 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                     }
                 } else {
-                    // Hide and save and refresh
-                    $("#" + sched_id + "_edit").css("display", "none");
-                    popup_save(sched_id, s);
-                    // refresh schedule list
-                    g_ScheduleList = getSchedulesList();
-                    // refresh jsDatePick
-                    g_globalObject.repopulateMainBox();
-                    // refresh sched
-                    getSchedulesByTime(obj);
+                    if (popup_save(sched_id, s) == true) {
+                        // Hide and save and refresh
+                        $("#" + sched_id + "_edit").css("display", "none");
+                        // refresh schedule list
+                        g_ScheduleList = getSchedulesList();
+                        // refresh jsDatePick
+                        g_globalObject.repopulateMainBox();
+                        // refresh sched
+                        getSchedulesByTime(obj);
+                    }
+                    // else: do nothing
                 }
-            }     
+            }
         } else if (action == "Edit_Save") {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
             var schedule_str = getItem(sched_id);
@@ -312,19 +314,22 @@ function getSchedulesByTime(obj) {
                 var s = JSON.parse(schedule_str);
                 var time = new Date(s.sched_time);
 
-                // Hide and save and refresh
-                $("#" + sched_id + "_edit").css("display", "none");
-                popup_save(sched_id, s);
-                // refresh schedule list
-                g_ScheduleList = getSchedulesList();
-                // refresh jsDatePick
-                g_globalObject.repopulateMainBox();
-                // refresh sched
-                getSchedulesByTime(obj);
+                if (popup_save(sched_id, s) == true) {
+                    // Hide and save and refresh
+                    $("#" + sched_id + "_edit").css("display", "none");
+                    // refresh schedule list
+                    g_ScheduleList = getSchedulesList();
+                    // refresh jsDatePick
+                    g_globalObject.repopulateMainBox();
+                    // refresh sched
+                    getSchedulesByTime(obj);
+                }
+                // else: do nothing
             }
         } else if (action == "Edit_Cancel") {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
             // Hide
+            $('.warning').remove();
             $("#" + sched_id + "_edit").css("display", "none");
         } else if (action == "New") {
             // Show Adding, Hide tip and adding button
@@ -356,8 +361,6 @@ function getSchedulesByTime(obj) {
 }
 
 function popup_save(sched_id, s) {
-    // FIXME
-    // add all input values
     var userYear = Number($("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"]);
     var userMonth = Number($("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"]-1);
     var userDate = Number($("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"]);
@@ -365,24 +368,29 @@ function popup_save(sched_id, s) {
     var userMinute = Number($("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"]);
     var userSecond = 0;
 
-    //TODO
-    // warn about stuff like 2011-02-30
-    // Check input value.
-    if ((userMonth<0) || (userMonth>11) ||
-        (userDate<1) || (userDate>31) ||
-        (userHour<0) || (userHour>23) ||
-        (userMinute<0) || (userMinute>59) ||
-        (userSecond<0) || (userSecond>59)) {
+    console.log('Storing schedule...');
+    s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
+    // Checking time in the Javascript way.
+    if (s.sched_time.getFullYear() != userYear ||
+            s.sched_time.getMonth() != userMonth ||
+            s.sched_time.getDate() != userDate ||
+            s.sched_time.getHours() != userHour ||
+            s.sched_time.getMinutes() != userMinute ||
+            s.sched_time.getSeconds() != userSecond) {
+
+        var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
+        console.warn(msg);
+
+        // FIXME
+        // #div_time is duplicate.
+        var div = $('#' + sched_id + '_edit #div_time');
+        if (div.html().indexOf(msg) == -1) {
+            div.append('<span class="warning">' + msg + '</span>');
+        } else {
+            div.find(".warning").append("!");
+        }
         return false;
     }
-
-    console.log('Storing schedule...');
-    // Not ending with semicolon is not an error in Javascript :)
-    s.sched_time = new Date();
-    s.sched_time.setFullYear(userYear);
-    s.sched_time.setMonth(userMonth);
-    s.sched_time.setDate(userDate);
-    s.sched_time.setHours(userHour, userMinute, userSecond);
 
     s.sched_loc = $("#" + sched_id + "_edit > div > div#div_loc > input#address").val();
     s.content = $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"];
@@ -417,6 +425,8 @@ function popup_save(sched_id, s) {
     // store into local storage
     var storekey = "sched" + s.id;
     setItem(storekey, JSON.stringify(s));
+
+    return true;
 }
 
 
@@ -498,4 +508,15 @@ function popup_new() {
     // store into local storage
     var storekey = 'sched'+s.id;
     setItem(storekey, JSON.stringify(s));
+}
+
+// DEBUGGING CODE
+// Warning Duplicate IDs
+// from: http://stackoverflow.com/questions/482763/jquery-to-check-for-duplicate-ids-in-a-dom
+function checkDupId() {
+    $('[id]').each(function(){
+        var ids = $('[id="'+this.id+'"]');
+        if(ids.length>1 && ids[0]==this)
+        console.warn('Multiple IDs #'+this.id);
+    });
 }

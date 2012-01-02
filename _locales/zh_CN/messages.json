@@ -22,5 +22,9 @@
 "extNewRemind":{
 	"message":"日程",
 	"description":"Remind"
+},
+"extWarnInvalidTimeSetting":{
+	"message":"时间设置有误!",
+	"description":"Invalid time setting!"
 }
 }
