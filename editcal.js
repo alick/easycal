@@ -9,7 +9,7 @@ $('#easycal-editcal').css({
     top: "10%",
     left: "20%",
     width: "50%",
-    'z-index': 2,
+    'z-index': 1002,
     'background-color': 'white',
 });
 $('#easycal-mist').css({
@@ -18,7 +18,7 @@ $('#easycal-mist').css({
     left: 0,
     width: "100%",
     height: $('body').css('height'),
-    'z-index': 1,
+    'z-index': 1001,
     'background-color': 'rgba(180, 180, 180, 0.9)',
 });
 
@@ -121,12 +121,14 @@ $('body').ajaxComplete(function() {
                 console.log("Your schedule has been successfully saved ^_^");
                 // TODO
                 // Let user see the info
+
+                $('#easycal-editcal').html("Your schedule has been successfully saved ^_^");
                 setTimeout(
                     function(){
                         $('#easycal-editcal').remove();
                         $('#easycal-mist').remove();
                     },
-                    2 * 1000);
+                    1 * 1000);
             }
         });
 
