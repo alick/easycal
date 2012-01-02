@@ -51,7 +51,7 @@ $('body').ajaxComplete(function() {
     fillForm();
     $('#easycal-editcal #submit').bind('click', function(event){
         event.preventDefault();
-        // add all input values
+
         var userYear = Number($('#year').val());
         var userMonth = Number($('#month').val()-1);
         var userDate = Number($('#day').val());
@@ -59,31 +59,22 @@ $('body').ajaxComplete(function() {
         var userMinute = Number($('#minute').val());
         var userSecond = 0; // Assume second is 0.
 
-        console.debug(userYear);
-        console.debug(userMonth);
-        console.debug(userDate);
-        console.debug(userHour);
-        console.debug(userMinute);
-        console.debug(userSecond);
-        //TODO
-        // warn about stuff like 2011-02-30
-        // Check input value.
-        if ((userMonth<0) || (userMonth>11) ||
-            (userDate<1) || (userDate>31) ||
-            (userHour<0) || (userHour>23) ||
-            (userMinute<0) || (userMinute>59) ||
-            (userSecond<0) || (userSecond>59)) {
-            //$('#time').append('<p class="warning">Invalid time setting.</p>');
-            alert('Invalid time setting.');
+        g_schedule.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
+        // Checking time in the Javascript way.
+        if (g_schedule.sched_time.getFullYear() != userYear ||
+                g_schedule.sched_time.getMonth() != userMonth ||
+                g_schedule.sched_time.getDate() != userDate ||
+                g_schedule.sched_time.getHours() != userHour ||
+                g_schedule.sched_time.getMinutes() != userMinute ||
+                g_schedule.sched_time.getSeconds() != userSecond) {
+
+            var origin_color = $("#easycal-editcal #div_time").css('background');
+            for (var i=0; i<1200; i+= 400) {
+                setTimeout(function(){$("#easycal-editcal #div_time").css('background', 'red');}, i);
+                setTimeout(function(){$("#easycal-editcal #div_time").css('background', origin_color);}, i+200);
+            }
             return false;
         }
-
-        console.log('Storing schedule...');
-        g_schedule.sched_time = new Date();
-        g_schedule.sched_time.setFullYear(userYear);
-        g_schedule.sched_time.setMonth(userMonth);
-        g_schedule.sched_time.setDate(userDate);
-        g_schedule.sched_time.setHours(userHour, userMinute, userSecond);
 
         g_schedule.sched_loc = $('#address').val();
         g_schedule.summary = $('#summary').val();
@@ -97,7 +88,7 @@ $('body').ajaxComplete(function() {
         var timestyle=$('select[name=remindUnit]').val();
 
         g_schedule.timebefore = timebefore;
-        g_schedule.timestyle = timestyle
+        g_schedule.timestyle = timestyle;
 
         //if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
         //if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
@@ -119,6 +110,7 @@ $('body').ajaxComplete(function() {
         console.log(g_schedule);
 
         // store into local storage
+        console.log('Sending schedule...');
         var request = {
             newsched: true,
             schedule_str: JSON.stringify(g_schedule),
