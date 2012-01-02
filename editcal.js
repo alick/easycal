@@ -1,12 +1,9 @@
-console.log('This is from content scripts!');
-//document.body.style.background = 'red !important';
-//$('body').css('background-color', 'red');
-//$.get(chrome.extension.getURL("editcal.html"), function(data){
-    //console.log('data:' + data);
-//});
+console.debug('This is from content scripts!');
+// Add our popup layer div.
 $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
-$('#easycal-editcal').load(chrome.extension.getURL("editcal.html") + ' fieldset');
+$('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
+                           ' fieldset');
 $('#easycal-editcal').css({
     position: "absolute",
     top: "10%",
@@ -24,7 +21,6 @@ $('#easycal-mist').css({
     'z-index': 1,
     'background-color': 'rgba(180, 180, 180, 0.9)',
 });
-console.log('test:' + $('#easycal-editcal').html());
 
 (function(){
     // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
@@ -55,14 +51,13 @@ $('body').ajaxComplete(function() {
     fillForm();
     $('#easycal-editcal #submit').bind('click', function(event){
         event.preventDefault();
-        // FIXME
         // add all input values
         var userYear = Number($('#year').val());
         var userMonth = Number($('#month').val()-1);
         var userDate = Number($('#day').val());
         var userHour = Number($('#hour').val());
         var userMinute = Number($('#minute').val());
-        var userSecond = 0;//Delete second Number($('#second').val());
+        var userSecond = 0; // Assume second is 0.
 
         console.debug(userYear);
         console.debug(userMonth);
@@ -84,7 +79,6 @@ $('body').ajaxComplete(function() {
         }
 
         console.log('Storing schedule...');
-        // Not ending with semicolon is not an error in Javascript :)
         g_schedule.sched_time = new Date();
         g_schedule.sched_time.setFullYear(userYear);
         g_schedule.sched_time.setMonth(userMonth);
@@ -95,9 +89,8 @@ $('body').ajaxComplete(function() {
         g_schedule.summary = $('#summary').val();
         g_schedule.content = $('#content').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
-		g_schedule.summary = $('#summary').val();
+        g_schedule.summary = $('#summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
-
 
         g_schedule.timebefore = Number($('#remindTime').val());
         var timebefore = Number($('#remindTime').val());
@@ -109,7 +102,7 @@ $('body').ajaxComplete(function() {
         //if(timestyle=="year") g_schedule.sched_remindtime = timebefore*1000*60*60*24*365;
         //if(timestyle=="month") g_schedule.sched_remindtime = timebefore*1000*60*60*24*30;
         
-        // g_schedule.sched_remindtime is the timestamp due to remind 
+        // g_schedule.sched_remindtime is the timestamp due to remind
         g_schedule.sched_remindtime = new Date();
         if(timestyle=="day") {
             g_schedule.sched_remindtime.setTime(g_schedule.sched_time.getTime() - timebefore*1000*60*60*24);
@@ -134,21 +127,16 @@ $('body').ajaxComplete(function() {
             console.log(response.farewell);
             if (response.farewell === "OK. I got it.") {
                 console.log("Your schedule has been successfully saved ^_^");
+                // TODO
+                // Let user see the info
+                setTimeout(
+                    function(){
+                        $('#easycal-editcal').remove();
+                        $('#easycal-mist').remove();
+                    },
+                    2 * 1000);
             }
-            $('#easycal-editcal').remove();
-            $('#easycal-mist').remove();
         });
-
-        //alert("Your schedule has been successfully saved ^_^");
-        // Create a notification:
-        //AUTO_CLOSE_DELAY_SECONDS = 2;
-        //var notification = webkitNotifications.createNotification(
-                //'huaci.png',// icon url - can be relative
-                //chrome.i18n.getMessage('extNotifyTitle'),//'完成',  notification title
-                //chrome.i18n.getMessage('extNotifySubtitle')//'日程已经保存', notification body text
-                //);
-        //notification.show();
-        //setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
 
         return false;
     });
@@ -163,7 +151,6 @@ function fillForm() {
         $('#easycal-editcal #day').val(time.getDate());
         $('#easycal-editcal #hour').val(time.getHours());
         $('#easycal-editcal #minute').val(time.getMinutes());
-        //$('#second').val(time.getSeconds());
 
         $('#easycal-editcal #address').val(g_schedule.sched_loc);
         $('#easycal-editcal #summary').val(g_schedule.summary);
@@ -172,4 +159,3 @@ function fillForm() {
         $('#easycal-editcal #remindTime').val('15');
     }
 }
-
