@@ -1,8 +1,6 @@
-
 #outer_frame {
     padding: 0.5em 2em 0.5em 1em;
-    backgound-image:url(background-img.png);
-    background-repeat:repeat-y;
+    background:#000 url(background.gif) repeat-y;
 }
 
 #calendar {
