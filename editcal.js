@@ -1,4 +1,32 @@
-$(document).ready(function(){
+console.log('This is from content scripts!');
+//document.body.style.background = 'red !important';
+//$('body').css('background-color', 'red');
+//$.get(chrome.extension.getURL("editcal.html"), function(data){
+    //console.log('data:' + data);
+//});
+$('body').append('<div id="easycal-editcal"></div>');
+$('body').append('<div id="easycal-mist"></div>');
+$('#easycal-editcal').load(chrome.extension.getURL("editcal.html") + ' fieldset');
+$('#easycal-editcal').css({
+    position: "absolute",
+    top: "10%",
+    left: "20%",
+    width: "50%",
+    'z-index': 2,
+    'background-color': 'white',
+});
+$('#easycal-mist').css({
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    'z-index': 1,
+    'background-color': 'rgba(180, 180, 180, 0.9)',
+});
+console.log('test:' + $('#easycal-editcal').html());
+
+(function(){
     // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
     chrome.extension.onRequest.addListener(
         function(request, sender, sendResponse) {
@@ -6,7 +34,7 @@ $(document).ready(function(){
                 "request from a content script:" + sender.tab.url :
                 "request from the extension");
             console.log(request);
-            console.log(request.sched_time);
+            console.log(request.schedule_str.sched_time);
             if (request) {
                 // global schedule variable
                 g_newsched = request.newsched;
@@ -14,15 +42,18 @@ $(document).ready(function(){
                 console.log("newsched:" + g_newsched);
                 console.log("time: " + g_schedule.sched_time);
                 console.log("summary: " + g_schedule.summary);
-                fillForm();
                 sendResponse({farewell: "OK. Goodbye."});
             }
             else {
                 sendResponse({}); // snub them.
             }
         });
+})();
 
-    $('#submit').bind('click', function(event){
+$('body').ajaxComplete(function() {
+    console.log('ajax completed');
+    fillForm();
+    $('#easycal-editcal #submit').bind('click', function(event){
         event.preventDefault();
         // FIXME
         // add all input values
@@ -95,33 +126,30 @@ $(document).ready(function(){
         console.log(g_schedule);
 
         // store into local storage
-        var storekey = "sched" + g_schedule.id;
-        setItem(storekey, JSON.stringify(g_schedule));
+        var request = {
+            newsched: true,
+            schedule_str: JSON.stringify(g_schedule),
+        };
+        chrome.extension.sendRequest(request, function(response) {
+            console.log(response.farewell);
+            if (response.farewell === "OK. I got it.") {
+                console.log("Your schedule has been successfully saved ^_^");
+            }
+            $('#easycal-editcal').remove();
+            $('#easycal-mist').remove();
+        });
 
-        // should not increase shed_index here, should increase that right after getTime('sched_index');
-        //if (g_newsched) {
-        //    setItem('sched_index', ++g_schedule.id);
-        //}
-        
         //alert("Your schedule has been successfully saved ^_^");
         // Create a notification:
-        AUTO_CLOSE_DELAY_SECONDS = 2;
-        var notification = webkitNotifications.createNotification(
-                'huaci.png',// icon url - can be relative
-                chrome.i18n.getMessage('extNotifyTitle'),//'完成',  notification title
-                chrome.i18n.getMessage('extNotifySubtitle')//'日程已经保存', notification body text
-                );
-        notification.show();
-        setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
+        //AUTO_CLOSE_DELAY_SECONDS = 2;
+        //var notification = webkitNotifications.createNotification(
+                //'huaci.png',// icon url - can be relative
+                //chrome.i18n.getMessage('extNotifyTitle'),//'完成',  notification title
+                //chrome.i18n.getMessage('extNotifySubtitle')//'日程已经保存', notification body text
+                //);
+        //notification.show();
+        //setTimeout( function() { notification.cancel(); window.close();}, AUTO_CLOSE_DELAY_SECONDS*1000 );
 
-
-        // close this tab 
-        // NOTE: if you close this tab, setTimeout will be out of its function domain.
-        // I close the window after cancel the notification. Is there any better solution? 
-        // Like, put notification in background, the tab only deliver a message to the background.
-        // window.close();
-        
-        // prevent going to other page
         return false;
     });
 });
@@ -130,17 +158,18 @@ function fillForm() {
     if (g_schedule) {
         console.log('Filling the form...');
         var time = new Date(g_schedule.sched_time);
-        $('#year').val(time.getFullYear());
-        $('#month').val(time.getMonth() + 1);
-        $('#day').val(time.getDate());
-        $('#hour').val(time.getHours());
-        $('#minute').val(time.getMinutes());
+        $('#easycal-editcal #year').val(time.getFullYear());
+        $('#easycal-editcal #month').val(time.getMonth() + 1);
+        $('#easycal-editcal #day').val(time.getDate());
+        $('#easycal-editcal #hour').val(time.getHours());
+        $('#easycal-editcal #minute').val(time.getMinutes());
         //$('#second').val(time.getSeconds());
 
-        $('#address').val(g_schedule.sched_loc);
-        $('#summary').val(g_schedule.summary);
-        $('#content').val(g_schedule.content);
-        $('input:radio[name=type][value=meeting]')[0].checked = true;
-        $('#remindTime').val('15');
+        $('#easycal-editcal #address').val(g_schedule.sched_loc);
+        $('#easycal-editcal #summary').val(g_schedule.summary);
+        $('#easycal-editcal #content').val(g_schedule.content);
+        $('#easycal-editcal input:radio[name=type][value=meeting]')[0].checked = true;
+        $('#easycal-editcal #remindTime').val('15');
     }
-};
+}
+

@@ -1,35 +1,40 @@
-fieldset {
-    width: 27em;
-    margin: 2% 30% 0 30%;
+#easycal-editcal fieldset {
+    /*width: 27em;*/
+    margin: 2% 0 2% 0;
 /*    background-image: url(back_test.gif);*/
 }
 
-#address {
+#easycal-editcal #address {
     width: 27em;
 }
-#summary {
+#easycal-editcal #summary {
     width: 27em;
     vertical-align: top;
 }
-#content {
+#easycal-editcal #content {
     width: 27em;
     vertical-align: top;
 }
 
-.warning {
+#easycal-editcal .warning {
     color: red;
 }
 
-#div_submit {
+#easycal-editcal #div_submit {
     text-align: center;
 }
 
-#submit {
+#easycal-editcal #submit {
     padding: 0.5em 3em 0.5em 3em;
     margin: 1em 1em 1em 1em;
+    background-color: white;
 }
 
-.sch_div {
+#easycal-editcal .sch_div {
     white-space: nowrap;
     margin: 0.25em 0em 0.25em 0em;
+}
+
+#easycal-editcal input {
+    border: 1px solid black;
 }
