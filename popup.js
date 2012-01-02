@@ -294,6 +294,7 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                     }
                 } else {
+                    // == Edit_Save but the relative position of DOM tree is different
                     if (popup_save(sched_id, s) == true) {
                         // Hide and save and refresh
                         $("#" + sched_id + "_edit").css("display", "none");
@@ -304,11 +305,21 @@ function getSchedulesByTime(obj) {
                         // refresh sched
                         getSchedulesByTime(obj);
                     }
-                    // else: do nothing
+                    // else: time is wrong, flash div_time
+                    else { 
+                        var origin_color = $("#"+$(this).parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
+                        parentId = $(this).parent().parent().attr('id');
+                        for (var i=0; i<1200; i+= 400) {
+                            setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
+                            setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                        }
+                    }
+                            
                 }
             }
         } else if (action == "Edit_Save") {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
+            
             var schedule_str = getItem(sched_id);
             if (schedule_str != null) {
                 var s = JSON.parse(schedule_str);
@@ -324,7 +335,15 @@ function getSchedulesByTime(obj) {
                     // refresh sched
                     getSchedulesByTime(obj);
                 }
-                // else: do nothing
+                // else: time is wrong, flash div_time
+                else { 
+                    var origin_color = $("#"+$(this).parent().parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
+                    parentId = $(this).parent().parent().parent().attr('id');
+                    for (var i=0; i<1200; i+= 400) {
+                        setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
+                        setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                    }
+                }
             }
         } else if (action == "Edit_Cancel") {
             sched_id = /(sched\d+)_edit/.exec($(this).parent().parent().parent().attr('id'))[1];
@@ -348,6 +367,15 @@ function getSchedulesByTime(obj) {
                 // refresh sched
                 getSchedulesByTime(obj);
             }
+            // else: time is wrong, flash div_time
+            else { 
+                var origin_color = $("#"+$(this).parent().parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
+                parentId = $(this).parent().parent().parent().attr('id');
+                for (var i=0; i<1200; i+= 400) {
+                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
+                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                }
+            }
             
         } else if (action == "New_Cancel") {
             // Hide Adding, Show tip and adding button
@@ -360,6 +388,33 @@ function getSchedulesByTime(obj) {
             console.warn("Not supported yet!"+action);
         }
     });
+    
+    $("img.popup-menu-item").mouseover(function(){
+        var action = $(this).attr("alt");
+        if (action == "Remove") {
+            $(this)[0].src="Delete-New-mouseover.png";
+        } else if (action == "Edit") {
+            $(this)[0].src="Edit-New-mouseover.png";
+        } else if (action == "New") {
+            $(this)[0].src="popup_add_mouseover.png";
+        } else {
+            console.log('Not supported');
+        }
+    });
+    
+    $("img.popup-menu-item").mouseout(function(){
+        var action = $(this).attr("alt");
+        if (action == "Remove") {
+            $(this)[0].src="Delete-New.png";
+        } else if (action == "Edit") {
+            $(this)[0].src="Edit-New.png";
+        } else if (action == "New") {
+            $(this)[0].src="popup_add.png";
+        } else {
+            console.log('Not supported');
+        }
+    });
+
 }
 
 function popup_save(sched_id, s) {
@@ -384,12 +439,14 @@ function popup_save(sched_id, s) {
 
         // FIXME
         // #div_time is duplicate.
-        var div = $('#' + sched_id + '_edit #div_time');
-        if (div.html().indexOf(msg) == -1) {
-            div.append('<span class="warning">' + msg + '</span>');
-        } else {
-            div.find(".warning").append("!");
-        }
+        //var div = $('#' + sched_id + '_edit #div_time');
+        //if (div.html().indexOf(msg) == -1) {
+        //    div.append('<span class="warning">' + msg + '</span>');
+        //} else {
+        //    div.find(".warning").append("!");
+        //}
+        
+        // consider return where is wrong
         return false;
     }
 
@@ -471,12 +528,14 @@ function popup_new() {
 
         // FIXME
         // #div_time is duplicate.
-        var div = $('#div_new #div_time');
-        if (div.html().indexOf(msg) == -1) {
-            div.append('<span class="warning">' + msg + '</span>');
-        } else {
-            div.find(".warning").append("!");
-        }
+        //var div = $('#div_new #div_time');
+        //if (div.html().indexOf(msg) == -1) {
+        //    div.append('<span class="warning">' + msg + '</span>');
+        //} else {
+        //    div.find(".warning").append("!");
+        //}
+        
+        // consider return where is wrong
         return false;
     }
 
