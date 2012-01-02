@@ -41,8 +41,12 @@ function genericOnClick(info, tab) {
     schedule.sched_time = timeExtraction(my_selection)
     schedule.sched_loc = locExtraction(my_selection)
     
+    chrome.tabs.insertCSS(null, {file: "editcal.css"});
+    chrome.tabs.executeScript(null, {file: "jquery.js"});
+    //chrome.tabs.executeScript(null, {file: "storage.js"});
+    chrome.tabs.executeScript(null, {file: "editcal.js"});
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
-    chrome.tabs.create({"url":"editcal.html"});
+    //chrome.tabs.create({"url":"editcal.html"});
     chrome.tabs.getSelected(null, function(tab) {
         var request = {
             newsched: true,
@@ -57,6 +61,30 @@ function genericOnClick(info, tab) {
     console.log("item " + info.menuItemId + " was clicked");
     console.log("info: " + JSON.stringify(info));
     console.log("tab: " + JSON.stringify(tab));
+
+    // listen for schedule info
+    chrome.extension.onRequest.addListener(
+        function(request, sender, sendResponse) {
+            console.log(sender.tab ?
+                "request from a content script:" + sender.tab.url :
+                "request from the extension");
+            if (request) {
+                console.log("request:" + request);
+                // global schedule variable
+                g_newsched = request.newsched;
+                g_schedule = JSON.parse(request.schedule_str);
+                console.log("newsched:" + g_newsched);
+                console.log("time: " + g_schedule.sched_time);
+                console.log("summary: " + g_schedule.summary);
+                var storekey = "sched" + g_schedule.id;
+                setItem(storekey, JSON.stringify(g_schedule));
+                sendResponse({farewell: "OK. I got it."});
+            }
+            else {
+                sendResponse({}); // snub them.
+            }
+        });
+
 }
 
 var title = chrome.i18n.getMessage("extMenuTitle");
