@@ -8,9 +8,11 @@ $('#easycal-mist').css({
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
+    width: $('body').css('width'),
     height: $('body').css('height'),
-    'z-index': 1001,
+    // I do not think we can come up with a big enough and reasonable
+    // z-index value without many many tests!
+    'z-index': 10001,
     'background-color': 'rgba(180, 180, 180, 0.9)',
 });
 // Click on grey out area to cancel.
@@ -48,7 +50,7 @@ $('body').ajaxComplete(function() {
 
     $('#easycal-editcal').css({
         width: "40%",
-        'z-index': 1002,
+        'z-index': 10002,
         'background-color': 'white',
     });
 
