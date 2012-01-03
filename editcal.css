@@ -23,6 +23,11 @@
     background-color:#005AF5;
 }
 
+#easycal-editcal #div_title #editcal_logo {
+    padding:0;
+    margin:0;
+    border:"0";
+}
 
 #easycal-editcal #div_type {
     display:none;
@@ -63,6 +68,8 @@
 
 #easycal-editcal #easycal-form-submit, #easycal-form-cancel {
     padding: 0.25em 0.5em 0.25em 0.5em;
+    margin: 0;
+    border:"0";
 }
 
 
