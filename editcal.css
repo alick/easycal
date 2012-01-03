@@ -33,7 +33,9 @@
 #easycal-editcal #easycal-form-submit, #easycal-form-cancel {
     padding: 0.5em 3em 0.5em 3em;
     margin: 1em 1em 1em 1em;
-    background-color: white;
+    background-color: #DDDDDD;
+    border: 1px solid black;
+    border-radius: 3px;
 }
 
 #easycal-editcal .sch_div {
