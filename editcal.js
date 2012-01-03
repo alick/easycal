@@ -13,7 +13,7 @@ $('#easycal-mist').css({
     // I do not think we can come up with a big enough and reasonable
     // z-index value without many many tests!
     'z-index': 10001,
-    'background-color': 'rgba(180, 180, 180, 0.9)',
+    'background-color': 'rgba(105, 105, 105, 0.6)',
 });
 // Click on grey out area to cancel.
 $('#easycal-mist').click(function(){
