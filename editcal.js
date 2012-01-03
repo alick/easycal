@@ -75,8 +75,12 @@ $('body').ajaxComplete(function() {
     });
 
     fillForm();
-    $('#easycal-editcal #submit').bind('click', function(event){
-        event.preventDefault();
+    $('#easycal-editcal #easycal-form-cancel').bind('click', function(){
+        // Remove the form.
+        $('#easycal-editcal').remove();
+        $('#easycal-mist').remove();
+    });
+    $('#easycal-editcal #easycal-form-submit').bind('click', function(){
 
         var userYear = Number($('#year').val());
         var userMonth = Number($('#month').val()-1);

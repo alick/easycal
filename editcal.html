@@ -18,38 +18,42 @@
 <form action="" method="post">
 
 <div class="sch_div" id="div_time">
-时间:&nbsp;
-<input type="text" maxlength="4" style="width:4em;" id="year">年
-<input type="text" maxlength="2" style="width:2em;" id="month">月
-<input type="text" maxlength="2" style="width:2em;" id="day">日
-<input type="text" maxlength="2" style="width:2em;" id="hour">时
-<input type="text" maxlength="2" style="width:2em;" id="minute">分
+    <label for="year">时间: </label>
+<input type="text" maxlength="4" style="width:4em;" id="year">-
+<input type="text" maxlength="2" style="width:2em;" id="month">-
+<input type="text" maxlength="2" style="width:2em;" id="day">&nbsp;
+<input type="text" maxlength="2" style="width:2em;" id="hour">:
+<input type="text" maxlength="2" style="width:2em;" id="minute">
 </div>
 
 <div class="sch_div" id="div_loc">
-地点:&nbsp;
+    <label for="address">地点: </label>
 <input type="text" id="address">
 </div>
 
 <div class="sch_div" id="div_abstr">
-摘要:&nbsp;
+    <label for="summary">摘要: </label>
 <input type="text" id="summary" name="summary"></input>
 </div>
 
 <div class="sch_div" id="div_content">
-内容:&nbsp;
+    <label for="content">内容: </label>
 <textarea cols="50" rows="4" id="content" name="content"></textarea>
 </div>
 
 <div class="sch_div" id="div_type">
-类型:&nbsp;
-<input type="radio" name="type" value="meeting" checked="checked"/> 会议
-<input type="radio" name="type" value="memorial"/> 纪念日
-<input type="radio" name="type" value="deadline"/> deadline
+    <label for="meeting">类型: </label>
+    <input type="radio" name="type" id="meeting" value="meeting" checked="checked"/>
+    <label for="meeting">会议</label>
+    <input type="radio" name="type" id="memorial" value="memorial"/>
+    <label for="memorial">纪念日</label>
+    <input type="radio" name="type" id="deadline" value="deadline"/>
+    <label for="deadline">截止日期</label>
 </div>
 
 <div class="sch_div" id="div_remind">
-提醒:&nbsp;&nbsp;提前&nbsp;
+    <label for="remindTime">提醒: </label>
+    <label for="remindTime">提前 </label>
 <input type="text" style= "overflow-x:visible;width:3em;" id="remindTime">
 <select name="remindUnit">
 <option value="day">天</option>
@@ -59,7 +63,8 @@
 </div>
 
 <div id="div_submit">
-<input type="submit" id="submit" value="提交" />
+<input type="button" id="easycal-form-submit" value="提交" />
+<input type="button" id="easycal-form-cancel" value="取消" />
 </div>
 
 </form>

@@ -1,7 +1,7 @@
 #easycal-editcal fieldset {
-    /*width: 27em;*/
     margin: 2% 0 2% 0;
-/*    background-image: url(back_test.gif);*/
+    background-color: white;
+    color: black;
 }
 
 #easycal-editcal #address {
@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-#easycal-editcal #submit {
+#easycal-editcal #easycal-form-submit, #easycal-form-cancel {
     padding: 0.5em 3em 0.5em 3em;
     margin: 1em 1em 1em 1em;
     background-color: white;
