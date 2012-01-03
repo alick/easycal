@@ -4,14 +4,6 @@ $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
 $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
                            ' fieldset');
-$('#easycal-editcal').css({
-    position: "absolute",
-    top: (window.pageYOffset + window.innerHeight / 10),
-    left: (window.pageXOffset + window.innerWidth / 5),
-    width: "50%",
-    'z-index': 1002,
-    'background-color': 'white',
-});
 $('#easycal-mist').css({
     position: "absolute",
     top: 0,
@@ -43,7 +35,7 @@ $('#easycal-mist').click(function(){
                 console.log("newsched:" + g_newsched);
                 console.log("time: " + g_schedule.sched_time);
                 console.log("summary: " + g_schedule.summary);
-                sendResponse({farewell: "OK. Goodbye."});
+                //sendResponse({farewell: "OK. Goodbye."});
             }
             else {
                 sendResponse({}); // snub them.
@@ -52,7 +44,34 @@ $('#easycal-mist').click(function(){
 })();
 
 $('body').ajaxComplete(function() {
-    console.log('ajax completed');
+    console.log('Ajax completed.');
+
+    $('#easycal-editcal').css({
+        width: "40%",
+        'z-index': 1002,
+        'background-color': 'white',
+    });
+
+    var window_height = window.innerHeight;
+    var editcal_height = $('#easycal-editcal').height();
+    console.debug(window_height + ', ' + editcal_height);
+    var editcal_top = window.pageYOffset +
+        ((window_height > editcal_height) ?
+         ((window_height - editcal_height) / 2) : 0);
+
+    var window_width = window.innerWidth;
+    var editcal_width = $('#easycal-editcal').width();
+    console.debug(window_width + ', ' + editcal_width);
+    var editcal_left = window.pageXOffset +
+        ((window_width > editcal_width) ?
+         ((window_width - editcal_width) / 2) : 0);
+
+    $('#easycal-editcal').css({
+        position: "absolute",
+        top: editcal_top,
+        left: editcal_left,
+    });
+
     fillForm();
     $('#easycal-editcal #submit').bind('click', function(event){
         event.preventDefault();
