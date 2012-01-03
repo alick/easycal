@@ -21,6 +21,11 @@ $('#easycal-mist').css({
     'z-index': 1001,
     'background-color': 'rgba(180, 180, 180, 0.9)',
 });
+// Click on grey out area to cancel.
+$('#easycal-mist').click(function(){
+    $('#easycal-editcal').remove();
+    $('#easycal-mist').remove();
+});
 
 (function(){
     // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
