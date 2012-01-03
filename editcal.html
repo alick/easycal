@@ -13,17 +13,17 @@
 <body>
 
 <fieldset>
-<legend>编辑日程</legend>
+<div class="div_title" id="div_title"><img id="editcal_logo" alt="EasyCal" src="huaci.png" width="25" height="25">&nbsp;新建日程&nbsp;</div>
 
-<form action="" method="post">
+<form id="form_fill" action="" method="post">
 
 <div class="sch_div" id="div_time">
     <label for="year">时间: </label>
-<input type="text" maxlength="4" style="width:4em;" id="year">&nbsp;-
-<input type="text" maxlength="2" style="width:2em;" id="month">&nbsp;-
-<input type="text" maxlength="2" style="width:2em;" id="day">&nbsp;
-<input type="text" maxlength="2" style="width:2em;" id="hour">&nbsp;:
-<input type="text" maxlength="2" style="width:2em;" id="minute">
+<input type="text" maxlength="4" style="width:3em;" id="year">&nbsp;-&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="month">&nbsp;-&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="day">&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="hour">&nbsp;:&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="minute">
 </div>
 
 <div class="sch_div" id="div_loc">
@@ -54,7 +54,7 @@
 <div class="sch_div" id="div_remind">
     <label for="remindTime">提醒: </label>
     <label for="remindTime">提前 </label>
-<input type="text" style= "overflow-x:visible;width:3em;" id="remindTime">
+<input type="text" style= "overflow-x:visible;width:2em;" id="remindTime">
 <select name="remindUnit">
 <option value="day">天</option>
 <option value="hour">小时</option>
@@ -63,8 +63,8 @@
 </div>
 
 <div id="div_submit">
-<input type="button" id="easycal-form-submit" value="提交" />
-<input type="button" id="easycal-form-cancel" value="取消" />
+<img id="easycal-form-submit" alt="submit" src="easycal_img/save.png">
+<img id="easycal-form-cancel" alt="cancel" src="easycal_img/cancel.png">
 </div>
 
 </form>

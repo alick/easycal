@@ -1,4 +1,8 @@
 console.debug('This is from content scripts!');
+
+var origin_overflowY = document.body.style.overflowY;
+document.body.style.overflowY = 'hidden';
+
 // Add our popup layer div.
 $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
@@ -15,11 +19,25 @@ $('#easycal-mist').css({
     'z-index': 10001,
     'background-color': 'rgba(105, 105, 105, 0.6)',
 });
+
+
 // Click on grey out area to cancel.
 $('#easycal-mist').click(function(){
+    document.body.style.overflowY=origin_overflowY;
     $('#easycal-editcal').remove();
     $('#easycal-mist').remove();
 });
+
+var imgLogo = "";
+var imgSave = "";
+var imgCancel = "";
+var imgSave_onmouseover = "";
+var imgCancel_onmouseover = "";
+var imgSaving1 = "";
+var imgSaving2 = "";
+var imgSaving3 = "";
+var imgSavingOk = "";
+
 
 (function(){
     // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
@@ -38,6 +56,16 @@ $('#easycal-mist').click(function(){
                 console.log("time: " + g_schedule.sched_time);
                 console.log("summary: " + g_schedule.summary);
                 //sendResponse({farewell: "OK. Goodbye."});
+
+                imgLogo = request.imgFile.imgLogo;
+                imgSave = request.imgFile.imgSave;
+                imgCancel = request.imgFile.imgCancel;
+                imgSave_onmouseover = request.imgFile.imgSave_onmouseover;
+                imgCancel_onmouseover = request.imgFile.imgCancel_onmouseover;
+                imgSaving1 = request.imgFile.imgSaving1;
+                imgSaving2 = request.imgFile.imgSaving2;
+                imgSaving3 = request.imgFile.imgSaving3;
+                imgSavingOk = request.imgFile.imgSavingOk;
             }
             else {
                 sendResponse({}); // snub them.
@@ -73,12 +101,18 @@ $('body').ajaxComplete(function() {
         top: editcal_top,
         left: editcal_left,
     });
+    
+    // Show pictures
+    $('#easycal-editcal #editcal_logo')[0].src = imgLogo;
+    $('#easycal-editcal #easycal-form-submit')[0].src = imgSave;
+    $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel;
 
     fillForm();
     $('#easycal-editcal #easycal-form-cancel').bind('click', function(){
         // Remove the form.
         $('#easycal-editcal').remove();
         $('#easycal-mist').remove();
+        document.body.style.overflowY=origin_overflowY;
     });
     $('#easycal-editcal #easycal-form-submit').bind('click', function(){
 
@@ -151,18 +185,40 @@ $('body').ajaxComplete(function() {
                 console.log("Your schedule has been successfully saved ^_^");
                 // TODO
                 // Let user see the info
-
-                $('#easycal-editcal').html("Your schedule has been successfully saved ^_^");
+                
+                var pic_height = $('#form_fill').css('height');
+                $('#form_fill').css("text-align", "center");
+                $('#form_fill').html("<img alt='saving' src='"+imgSaving1+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
+                
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSaving2+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 330);
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSaving3+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 660);
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSavingOk+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 1000);
+                
                 setTimeout(
                     function(){
                         $('#easycal-editcal').remove();
                         $('#easycal-mist').remove();
+                        document.body.style.overflowY=origin_overflowY;
                     },
-                    1 * 1000);
+                    2000);
             }
         });
 
         return false;
+    });
+    
+
+    $('#easycal-editcal #easycal-form-submit').bind('mouseenter', function(){
+        $('#easycal-editcal #easycal-form-submit')[0].src = imgSave_onmouseover;
+    });
+    $('#easycal-editcal #easycal-form-cancel').bind('mouseenter', function(){
+        $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel_onmouseover;
+    });
+    $('#easycal-editcal #easycal-form-submit').bind('mouseleave', function(){
+        $('#easycal-editcal #easycal-form-submit')[0].src = imgSave;
+    });
+    $('#easycal-editcal #easycal-form-cancel').bind('mouseleave', function(){
+        $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel;
     });
 });
 

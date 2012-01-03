@@ -1,6 +1,17 @@
 // Copyright (c) 2011 wangheda All rights reserved
 // Use of this source code is governed by GPL license
 
+// set picture used in editcal
+var imgLogo = chrome.extension.getURL("huaci.png");
+var imgSave = chrome.extension.getURL("easycal_img/save.png");
+var imgCancel = chrome.extension.getURL("easycal_img/cancel.png");
+var imgSave_onmouseover = chrome.extension.getURL("easycal_img/save_mouseover.png");
+var imgCancel_onmouseover = chrome.extension.getURL("easycal_img/cancel_mouseover.png");
+var imgSaving1 = chrome.extension.getURL("easycal_img/saving_1.png");
+var imgSaving2 = chrome.extension.getURL("easycal_img/saving_2.png");
+var imgSaving3 = chrome.extension.getURL("easycal_img/saving_3.png");
+var imgSavingOk = chrome.extension.getURL("easycal_img/saving_ok.png");
+
 // A generic onclick callback function.
 function genericOnClick(info, tab) {
     var my_selection = info.selectionText;
@@ -51,6 +62,15 @@ function genericOnClick(info, tab) {
         var request = {
             newsched: true,
             schedule_str: JSON.stringify(schedule),
+            imgFile: {"imgLogo":imgLogo, 
+                      "imgSave":imgSave, 
+                      "imgSave_onmouseover":imgSave_onmouseover, 
+                      "imgCancel":imgCancel, 
+                      "imgCancel_onmouseover":imgCancel_onmouseover, 
+                      "imgSaving1":imgSaving1, 
+                      "imgSaving2":imgSaving2, 
+                      "imgSaving3":imgSaving3, 
+                      "imgSavingOk":imgSavingOk,},
         };
         chrome.tabs.sendRequest(tab.id, request,
             function(response) {
@@ -91,5 +111,4 @@ var title = chrome.i18n.getMessage("extMenuTitle");
 var id = chrome.contextMenus.create({"title": title, "contexts":["selection"],
                                        "onclick": genericOnClick});
 //console.log("'" + context + "' item:" + id);
-
 
