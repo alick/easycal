@@ -49,7 +49,7 @@ $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
 
     $('#easycal-editcal').css({
-        width: "40%",
+        width: '33em', // the appropriate value ?
         'z-index': 10002,
         'background-color': 'white',
     });
