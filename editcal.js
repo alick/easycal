@@ -103,9 +103,9 @@ $('body').ajaxComplete(function() {
     });
     
     // Show pictures
-    $('#easycal-editcal #editcal_logo')[0].src = imgLogo;
-    $('#easycal-editcal #easycal-form-submit')[0].src = imgSave;
-    $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel;
+    $('#easycal-editcal #editcal_logo')[0].src = chrome.extension.getURL("huaci.png");//imgLogo;
+    $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/save.png");//imgSave;
+    $('#easycal-editcal #easycal-form-cancel')[0].src = chrome.extension.getURL("easycal_img/cancel.png");//imgCancel;
 
     fillForm();
     $('#easycal-editcal #easycal-form-cancel').bind('click', function(){
@@ -188,11 +188,11 @@ $('body').ajaxComplete(function() {
                 
                 var pic_height = $('#form_fill').css('height');
                 $('#form_fill').css("text-align", "center");
-                $('#form_fill').html("<img alt='saving' src='"+imgSaving1+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
+                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_1.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
                 
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSaving2+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 330);
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSaving3+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 660);
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+imgSavingOk+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 1000);
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_2.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 330);
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_3.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 660);
+                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 1000);
                 
                 setTimeout(
                     function(){
@@ -209,16 +209,16 @@ $('body').ajaxComplete(function() {
     
 
     $('#easycal-editcal #easycal-form-submit').bind('mouseenter', function(){
-        $('#easycal-editcal #easycal-form-submit')[0].src = imgSave_onmouseover;
+        $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/save_mouseover.png");//imgSave_onmouseover;
     });
     $('#easycal-editcal #easycal-form-cancel').bind('mouseenter', function(){
-        $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel_onmouseover;
+        $('#easycal-editcal #easycal-form-cancel')[0].src = chrome.extension.getURL("easycal_img/cancel_mouseover.png");//imgCancel_onmouseover;
     });
     $('#easycal-editcal #easycal-form-submit').bind('mouseleave', function(){
-        $('#easycal-editcal #easycal-form-submit')[0].src = imgSave;
+        $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/save.png");//imgSave;
     });
     $('#easycal-editcal #easycal-form-cancel').bind('mouseleave', function(){
-        $('#easycal-editcal #easycal-form-cancel')[0].src = imgCancel;
+        $('#easycal-editcal #easycal-form-cancel')[0].src = chrome.extension.getURL("easycal_img/cancel.png");//imgCancel;
     });
 });
 
