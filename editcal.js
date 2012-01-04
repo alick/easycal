@@ -28,52 +28,6 @@ $('#easycal-mist').click(function(){
     $('#easycal-mist').remove();
 });
 
-var imgLogo = "";
-var imgSave = "";
-var imgCancel = "";
-var imgSave_onmouseover = "";
-var imgCancel_onmouseover = "";
-var imgSaving1 = "";
-var imgSaving2 = "";
-var imgSaving3 = "";
-var imgSavingOk = "";
-
-
-(function(){
-    console.log("addListener");
-    // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
-    chrome.extension.onRequest.addListener(
-        function(request, sender, sendResponse) {
-            console.log(sender.tab ?
-                "request from a content script:" + sender.tab.url :
-                "request from the extension");
-            console.log(request);
-            console.log(request.schedule_str.sched_time);
-            if (request) {
-                // global schedule variable
-                g_newsched = request.newsched;
-                g_schedule = JSON.parse(request.schedule_str);
-                console.log("newsched:" + g_newsched);
-                console.log("time: " + g_schedule.sched_time);
-                console.log("summary: " + g_schedule.summary);
-                sendResponse({farewell: "OK. Goodbye."});
-
-                imgLogo = request.imgFile.imgLogo;
-                imgSave = request.imgFile.imgSave;
-                imgCancel = request.imgFile.imgCancel;
-                imgSave_onmouseover = request.imgFile.imgSave_onmouseover;
-                imgCancel_onmouseover = request.imgFile.imgCancel_onmouseover;
-                imgSaving1 = request.imgFile.imgSaving1;
-                imgSaving2 = request.imgFile.imgSaving2;
-                imgSaving3 = request.imgFile.imgSaving3;
-                imgSavingOk = request.imgFile.imgSavingOk;
-            }
-            else {
-                sendResponse({farewell: "NO. request is null."}); // snub them.
-            }
-        });
-})();
-
 $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
 
