@@ -40,6 +40,7 @@ var imgSavingOk = "";
 
 
 (function(){
+    console.log("addListener");
     // SEE ALSO http://code.google.com/chrome/extensions/messaging.html
     chrome.extension.onRequest.addListener(
         function(request, sender, sendResponse) {
@@ -55,7 +56,7 @@ var imgSavingOk = "";
                 console.log("newsched:" + g_newsched);
                 console.log("time: " + g_schedule.sched_time);
                 console.log("summary: " + g_schedule.summary);
-                //sendResponse({farewell: "OK. Goodbye."});
+                sendResponse({farewell: "OK. Goodbye."});
 
                 imgLogo = request.imgFile.imgLogo;
                 imgSave = request.imgFile.imgSave;
@@ -68,7 +69,7 @@ var imgSavingOk = "";
                 imgSavingOk = request.imgFile.imgSavingOk;
             }
             else {
-                sendResponse({}); // snub them.
+                sendResponse({farewell: "NO. request is null."}); // snub them.
             }
         });
 })();
@@ -223,6 +224,7 @@ $('body').ajaxComplete(function() {
 });
 
 function fillForm() {
+    console.log("enter fillForm");
     if (g_schedule) {
         console.log('Filling the form...');
         var time = new Date(g_schedule.sched_time);
