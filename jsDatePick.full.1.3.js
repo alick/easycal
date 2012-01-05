@@ -56,12 +56,18 @@
 */
 // The language array - change these values to your language to better fit your needs!
 g_l = [];
-g_l["MONTHS"] = ["Janaury","February","March","April","May","June","July","August","September","October","November","December"];
-g_l["DAYS_3"] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-g_l["MONTH_FWD"] = "Move a month forward";
-g_l["MONTH_BCK"] = "Move a month backward";
-g_l["YEAR_FWD"] = "Move a year forward";
-g_l["YEAR_BCK"] = "Move a year backward";
+//g_l["MONTHS"] = ["Janaury","February","March","April","May","June","July","August","September","October","November","December"];
+//g_l["DAYS_3"] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+//g_l["MONTH_FWD"] = "Move a month forward";
+//g_l["MONTH_BCK"] = "Move a month backward";
+//g_l["YEAR_FWD"] = "Move a year forward";
+//g_l["YEAR_BCK"] = "Move a year backward";
+g_l["MONTHS"] = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+g_l["DAYS_3"] = ["日","一","二","三","四","五","六"];
+g_l["MONTH_FWD"] = "下一月";
+g_l["MONTH_BCK"] = "上一月";
+g_l["YEAR_FWD"] = "上一年";
+g_l["YEAR_BCK"] = "下一年";
 g_l["CLOSE"] = "Close the calendar";
 g_l["ERROR_2"] = g_l["ERROR_1"] = "Date object invalid!";
 g_l["ERROR_4"] = g_l["ERROR_3"] = "Target invalid";

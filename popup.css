@@ -1,31 +1,34 @@
 #outer_frame {
     padding: 0.5em 2em 0.5em 1em;
-    background:#000 url(background.gif) repeat-y;
+    background:#BDD1F7 url(background.png) repeat-y;
 }
 
 #calendar {
-    margin: 0.4em 0.4em 1em 0.4em;
-    outline:#B6D1EE medium solid;
+    margin: 0.4em 0.4em 0.5em 0.4em;
+    outline:#ECF1F9 1px solid;
     width: 16em;
     height: 245px;
     text-align:center;
     overflow:hidden;
-    background-color:#F5F5F5;
+    background-color:#F7FAFD;
 }
 
 #schedhead {
-    background-color: #B6D1EE;
+    background-color: #F9FBFD;
+    width: 16em;
+    outline:#F9FBFD 1px solid;
+    text-align:center;
     display: block;
-    margin: 0 3px 0.2em 0.4em;
+    margin: 0.8em 0.4em 0.8em 0.4em;
     padding: 0;
-    height: 1.2em;
-    outline:#B6D1EE medium solid;
+    font-size:1.0em;
 }
 
 #sched {
-    margin: 0.2em 0.4em 0 0.4em;
-    outline:#B6D1EE medium solid;
+    margin: 0.5em 0.4em 0.5em 0.4em;
+    outline:#ECF1F9 1px solid;
     width: 16em;
+    background-color:#F7FAFD;
 }
 
 
@@ -50,6 +53,21 @@ td.summary {
 
 td.time {
     width:3em;
+}
+
+td.adding {
+    width:13em;
+}
+
+div#div_submit {
+    font-size: 0.8em;
+}
+
+.adding a {
+    color: black;
+    font-size: smaller;
+    text-decoration: none;
+    cursor: text; /* fake a non-anchor */
 }
 
 .summary a {

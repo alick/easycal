@@ -5,7 +5,7 @@
 
 */
 
-.JsDatePickBox { position:relative; width:212px; height:235px;font-family:Arial; margin:0.3em 1.4em 0.3em 1.4em; background-color:#F5F5F5;}
+.JsDatePickBox { position:relative; width:212px; height:235px;font-family:Arial; margin:0.3em 1.4em 0.3em 1.4em; background-color:#F7FAFD;}
 
 .JsDatePickBox .jsDatePickCloseButton { cursor:pointer; position:absolute; z-index:1; top:1px; right:10px; width:33px; height:13px; background:url(img/closeButton_normal.gif) left top no-repeat; }
 .JsDatePickBox .jsDatePickCloseButtonOver { cursor:pointer; position:absolute; z-index:1; top:1px; right:10px; width:33px; height:13px; background:url(img/closeButton_over.gif) left top no-repeat; }
@@ -14,27 +14,27 @@
 .JsDatePickBox .boxLeftWall { float:left; width:7px; margin:0; padding:0; }
 .JsDatePickBox .boxLeftWall .leftTopCorner{ margin:0; padding:0; width:7px; height:8px; background:url(img/boxTopLeftCorner.png) left top no-repeat;  overflow:hidden; }
 .JsDatePickBox .boxLeftWall .leftBottomCorner{ margin:0; padding:0; width:7px; height:8px; background:url(img/boxBottomLeftCorner.png) left top no-repeat;  overflow:hidden; }
-.JsDatePickBox .boxLeftWall .leftWall{ margin:0; padding:0; width:7px; background:url(img/boxSideWallPx.gif) #F5F5F5 left top repeat-y; overflow:hidden; }
+.JsDatePickBox .boxLeftWall .leftWall{ margin:0; padding:0; width:7px; background:url(img/boxSideWallPx.gif) #F7FAFD left top repeat-y; overflow:hidden; }
 
 .JsDatePickBox .boxRightWall { float:left; width:7px; margin:0; padding:0;}
 .JsDatePickBox .boxRightWall .rightTopCorner{ margin:0; padding:0; width:7px; height:8px; background:url(img/boxTopRightCorner.png) left top no-repeat;  overflow:hidden; }
 .JsDatePickBox .boxRightWall .rightBottomCorner{ margin:0; padding:0; width:7px; height:8px; background:url(img/boxBottomRightCorner.png) left top no-repeat;  overflow:hidden; }
-.JsDatePickBox .boxRightWall .rightWall{ margin:0; padding:0; width:7px; background:url(img/boxSideWallPx.gif) #F5F5F5 right top repeat-y; overflow:hidden; }
+.JsDatePickBox .boxRightWall .rightWall{ margin:0; padding:0; width:7px; background:url(img/boxSideWallPx.gif) #F7FAFD right top repeat-y; overflow:hidden; }
 
-.JsDatePickBox .topWall { position:absolute; overflow:hidden; top:0px; left:7px; width:198px; height:4px; background:url(img/boxTopPx.gif) #F5F5F5 left top repeat-x; }
-.JsDatePickBox .bottomWall { position:absolute; overflow:hidden; bottom:-1px; left:7px; width:198px; height:4px; background:url(img/boxTopPx.gif) #F5F5F5 left top repeat-x; }
+.JsDatePickBox .topWall { position:absolute; overflow:hidden; top:0px; left:7px; width:198px; height:4px; background:url(img/boxTopPx.gif) #F7FAFD left top repeat-x; }
+.JsDatePickBox .bottomWall { position:absolute; overflow:hidden; bottom:-1px; left:7px; width:198px; height:4px; background:url(img/boxTopPx.gif) #F7FAFD left top repeat-x; }
 
 .JsDatePickBox .hiddenBoxLeftWall { float:left; width:0px; overflow:hidden; overflow:hidden;}
 .JsDatePickBox .hiddenBoxRightWall { float:left; width:0px; overflow:hidden; overflow:hidden;}
 
-.JsDatePickBox .boxMain { float:left; background-color:#F5F5F5; margin:0; padding:15px 0 5px 0; }
-.JsDatePickBox .boxMainStripped { background:#F5F5F5; border:none; }
+.JsDatePickBox .boxMain { float:left; background-color:#F7FAFD; margin:0; padding:15px 0 5px 0; }
+.JsDatePickBox .boxMainStripped { background:#F7FAFD; border:none; }
 .JsDatePickBox .tooltip { height:12px; line-height:11px; overflow:hidden; font-size:10px; color:#666666; text-align:left; padding:0px; margin:2px 0 2px 0; }
 .JsDatePickBox .weekDaysRow { height:12px; overflow:hidden; line-height:11px; font-size:10px; color:#666666; text-align:center; padding:0px; margin:2px 0 0 0; }
 .JsDatePickBox .weekDaysRow .weekDay { float:left; height:14px; overflow:hidden; width:24px; margin:0 5px 0 0; padding:0; }
 
-.JsDatePickBox .boxMainInner { background:#F5F5F5; width:198px; float:left; margin:5px 0.5em 0 0.5em; padding:0; }
-.JsDatePickBox .boxMainCellsContainer { background-color:#F5F5F5; margin:0; padding:0; }
+.JsDatePickBox .boxMainInner { background:#F7FAFD; width:198px; float:left; margin:5px 0.5em 0 0.5em; padding:0; }
+.JsDatePickBox .boxMainCellsContainer { background-color:#F7FAFD; margin:0; padding:0; }
 
 .JsDatePickBox .boxMainInner .controlsBar { overflow:hidden; height:20px; position:relative; }
 .JsDatePickBox .boxMainInner .controlsBarText { overflow:hidden; height:20px; line-height:20px; color:#000000; font-size:12px; text-align:center; }

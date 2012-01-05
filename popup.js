@@ -92,6 +92,8 @@ function getSchedulesByTime(obj) {
         }
     }
     TodayScheduleList.sort(myCmp);
+    
+    document.getElementById('schedhead').innerHTML = obj.year.toString() + "年" + obj.month.toString() + "月" + obj.day.toString() + "日";
 
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         //var schedule_str = getItem('sched' + i);
@@ -106,61 +108,70 @@ function getSchedulesByTime(obj) {
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
             (time.getDate() == obj.day)) {
-            sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table>"
+            sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table'>"
             console.debug("time: " + time.toISOString());
             var sched_html = "";
-            sched_html += '<tr id="sched' + s.id + '"><td class="time">';
+            sched_html += '<tr id="sched' + s.id + '">';
+            
+            sched_html += '<td><img src="Edit-New.png" alt="Edit" title="修改" height="20px" width="20px" class="popup-menu-item"></td>';
+            
+            sched_html += '<td class="time">';
             if (Number(time.getMinutes()) < 10) {
                 sched_html += time.getHours() + ":0" + time.getMinutes() + "</td>";
             } else {
                 sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
             }
+            
             sched_html += '<td class="summary"><a href="#" title="' + s.content + '">';
             var disp_str = s.summary;
             if (disp_str.length > 13) {
                 disp_str = disp_str.substr(0, 12) + '...';
             }
-            sched_html += disp_str + "</a></td>";
+            sched_html += "&nbsp;" + disp_str + "</a></td>";
             //sched_html += s.summary + "</td>";
-            sched_html += '<td><img src="Edit-New.png" alt="Edit" title="修改" height="20px" width="20px" class="popup-menu-item"></td>';
+            
             sched_html += '<td><img src="Delete-New.png" alt="Remove" title="删除" height="20px" width="20px" class="popup-menu-item"></td></tr>';
             sched_table += sched_html;
             sched_table += "</table></div>";
             // This is to add a invisible editing div
-            var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;'>";
+            var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;padding:0em 0em 0.5em 0em;'>";
             editing_div += 
-                "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>修改日程</div>" +
+                "<div style='display:none;text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>修改日程</div>" +
                 "<div style='padding:0em 0 0 0em;'>" + 
                 "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-                "时间: " + 
-                "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear()+"'>-" + 
-                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+time.getMonth()+"'>-" + 
-                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate()+"'>   " + 
-                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+time.getHours()+"'>:" + 
-                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='"+time.getMinutes()+"'>" + 
+                //"时间: " + 
+                "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
+                "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear()+"'>年" + 
+                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+time.getMonth()+"'>月" + 
+                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate()+"'>日 " + 
+                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+time.getHours()+"'>时" + 
+                "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='"+time.getMinutes()+"'>分" + 
                 "</div>" + 
                 
                 "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-                "内容: " + 
+                //"日程: " + 
+                "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
                 "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
                 "</div>" + 
 
-                "<div class='sch_div' id='div_loc' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
+                "<div class='sch_div' id='div_loc' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
                 "地点: " + 
                 "<input type='text' style='width:14em;height:1em;' id='address'>" + 
                 "</div>" + 
                 
                 
                 
-                "<div class='sch_div' id='div_type' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
+                "<div class='sch_div' id='div_type' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
                 "类型: " + 
                 "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> 会议" + 
                 "<input type='radio' name='type' id='memorial' value='memorial'/> 纪念日" + 
                 "<input type='radio' name='type' id='deadline' value='deadline'/> 截止日期" + 
                 "</div>" + 
                 
-                "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-                "提醒: 提前 " + 
+                "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0em 0.2em;'>" + 
+                //"提醒: " + 
+                "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;'>" + 
+                "提前 " + 
                 "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime'>" + 
                 "<select id='remindUnit' name='remindUnit'>" + 
                 "<option value='day'>天</option>" + 
@@ -169,7 +180,7 @@ function getSchedulesByTime(obj) {
                 "</select>" + 
                 "</div>" + 
                 
-                "<div id='div_submit' style='text-align:center;background-color:#C0C0C0;padding:0.5em 0.5em 0.5em 0.5em;'>" + 
+                "<div id='div_submit' style='display:none;text-align:center;background-color:#C0C0C0;padding:0.5em 0.5em 0.5em 0.5em;'>" + 
                 "<input type='submit' class='popup-menu-item' alt='Edit_Save' id='submit' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0em 0.5em 0em;'/> " + 
                 "<input type='submit' class='popup-menu-item' alt='Edit_Cancel' id='cancel' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0em 0.5em 0em;' />" + 
                 "</div>" + 
@@ -183,39 +194,56 @@ function getSchedulesByTime(obj) {
     
     // Add tips if there is no schedule
     if (sched_table == "") {
-        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>这一天没有日程，你可以<a href='#' class='popup-menu-item' alt='New'>新建日程</a></div>";
+        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>这一天没有日程</div>";
     }
     
     // Add '+' sign
-    sched_table += "<div id='div_add' style='text-align:center;padding:0.5em 0em 0.1em 0em;'><img class='popup-menu-item' title='新建日程' alt='New' src='popup_add.png'></div>";
+    sched_table += 
+                   "<div id='div_add' style='text-align:center;padding:0.2em 0em 0.1em 0em;'>" +
+                   "<table class='sched_item_table'><tr>"+
+                   "<td><img class='popup-menu-item' title='新建日程' alt='New' src='popup_add.png' height='20px' width='20px'></td>"+
+                   "<td class='adding'><a href='#'>新建日程</a></td>"+
+                   "<td><img src='Empty.png' height='20px' width='20px'></td>"+
+                   "</tr></table>"+
+                   "</div>";
     
     var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
     var adding_div = 
         "<div id='div_new' style='display:none;font-size:0.6em;'>" +
-        "<div style='text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>新建日程</div>" +
+        
+        "<div id='div_submit' style='text-align:center;font-size:16px;padding:0.2em 0em 0.1em 0em;'>" +
+        "<table class='sched_item_table'><tr>"+
+        "<td><img class='popup-menu-item' title='保存' alt='New_Save' src='popup_add.png' height='20px' width='20px'></td>"+
+        "<td class='adding'><a href='#'>新建日程</a></td>"+
+        "<td><img class='popup-menu-item' title='取消' alt='New_Cancel' src='Delete-New.png' height='20px' width='20px'></td>"+
+        "</tr></table>"+
+        "</div>" +
+        
         "<div style='padding:0em 0 0 0em;'>" + 
         "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        "时间: " + 
-        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear().toString()+"'>-" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+(time.getMonth()+1).toString()+"'>-" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate().toString()+"'>   " + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+(time.getHours()+1).toString()+"'>:" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>" + 
+        //"时间: " + 
+        "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
+        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear().toString()+"'>年" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+(time.getMonth()+1).toString()+"'>月" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate().toString()+"'>日 " + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+(time.getHours()+1).toString()+"'>时" + 
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>分" + 
         "</div>" + 
         
         "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        "内容: " + 
+        //"日程: " + 
+        "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
         "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
         "</div>" + 
 
-        "<div class='sch_div' id='div_loc' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
+        "<div class='sch_div' id='div_loc' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
         "地点: " + 
         "<input type='text' style='width:14em;height:1em;' id='address'>" + 
         "</div>" + 
         
         
         
-        "<div class='sch_div' id='div_type' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
+        "<div class='sch_div' id='div_type' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
         "类型: " + 
         "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> 会议" + 
         "<input type='radio' name='type' id='memorial' value='memorial'/> 纪念日" + 
@@ -223,7 +251,9 @@ function getSchedulesByTime(obj) {
         "</div>" + 
         
         "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        "提醒: 提前 " + 
+        //"提醒: " + 
+        "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;'>" + 
+        "提前 " + 
         "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime' value='15'>" + 
         "<select id='remindUnit' name='remindUnit'>" + 
         "<option value='day'>天</option>" + 
@@ -232,9 +262,9 @@ function getSchedulesByTime(obj) {
         "</select>" + 
         "</div>" + 
         
-        "<div id='div_submit' style='text-align:center;background-color:#C0C0C0;padding:0.2em 0.5em 0.2em 0.5em;'>" + 
-        "<input type='submit' class='popup-menu-item' alt='New_Save' id='submit' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;'/> " + 
-        "<input type='submit' class='popup-menu-item' alt='New_Cancel' id='cancel' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;' />" + 
+        "<div id='div_submit_des' style='display:none;text-align:right;background-color:#E8EAF0;padding:0.2em 0.5em 0.2em 0.5em;'>" + 
+        "<input type='submit' class='popup-menu-item' alt='New_Save' id='submit_des' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;'/> " + 
+        "<input type='submit' class='popup-menu-item' alt='New_Cancel' id='cancel_des' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;' />" + 
         "</div>" + 
         "</div>" + 
         "</div>";
@@ -242,9 +272,19 @@ function getSchedulesByTime(obj) {
     
     document.getElementById('sched').innerHTML = sched_table;
     $('#sched').css("display", "block");
-    $('#schedhead').css('display', 'inline');
-    $('tr:odd').css('background-color', '#FAE6E6');
-    $('tr:even').css('background-color', '#E6E6FA');
+    $('#schedhead').css('display', 'block');
+    $('tr:odd').css('background-color', '#ECF1F9');//odd num color
+    $('tr:even').css('background-color', '#E2EAF5');//even num color
+    
+    $('.sched_item_table').css('-webkit-border-horizontal-spacing', '0');
+    $('.sch_div > input').css('border', '#ECF1F9 solid 1px');
+    $('.sch_div > textarea').css('border', '#ECF1F9 solid 1px');
+    $('.sch_div > select').css('border', '#ECF1F9 solid 1px');
+    $('#div_submit').css('font-size', '16px');
+
+    var imgEdit = "Edit-New.png";
+    var imgEdit_mouseover = "Edit-New-mouseover.png";
+    
     $('.summary').cluetip();
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
@@ -266,12 +306,17 @@ function getSchedulesByTime(obj) {
                 // refresh sched
                 getSchedulesByTime(obj);
             }
-        } else if (action == "Edit") {
+        } else if (action == "Edit") {            
             var schedule_str = getItem(sched_id);
             if (schedule_str != null) {
                 var s = JSON.parse(schedule_str);
                 var time = new Date(s.sched_time);
                 if ($("#" + sched_id + "_edit")[0].style.display == 'none') {
+                    // change icon
+                    imgEdit = "Edit-ing-New.png";
+                    imgEdit_mouseover = "Edit-ing-New-mouseover.png";
+                    $(this)[0].src = imgEdit_mouseover;
+                    
                     // Show
                     $("#" + sched_id + "_edit").css("display", "block");
                     
@@ -294,6 +339,11 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                     }
                 } else {
+                    // change icon
+                    imgEdit = "Edit-New.png";
+                    imgEdit_mouseover = "Edit-New-mouseover.png";
+                    $(this)[0].src = imgEdit_mouseover;
+                    
                     // == Edit_Save but the relative position of DOM tree is different
                     if (popup_save(sched_id, s) == true) {
                         // Hide and save and refresh
@@ -388,15 +438,19 @@ function getSchedulesByTime(obj) {
             console.warn("Not supported yet!"+action);
         }
     });
-    
+
     $("img.popup-menu-item").mouseover(function(){
         var action = $(this).attr("alt");
         if (action == "Remove") {
             $(this)[0].src="Delete-New-mouseover.png";
         } else if (action == "Edit") {
-            $(this)[0].src="Edit-New-mouseover.png";
+            $(this)[0].src=imgEdit_mouseover;
         } else if (action == "New") {
             $(this)[0].src="popup_add_mouseover.png";
+        } else if (action == "New_Save") {
+            $(this)[0].src="popup_add_mouseover.png";
+        } else if (action == "New_Cancel") {
+            $(this)[0].src="Delete-New-mouseover.png";
         } else {
             console.log('Not supported');
         }
@@ -407,9 +461,13 @@ function getSchedulesByTime(obj) {
         if (action == "Remove") {
             $(this)[0].src="Delete-New.png";
         } else if (action == "Edit") {
-            $(this)[0].src="Edit-New.png";
+            $(this)[0].src=imgEdit;
         } else if (action == "New") {
             $(this)[0].src="popup_add.png";
+        } else if (action == "New_Save") {
+            $(this)[0].src="popup_add.png";
+        } else if (action == "New_Cancel") {
+            $(this)[0].src="Delete-New.png";
         } else {
             console.log('Not supported');
         }
