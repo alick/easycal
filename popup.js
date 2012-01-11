@@ -339,13 +339,13 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                     }
                 } else {
-                    // change icon
-                    imgEdit = "Edit-New.png";
-                    imgEdit_mouseover = "Edit-New-mouseover.png";
-                    $(this)[0].src = imgEdit_mouseover;
-                    
                     // == Edit_Save but the relative position of DOM tree is different
                     if (popup_save(sched_id, s) == true) {
+                        // change icon
+                        imgEdit = "Edit-New.png";
+                        imgEdit_mouseover = "Edit-New-mouseover.png";
+                        $(this)[0].src = imgEdit_mouseover;
+                        
                         // Hide and save and refresh
                         $("#" + sched_id + "_edit").css("display", "none");
                         // refresh schedule list
@@ -357,11 +357,11 @@ function getSchedulesByTime(obj) {
                     }
                     // else: time is wrong, flash div_time
                     else { 
-                        var origin_color = $("#"+$(this).parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
-                        parentId = $(this).parent().parent().attr('id');
+                        var parentId = $(this).parent().parent().parent().parent().parent().parent().attr('id');
+                        var origin_color = $("#"+parentId+" > div > div > div#div_time")[0].style.background;
                         for (var i=0; i<1200; i+= 400) {
-                            setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
-                            setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                            setTimeout(function(){$("#"+parentId+" > div > div > div#div_time")[0].style.background='#FFD0D0';}, i);
+                            setTimeout(function(){$("#"+parentId+" > div > div > div#div_time")[0].style.background=origin_color;}, i+200);
                         }
                     }
                             
@@ -390,7 +390,7 @@ function getSchedulesByTime(obj) {
                     var origin_color = $("#"+$(this).parent().parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
                     parentId = $(this).parent().parent().parent().attr('id');
                     for (var i=0; i<1200; i+= 400) {
-                        setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
+                        setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FFD0D0';}, i);
                         setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
                     }
                 }
@@ -419,10 +419,10 @@ function getSchedulesByTime(obj) {
             }
             // else: time is wrong, flash div_time
             else { 
-                var origin_color = $("#"+$(this).parent().parent().parent().attr('id')+" > div > div#div_time")[0].style.background;
-                parentId = $(this).parent().parent().parent().attr('id');
+                parentId = "div_new";
+                var origin_color = $("#"+parentId+" > div > div#div_time")[0].style.background;
                 for (var i=0; i<1200; i+= 400) {
-                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FF0000';}, i);
+                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FFD0D0';}, i);
                     setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
                 }
             }
