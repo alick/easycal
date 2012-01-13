@@ -25,13 +25,13 @@ td.td_outer {
 #schedhead {
     display:none;
     background:rgb(233,238,245);
-    width: 18.5em;
+    width: 20.5em;
     height: 20px;
     outline:rgb(237,242,250) 1px solid;
     text-align:center;
     margin:0;
-    padding: 3px 0 4px 0;
-    font-size:16px;
+    padding: 5px 0 2px 0;
+    font-size:0.9em;
 }
 
 #sched {
