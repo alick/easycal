@@ -3,23 +3,24 @@
     vertical-align:top;
     padding: 0.7em 0.7em 0.7em 0.7em;
     background:rgb(220,230,245);
-    -webkit-border-horizontal-spacing: 0;
+    -webkit-border-horizontal-spacing: 1px;
     -webkit-border-vertical-spacing: 0;
 }
 
 td.td_outer {
     border: 0;
     vertical-align:top;
+    outline:rgb(200,216,240) 1px solid;
 }    
 
 #calendar {
     margin: 0;
-    outline:rgb(200,216,240) 1px solid;
     width: 14em;
     height: 245px;
     text-align:center;
     overflow:hidden;
     background-color:#F7FAFD;
+    outline:rgb(226,234,245) 1px solid;
 }
 
 #schedhead {
