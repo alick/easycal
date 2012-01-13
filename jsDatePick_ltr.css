@@ -5,7 +5,7 @@
 
 */
 
-.JsDatePickBox { position:relative; width:212px; height:235px;font-family:Arial; margin:0.3em 1.4em 0.3em 1.4em; background-color:#F7FAFD;}
+.JsDatePickBox { position:relative; width:212px; height:235px;font-family:Arial; margin:0.3em 0.3em 0.3em 0.3em; background-color:#F7FAFD;}
 
 .JsDatePickBox .jsDatePickCloseButton { cursor:pointer; position:absolute; z-index:1; top:1px; right:10px; width:33px; height:13px; background:url(img/closeButton_normal.gif) left top no-repeat; }
 .JsDatePickBox .jsDatePickCloseButtonOver { cursor:pointer; position:absolute; z-index:1; top:1px; right:10px; width:33px; height:13px; background:url(img/closeButton_over.gif) left top no-repeat; }
