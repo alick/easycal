@@ -141,20 +141,17 @@ $('body').ajaxComplete(function() {
                 // TODO
                 // Let user see the info
                 
-                $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/saving_gif_1.png");
-                setTimeout(function(){$('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("saving_gif_2.png");}, 200);
-                setTimeout(function(){$('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("saving_gif_3.png");}, 400);
-                setTimeout(function(){$('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("saving_gif_4.png");}, 600);
-                setTimeout(function(){$('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("saving_gif_5.png");}, 800);
-                setTimeout(function(){$('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("saving_gif_ok.png");}, 1000);
-                
+                var pic_height = $('#form_fill').css('height');
+                $('#form_fill').css("text-align", "center");
+                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
+                                
                 setTimeout(
                     function(){
                         $('#easycal-editcal').remove();
                         $('#easycal-mist').remove();
                         document.body.style.overflowY=origin_overflowY;
                     },
-                    1600);
+                    800);
             }
         });
 
