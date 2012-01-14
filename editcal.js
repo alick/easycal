@@ -105,6 +105,8 @@ $('body').ajaxComplete(function() {
             }
             return false;
         }
+        
+        g_schedule.loop = $('select[name=easycal_loop]').val();
 
         g_schedule.sched_loc = $('#easycal_address').val();
         g_schedule.content = $('#easycal_content').val();

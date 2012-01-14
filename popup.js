@@ -148,6 +148,20 @@ function getSchedulesByTime(obj) {
                 "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='"+time.getMinutes()+"'>分" + 
                 "</div>" + 
                 
+                "<div class='sch_div' id='div_loop' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+                //"<label for='loop'>重复: </label>" +
+                "<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
+                "<select id='easycal_loop' name='easycal_loop'>" +
+                "<option value='0' selected='selected'>不重复</option>" +
+                "<option value='1'>每天</option>" +
+                "<option value='2'>每两天</option>" +
+                "<option value='7'>每周</option>" +
+                "<option value='30'>每月</option>" +
+                "<option value='365'>每年</option>" +
+                "</select>" +
+                "</div>" +
+
+                
                 "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
                 //"日程: " + 
                 "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
@@ -229,6 +243,20 @@ function getSchedulesByTime(obj) {
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value='"+(time.getHours()+1).toString()+"'>时" + 
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value='00'>分" + 
         "</div>" + 
+
+        "<div class='sch_div' id='div_loop' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+        //"<label for='loop'>重复: </label>" +
+        "<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;'>" + 
+        "<select id='easycal_loop' name='easycal_loop'>" +
+        "<option value='0' selected='selected'>不重复</option>" +
+        "<option value='1'>每天</option>" +
+        "<option value='2'>每两天</option>" +
+        "<option value='7'>每周</option>" +
+        "<option value='30'>每月</option>" +
+        "<option value='365'>每年</option>" +
+        "</select>" +
+        "</div>" +
+
         
         "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
         //"日程: " + 
@@ -337,6 +365,7 @@ function getSchedulesByTime(obj) {
                         $("#" + sched_id + "_edit > div > #div_type > input:radio[value="+s.type+"]")[0].checked = true;
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
+                        $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
                     }
                 } else {
                     // == Edit_Save but the relative position of DOM tree is different
@@ -507,6 +536,8 @@ function popup_save(sched_id, s) {
         // consider return where is wrong
         return false;
     }
+    
+    s.loop = $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val();
 
     s.sched_loc = $("#" + sched_id + "_edit > div > div#div_loc > input#address").val();
     s.content = $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"];
@@ -596,6 +627,8 @@ function popup_new() {
         // consider return where is wrong
         return false;
     }
+
+    s.loop = $("#div_new > div > div#div_loop > #easycal_loop").val();
 
     s.sched_loc = $("#div_new > div > div#div_loc > input#address").val();
     s.content = $("#div_new > div > div#div_content > #content")[0]["value"];
