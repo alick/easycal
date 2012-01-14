@@ -56,14 +56,14 @@
 
 
 
-#easycal-editcal #address {
+#easycal-editcal #easycal_address {
     width: 26em;
 }
-#easycal-editcal #summary {
+#easycal-editcal #easycal_summary {
     width: 26em;
     vertical-align: top;
 }
-#easycal-editcal #content {
+#easycal-editcal #easycal_content {
     width: 26em;
     vertical-align: top;
 }

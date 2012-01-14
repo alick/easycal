@@ -123,7 +123,7 @@ function getSchedulesByTime(obj) {
             }
             
             sched_html += '<td class="summary"><a href="#" title="' + s.content + '">';
-            var disp_str = s.summary;
+            var disp_str = s.content; //s.summary;
             if (disp_str.length > 13) {
                 disp_str = disp_str.substr(0, 12) + '...';
             }

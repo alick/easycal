@@ -71,11 +71,11 @@ $('body').ajaxComplete(function() {
     });
     $('#easycal-editcal #easycal-form-submit').bind('click', function(){
 
-        var userYear = Number($('#year').val());
-        var userMonth = Number($('#month').val()-1);
-        var userDate = Number($('#day').val());
-        var userHour = Number($('#hour').val());
-        var userMinute = Number($('#minute').val());
+        var userYear = Number($('#easycal_year').val());
+        var userMonth = Number($('#easycal_month').val()-1);
+        var userDate = Number($('#easycal_day').val());
+        var userHour = Number($('#easycal_hour').val());
+        var userMinute = Number($('#easycal_minute').val());
         var userSecond = 0; // Assume second is 0.
 
         g_schedule.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
@@ -95,15 +95,14 @@ $('body').ajaxComplete(function() {
             return false;
         }
 
-        g_schedule.sched_loc = $('#address').val();
-        g_schedule.summary = $('#summary').val();
-        g_schedule.content = $('#content').val();
+        g_schedule.sched_loc = $('#easycal_address').val();
+        g_schedule.content = $('#easycal_content').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
-        g_schedule.summary = $('#summary').val();
+        g_schedule.summary = g_schedule.content;//$('#easycal_summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
 
-        g_schedule.timebefore = Number($('#remindTime').val());
-        var timebefore = Number($('#remindTime').val());
+        g_schedule.timebefore = Number($('#easycal_remindTime').val());
+        var timebefore = Number($('#easycal_remindTime').val());
         var timestyle=$('select[name=remindUnit]').val();
 
         g_schedule.timebefore = timebefore;
@@ -178,16 +177,16 @@ function fillForm() {
     if (g_schedule) {
         console.log('Filling the form...');
         var time = new Date(g_schedule.sched_time);
-        $('#easycal-editcal #year').val(time.getFullYear());
-        $('#easycal-editcal #month').val(time.getMonth() + 1);
-        $('#easycal-editcal #day').val(time.getDate());
-        $('#easycal-editcal #hour').val(time.getHours());
-        $('#easycal-editcal #minute').val(time.getMinutes());
+        $('#easycal-editcal #easycal_year').val(time.getFullYear());
+        $('#easycal-editcal #easycal_month').val(time.getMonth() + 1);
+        $('#easycal-editcal #easycal_day').val(time.getDate());
+        $('#easycal-editcal #easycal_hour').val(time.getHours());
+        $('#easycal-editcal #easycal_minute').val(time.getMinutes());
 
-        $('#easycal-editcal #address').val(g_schedule.sched_loc);
-        $('#easycal-editcal #summary').val(g_schedule.summary);
-        $('#easycal-editcal #content').val(g_schedule.content);
+        $('#easycal-editcal #easycal_address').val(g_schedule.sched_loc);
+        $('#easycal-editcal #easycal_summary').val(g_schedule.summary);
+        $('#easycal-editcal #easycal_content').val(g_schedule.content);
         $('#easycal-editcal input:radio[name=type][value=meeting]')[0].checked = true;
-        $('#easycal-editcal #remindTime').val('15');
+        $('#easycal-editcal #easycal_remindTime').val('15');
     }
 }
