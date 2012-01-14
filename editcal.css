@@ -17,15 +17,28 @@
 
 #easycal-editcal #div_title {
     text-align:left;
-    font-size: large;
+    font-size: 16px;
     padding:0.3em 0.3em 0.3em 0.5em;
-    margin:0em 0em 0.5em 0em;
-    background-color:#005AF5;
+    margin:0em 0em 0.3em 0em;
+    vertical-align:middle;
+    background-color:rgb(182, 209, 238);
+}
+
+#easycal-editcal #table_title {
+    text-align:left;
+    font-size: 16px;
+    padding:0;
+    margin:0;
+    -webkit-border-horizontal-spacing: 0;
+    -webkit-border-vertical-spacing: 0;
+    vertical-align:middle;
+    background-color:rgb(182, 209, 238);
+    border:0;
 }
 
 #easycal-editcal #div_title #editcal_logo {
     padding:0;
-    margin:0;
+    margin:0.2em 0.5em 0 0;
     border:"0";
 }
 
@@ -61,22 +74,26 @@
 
 #easycal-editcal #div_submit {
     margin:0.8em 0em 0em 0em;
-    padding:0.25em 0.25em 0.25em 0.25em;
-    background-color:#E0E0E0;
+    padding:0.15em 0.25em 0.15em 0.25em;
+    background-color:rgb(241, 244, 245);
     text-align:right;
 }
 
 #easycal-editcal #easycal-form-submit, #easycal-form-cancel {
-    padding: 0.25em 0.5em 0.25em 0.5em;
+    padding: 0.25em 0.25em 0.25em 0.25em;
     margin: 0;
     border:"0";
 }
 
 
 #easycal-editcal input {
-    border: 1px solid gray;
+    border: #ECF1F9 solid 1px;
 }
 
 #easycal-editcal textarea {
-    border: 1px solid gray;
+    border: #ECF1F9 solid 1px;
+}
+
+#easycal-editcal select {
+    border: #ECF1F9 solid 1px;
 }
