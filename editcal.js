@@ -1,19 +1,28 @@
 console.debug('This is from content scripts!');
 
 var origin_overflowY = document.body.style.overflowY;
-document.body.style.overflowY = 'hidden';
+document.body.style.overflowY = 'visible';//some website has not enough height 
+                                          //like baidu to display our popup layer,
+                                          //so if this is set to 'hidden', part 
+                                          //out of body will not be displayed.
 
 // Add our popup layer div.
 $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
 $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
                            ' fieldset');
+                           
+//some website has not enough height like baidu to display our popup layer,
+//so if height is set to body.height, part of popup layer will not be displayed.
+//modified this to put the whole window in mist
+bodyHeight = $('body').css('height');
+myHeight = Math.max(parseInt(bodyHeight.replace('px', '')), window.innerHeight).toString() + 'px';
 $('#easycal-mist').css({
     position: "absolute",
     top: 0,
     left: 0,
     width: $('body').css('width'),
-    height: $('body').css('height'),
+    height: myHeight,//$('body').css('height'),
     // I do not think we can come up with a big enough and reasonable
     // z-index value without many many tests!
     'z-index': 10001,
@@ -32,6 +41,8 @@ $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
 
     $('#easycal-editcal').css({
+        'font' : '13px serif normal',
+        'color' : 'rgb(0,0,0)',
         width: '33em', // the appropriate value ?
         'z-index': 10002,
         'background-color': 'white',
@@ -141,16 +152,20 @@ $('body').ajaxComplete(function() {
                 // Let user see the info
                 
                 var pic_height = $('#form_fill').css('height');
+                var pic_width = $('#form_fill').css('width');
+                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;border:0;'>");
+                $('#form_fill').css("height", pic_height);
+                $('#form_fill').css("width", pic_width);
                 $('#form_fill').css("text-align", "center");
-                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
-                                
+                $('#fieldset_easycal').css('text-align', 'center');
+                                        
                 setTimeout(
                     function(){
                         $('#easycal-editcal').remove();
                         $('#easycal-mist').remove();
                         document.body.style.overflowY=origin_overflowY;
                     },
-                    800);
+                    1000);
             }
         });
 
