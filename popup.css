@@ -39,7 +39,7 @@ td.td_outer {
     width: 18em;
     height: 208px;
     margin: 0;
-    padding: 10px 0 0 0.5em;
+    padding: 10px 0 0 0.3em;
     text-align:left;
     outline:rgb(226,234,245) 1px solid;
     background-color:rgb(253,254,255);
@@ -64,15 +64,19 @@ td.td_outer {
 */
 
 td.summary {
-    width: 10.5em;
+    width: 9.5em;
 }
 
 td.time {
-    width:3em;
+    width:2.5em;
+}
+
+td.td_label {
+    width:1.5em;
 }
 
 td.adding {
-    width:13.6em;
+    width:13.8em;
 }
 
 div#div_submit {

@@ -152,7 +152,7 @@ function getSchedulesByTime(obj) {
         //if ((time.getFullYear() == obj.year) &&
         //    ((time.getMonth() + 1) == obj.month) &&
         //    (time.getDate() == obj.day)) {
-        sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table'>"
+        sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
         console.debug("time: " + time.toISOString());
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
@@ -166,7 +166,26 @@ function getSchedulesByTime(obj) {
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
         }
         
-        sched_html += '<td class="summary"><a href="#" title="' + s.content + '">';
+        sched_html += '<td class="td_label"  style="">';
+        // put label for repeat schedule
+        var loop = parseInt(s.loop);
+        if (loop > 0) {
+            if (loop == 1) {
+                sched_html += '<img src="label/repeat.png" alt="None" title="每天重复" height="20px" width="20px" class="easycal_label" style="">';
+            } else if (loop == 2) {
+                sched_html += '<img src="label/repeat.png" alt="None" title="每两天重复" height="20px" width="20px" class="easycal_label" style="">';
+            } else if (loop == 7) {
+                sched_html += '<img src="label/repeat.png" alt="None" title="每周重复" height="20px" width="20px" class="easycal_label" style="">';
+            } else if (loop == 30) {
+                sched_html += '<img src="label/repeat.png" alt="None" title="每月重复" height="20px" width="20px" class="easycal_label" style="">';
+            } else if (loop == 365) {
+                sched_html += '<img src="label/repeat.png" alt="None" title="每年重复" height="20px" width="20px" class="easycal_label" style="">';
+            }
+        }
+        sched_html += '</td>';
+
+        sched_html += '<td class="summary"  style="vertical-align:middle;">';              
+        sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content; //s.summary;
         if (disp_str.length > 13) {
             disp_str = disp_str.substr(0, 12) + '...';
