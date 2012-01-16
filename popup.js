@@ -298,7 +298,7 @@ function getSchedulesByTime(obj) {
         "<div style='padding:0em 0 0 0em;'>" + 
         "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
         //"时间: " + 
-        "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;'>" + 
+        "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelTime")+"'>" + 
         "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value='"+time.getFullYear().toString()+"'>"+chrome.i18n.getMessage("extEditLabelYear")+"" + 
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value='"+(time.getMonth()+1).toString()+"'>"+chrome.i18n.getMessage("extEditLabelMonth")+"" + 
         "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value='"+time.getDate().toString()+"'>"+chrome.i18n.getMessage("extEditLabelDay")+" " + 
