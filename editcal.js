@@ -75,6 +75,13 @@ $('body').ajaxComplete(function() {
     $('#editcal_label_remind_min').html(chrome.i18n.getMessage('extEditLabelRemindMinute'));
     $('#editcal_label').html(chrome.i18n.getMessage('extEditLabel'));
 
+    // Set Chinese label strings to narrower width.
+    if (navigator.language.indexOf("zh") === 0) {
+        $('#easycal-editcal #editcal_label_time,#editcal_label_loop,' +
+                '#editcal_label_content,#editcal_label_remind').css({
+                    width : '3em',
+                });
+    }
 
     $('#easycal-editcal').css({
         'font' : '13px serif normal',
