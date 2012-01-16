@@ -17,14 +17,18 @@ $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
 //some website has not enough height like baidu to display our popup layer,
 //so if height is set to body.height, part of popup layer will not be displayed.
 //modified this to put the whole window in mist
+//
+// And some website has body narrower than the window.
+bodyWidth = $('body').css('width');
 bodyHeight = $('body').css('height');
-myHeight = Math.max(parseInt(bodyHeight.replace('px', '')), window.innerHeight).toString() + 'px';
+mistHeight = Math.max(parseInt(bodyHeight), window.innerHeight);
+mistWidth = Math.max(parseInt(bodyWidth), window.innerWidth);
 $('#easycal-mist').css({
-    position: "absolute",
+    position: "fixed",
     top: 0,
     left: 0,
-    width: $('body').css('width'),
-    height: myHeight,//$('body').css('height'),
+    width: mistWidth + 'px',
+    height: mistHeight + 'px',
     // I do not think we can come up with a big enough and reasonable
     // z-index value without many many tests!
     'z-index': 10001,
