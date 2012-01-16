@@ -13,64 +13,71 @@
 <body>
 
 <fieldset id="fieldset_easycal">
-<div class="div_title" id="div_title"><table id="table_title"><tr><td><img id="editcal_logo" alt="EasyCal" src="" width="24" height="24"></td><td>新建日程</td></tr></table></div>
+<div class="div_title" id="div_title">
+    <table id="table_title">
+        <tr>
+            <td><img id="editcal_logo" alt="EasyCal" src="" width="24" height="24"></td>
+            <td><label for="editcal_label_title" id="editcal_label_title">新建日程</label></td>
+        </tr>
+    </table>
+</div>
 
 <form id="form_fill" action="" method="post">
 
 <div class="sch_div" id="div_time">
-    <label for="year">时间: </label>
-<input type="text" maxlength="4" style="width:3em;" id="easycal_year">年
-<input type="text" maxlength="2" style="width:1.6em;" id="easycal_month">月
-<input type="text" maxlength="2" style="width:1.6em;" id="easycal_day">日&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="text" maxlength="2" style="width:1.6em;" id="easycal_hour">时
-<input type="text" maxlength="2" style="width:1.6em;" id="easycal_minute">分
+    <label for="year" id="editcal_label_time">时间: </label>
+<input type="text" maxlength="4" style="width:3em;" id="easycal_year"><label for="editcal_label_year" id="editcal_label_year">年</label>
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_month"><label for="editcal_label_month" id="editcal_label_month">月</label>
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_day"><label for="editcal_label_day" id="editcal_label_day">日</label>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_hour"><label for="editcal_label_hour" id="editcal_label_hour">时</label>
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_minute"><label for="editcal_label_min" id="editcal_label_min">分</label>
 </div>
 
 <div class="sch_div" id="div_loop">
-    <label for="loop">重复: </label>
+    <label for="editcal_label_loop" id="editcal_label_loop">重复: </label>
 <select name="easycal_loop">
-<option value="0" selected="selected">不重复</option>
-<option value="1">每天</option>
-<option value="2">每两天</option>
-<option value="7">每周</option>
-<option value="30">每月</option>
-<option value="365">每年</option>
+<option value="0" selected="selected"><label for="editcal_label_noloop" id="editcal_label_noloop">不重复</label></option>
+<option value="1"><label for="editcal_label_everyday" id="editcal_label_everyday">每天</label></option>
+<option value="2"><label for="editcal_label_every2day" id="editcal_label_every2day">每两天</label></option>
+<option value="7"><label for="editcal_label_everyweek" id="editcal_label_everyweek">每周</label></option>
+<option value="30"><label for="editcal_label_everymonth" id="editcal_label_everymonth">每月</label></option>
+<option value="365"><label for="editcal_label_everyyear" id="editcal_label_everyyear">每年</label></option>
 </select>
 </div>
 
 <div class="sch_div" id="div_loc">
-    <label for="address">地点: </label>
+    <label for="editcal_label_address" id="editcal_label_address">地点: </label>
 <input type="text" id="easycal_address">
 </div>
 
 <div class="sch_div" id="div_abstr">
-    <label for="summary">摘要: </label>
+    <label for="editcal_label_summary" id="editcal_label_summary">摘要: </label>
 <input type="text" id="easycal_summary" name="easycal_summary"></input>
 </div>
 
 <div class="sch_div" id="div_content">
-    <label for="content">内容: </label>
+    <label for="editcal_label_content" id="editcal_label_content">内容: </label>
 <textarea cols="50" rows="4" id="easycal_content" name="easycal_content"></textarea>
 </div>
 
 <div class="sch_div" id="div_type">
-    <label for="meeting">类型: </label>
+    <label for="editcal_label_type" id="editcal_label_type">类型: </label>
     <input type="radio" name="type" id="meeting" value="meeting" checked="checked"/>
-    <label for="meeting">会议</label>
+    <label for="editcal_label_meeting" id="editcal_label_meeting">会议</label>
     <input type="radio" name="type" id="memorial" value="memorial"/>
-    <label for="memorial">纪念日</label>
+    <label for="editcal_label_memorial" id="editcal_label_memorial">纪念日</label>
     <input type="radio" name="type" id="deadline" value="deadline"/>
-    <label for="deadline">截止日期</label>
+    <label for="editcal_label_deadline" id="editcal_label_deadline">截止日期</label>
 </div>
 
 <div class="sch_div" id="div_remind">
-    <label for="remindTime">提醒: </label>
-    <label for="remindTime">提前 </label>
+    <label for="editcal_label_remind" id="editcal_label_remind">提醒: </label>
+    <label for="editcal_label_before" id="editcal_label_before">提前 </label>
 <input type="text" style= "overflow-x:visible;width:2em;" id="easycal_remindTime">
 <select name="remindUnit">
-<option value="day">天</option>
-<option value="hour">小时</option>
-<option value="minute" selected="selected">分</option>
+<option value="day"><label for="editcal_label_remind_day" id="editcal_label_remind_day">天</label></option>
+<option value="hour"><label for="editcal_label_remind_hour" id="editcal_label_remind_hour">小时</label></option>
+<option value="minute" selected="selected"><label for="editcal_label_remind_min" id="editcal_label_remind_min">分</label></option>
 </select>
 </div>
 

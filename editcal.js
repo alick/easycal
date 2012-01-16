@@ -11,6 +11,35 @@ $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
 $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
                            ' fieldset');
+
+//label
+$('label#editcal_label_title').html(chrome.i18n.getMessage('extEditLabelTitle'));
+$('label#editcal_label_time').html(chrome.i18n.getMessage('extEditLabelTime'));
+$('label#editcal_label_year').html(chrome.i18n.getMessage('extEditLabelYear'));
+$('label#editcal_label_month').html(chrome.i18n.getMessage('extEditLabelMonth'));
+$('label#editcal_label_day').html(chrome.i18n.getMessage('extEditLabelDay'));
+$('label#editcal_label_hour').html(chrome.i18n.getMessage('extEditLabelHour'));
+$('label#editcal_label_min').html(chrome.i18n.getMessage('extEditLabelMin'));
+$('label#editcal_label_loop').html(chrome.i18n.getMessage('extEditLabelLoop'));
+$('label#editcal_label_noloop').html(chrome.i18n.getMessage('extEditLabelNoLoop'));
+$('label#editcal_label_everyday').html(chrome.i18n.getMessage('extEditLabelEveryDay'));
+$('label#editcal_label_every2day').html(chrome.i18n.getMessage('extEditLabelEvery2Day'));
+$('label#editcal_label_everyweek').html(chrome.i18n.getMessage('extEditLabelEveryWeek'));
+$('label#editcal_label_everymonth').html(chrome.i18n.getMessage('extEditLabelEveryMonth'));
+$('label#editcal_label_everyyear').html(chrome.i18n.getMessage('extEditLabelEveryYear'));
+$('label#editcal_label_address').html(chrome.i18n.getMessage('extEditLabelAddress'));
+$('label#editcal_label_summary').html(chrome.i18n.getMessage('extEditLabelSummary'));
+$('label#editcal_label_content').html(chrome.i18n.getMessage('extEditLabelContent'));
+$('label#editcal_label_type').html(chrome.i18n.getMessage('extEditLabelType'));
+$('label#editcal_label_meeting').html(chrome.i18n.getMessage('extEditLabelMeeting'));
+$('label#editcal_label_memorial').html(chrome.i18n.getMessage('extEditLabelMemorial'));
+$('label#editcal_label_deadline').html(chrome.i18n.getMessage('extEditLabelDeadline'));
+$('label#editcal_label_remind').html(chrome.i18n.getMessage('extEditLabelRemind'));
+$('label#editcal_label_before').html(chrome.i18n.getMessage('extEditLabelBefore'));
+$('label#editcal_label_remind_day').html(chrome.i18n.getMessage('extEditLabelRemindDay'));
+$('label#editcal_label_remind_hour').html(chrome.i18n.getMessage('extEditLabelRemindHour'));
+$('label#editcal_label_remind_min').html(chrome.i18n.getMessage('extEditLabelRemindMinute'));
+
                            
 //some website has not enough height like baidu to display our popup layer,
 //so if height is set to body.height, part of popup layer will not be displayed.

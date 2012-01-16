@@ -26,5 +26,111 @@
 "extWarnInvalidTimeSetting":{
 	"message":"时间设置有误!",
 	"description":"Invalid time setting!"
+},
+
+"extEditLabelTitle":{
+	"message":"新建日程",
+	"description":"Create New Schedule"
+},
+"extEditLabelTitle":{
+	"message":"时间: ",
+	"description":"Time:"
+},
+"extEditLabelYear":{
+	"message":"年",
+	"description":"Year"
+},
+"extEditLabelMonth":{
+	"message":"月",
+	"description":"Month"
+},
+"extEditLabelDay":{
+	"message":"日",
+	"description":"Day"
+},
+"extEditLabelHour":{
+	"message":"时",
+	"description":"Hour"
+},
+"extEditLabelMin":{
+	"message":"分",
+	"description":"Minute"
+},
+"extEditLabelLoop":{
+	"message":"重复: ",
+	"description":"Repeat:"
+},
+"extEditLabelNoLoop":{
+	"message":"不重复",
+	"description":"No repeat"
+},
+"extEditLabelEveryDay":{
+	"message":"每天",
+	"description":"Everyday"
+},
+"extEditLabelEvery2Day":{
+	"message":"每两天",
+	"description":"Every 2 day"
+},
+"extEditLabelEveryWeek":{
+	"message":"每周",
+	"description":"Every week"
+},
+"extEditLabelEveryMonth":{
+	"message":"每月",
+	"description":"Every month"
+},
+"extEditLabelEveryYear":{
+	"message":"每年",
+	"description":"Every year"
+},
+"extEditLabelAddress":{
+	"message":"地点: ",
+	"description":"Location:"
+},
+"extEditLabelSummary":{
+	"message":"摘要: ",
+	"description":"Summary:"
+},
+"extEditLabelContent":{
+	"message":"内容: ",
+	"description":"Schedule:"
+},
+"extEditLabelType":{
+	"message":"类型: ",
+	"description":"Type:"
+},
+"extEditLabelMeeting":{
+	"message":"会议",
+	"description":"Meeting"
+},
+"extEditLabelMemorial":{
+	"message":"纪念日",
+	"description":"Memorial"
+},
+"extEditLabelDeadline":{
+	"message":"截止日期",
+	"description":"Deadline"
+},
+"extEditLabelRemind":{
+	"message":"提醒: ",
+	"description":"Remind:"
+},
+"extEditLabelBefore":{
+	"message":"提前",
+	"description":"before"
+},
+"extEditLabelRemindDay":{
+	"message":"天",
+	"description":"days"
+},
+"extEditLabelRemindHour":{
+	"message":"小时",
+	"description":"hours"
+},
+"extEditLabelRemindMinute":{
+	"message":"分",
+	"description":"minutes"
 }
+
 }

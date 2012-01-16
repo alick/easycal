@@ -23,5 +23,112 @@
 "extWarnInvalidTimeSetting":{
 	"message":"Invalid time setting!",
 	"description":"Invalid time setting!"
+},
+
+
+"extEditLabelTitle":{
+	"message":"Create New Schedule",
+	"description":"Create New Schedule"
+},
+"extEditLabelTitle":{
+	"message":"Time: ",
+	"description":"Time:"
+},
+"extEditLabelYear":{
+	"message":" - ",
+	"description":"Year"
+},
+"extEditLabelMonth":{
+	"message":" - ",
+	"description":"Month"
+},
+"extEditLabelDay":{
+	"message":" ",
+	"description":"Day"
+},
+"extEditLabelHour":{
+	"message":" : ",
+	"description":"Hour"
+},
+"extEditLabelMin":{
+	"message":" ",
+	"description":"Minute"
+},
+"extEditLabelLoop":{
+	"message":"Repeat:",
+	"description":"Repeat:"
+},
+"extEditLabelNoLoop":{
+	"message":"No repeat",
+	"description":"No repeat"
+},
+"extEditLabelEveryDay":{
+	"message":"Everyday",
+	"description":"Everyday"
+},
+"extEditLabelEvery2Day":{
+	"message":"Every 2 day",
+	"description":"Every 2 day"
+},
+"extEditLabelEveryWeek":{
+	"message":"Every week",
+	"description":"Every week"
+},
+"extEditLabelEveryMonth":{
+	"message":"Every month",
+	"description":"Every month"
+},
+"extEditLabelEveryYear":{
+	"message":"Every year",
+	"description":"Every year"
+},
+"extEditLabelAddress":{
+	"message":"Location:",
+	"description":"Location:"
+},
+"extEditLabelSummary":{
+	"message":"Summary:",
+	"description":"Summary:"
+},
+"extEditLabelContent":{
+	"message":"Schedule:",
+	"description":"Schedule:"
+},
+"extEditLabelType":{
+	"message":"Type:",
+	"description":"Type:"
+},
+"extEditLabelMeeting":{
+	"message":"Meeting",
+	"description":"Meeting"
+},
+"extEditLabelMemorial":{
+	"message":"Memorial",
+	"description":"Memorial"
+},
+"extEditLabelDeadline":{
+	"message":"Deadline",
+	"description":"Deadline"
+},
+"extEditLabelRemind":{
+	"message":"Remind:",
+	"description":"Remind:"
+},
+"extEditLabelBefore":{
+	"message":"before",
+	"description":"before"
+},
+"extEditLabelRemindDay":{
+	"message":"days",
+	"description":"days"
+},
+"extEditLabelRemindHour":{
+	"message":"hours",
+	"description":"hours"
+},
+"extEditLabelRemindMinute":{
+	"message":"minutes",
+	"description":"minutes"
 }
+
 }
