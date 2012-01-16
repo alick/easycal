@@ -30,7 +30,7 @@
 	"message":"Create New Schedule",
 	"description":"Create New Schedule"
 },
-"extEditLabelTitle":{
+"extEditLabelTime":{
 	"message":"Time: ",
 	"description":"Time:"
 },
