@@ -107,7 +107,7 @@ $('body').ajaxComplete(function() {
     var mist_origin_top = (window.pageYOffset + window_height / 2) + 'px';
     var mist_origin_left = (window.pageXOffset + window_width / 2) + 'px';
     var mist_gradient = '-webkit-radial-gradient(' + mist_origin_left + ' ' +
-            mist_origin_top + ', ellipse closest-side, rgba(127,127,127,0.5),' +
+            mist_origin_top + ', ellipse cover, rgba(127,127,127,0.5),' +
             'rgba(127,127,127,0.5) 35%, rgba(0,0,0,0.7))';
     $('#easycal-editcal').css({
         position: "absolute",
