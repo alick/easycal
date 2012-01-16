@@ -157,7 +157,7 @@ function getSchedulesByTime(obj) {
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
         
-        sched_html += '<td><img src="Edit-New.png" alt="Edit" title="'+ chrome.i18n.getMessage("extPopupTitleModify")+'" height="20px" width="20px" class="popup-menu-item"></td>';
+        sched_html += '<td><img src="Edit-New.png" alt="Edit" title="'+ chrome.i18n.getMessage("extPopupTitleModify")+'" height="20px" width="20px" class="popup-menu-item" editing="0"></td>';
         
         sched_html += '<td class="time">';
         if (Number(time.getMinutes()) < 10) {
@@ -403,9 +403,8 @@ function getSchedulesByTime(obj) {
                 var time = new Date(s.sched_time);
                 if ($("#" + sched_id + "_edit")[0].style.display == 'none') {
                     // change icon
-                    imgEdit = "Edit-ing-New.png";
-                    imgEdit_mouseover = "Edit-ing-New-mouseover.png";
-                    $(this)[0].src = imgEdit_mouseover;
+                    $(this)[0].src = "Edit-ing-New-mouseover.png";
+                    $(this).attr("editing", "1");
                     
                     // Show
                     $("#" + sched_id + "_edit").css("display", "block");
@@ -433,9 +432,8 @@ function getSchedulesByTime(obj) {
                     // == Edit_Save but the relative position of DOM tree is different
                     if (popup_save(sched_id, s) == true) {
                         // change icon
-                        imgEdit = "Edit-New.png";
-                        imgEdit_mouseover = "Edit-New-mouseover.png";
-                        $(this)[0].src = imgEdit_mouseover;
+                        $(this)[0].src = "Edit-New-mouseover.png";
+                        $(this).attr("editing", "0");
                         
                         // Hide and save and refresh
                         $("#" + sched_id + "_edit").css("display", "none");
@@ -532,6 +530,12 @@ function getSchedulesByTime(obj) {
 
     $("img.popup-menu-item").mouseover(function(){
         var action = $(this).attr("alt");
+        if ($(this).attr("editing") == "0") {
+            imgEdit_mouseover = "Edit-New-mouseover.png";
+        } else {
+            imgEdit_mouseover = "Edit-ing-New-mouseover.png";
+        }
+
         if (action == "Remove") {
             $(this)[0].src="Delete-New-mouseover.png";
         } else if (action == "Edit") {
@@ -549,6 +553,12 @@ function getSchedulesByTime(obj) {
     
     $("img.popup-menu-item").mouseout(function(){
         var action = $(this).attr("alt");
+        if ($(this).attr("editing") == "0") {
+            imgEdit = "Edit-New.png";
+        } else {
+            imgEdit = "Edit-ing-New.png";
+        }
+
         if (action == "Remove") {
             $(this)[0].src="Delete-New.png";
         } else if (action == "Edit") {
