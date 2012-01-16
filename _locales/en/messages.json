@@ -129,6 +129,148 @@
 "extEditLabelRemindMinute":{
 	"message":"minutes",
 	"description":"minutes"
+},
+
+"extDateMonth1":{
+	"message":"Jan",
+	"description":"Jan"
+},
+"extDateMonth2":{
+	"message":"Feb",
+	"description":"Feb"
+},
+"extDateMonth3":{
+	"message":"Mar",
+	"description":"Mar"
+},
+"extDateMonth4":{
+	"message":"Apr",
+	"description":"Apr"
+},
+"extDateMonth5":{
+	"message":"May",
+	"description":"May"
+},
+"extDateMonth6":{
+	"message":"Jun",
+	"description":"Jun"
+},
+"extDateMonth7":{
+	"message":"Jul",
+	"description":"Jul"
+},
+"extDateMonth8":{
+	"message":"Aug",
+	"description":"Aug"
+},
+"extDateMonth9":{
+	"message":"Sep",
+	"description":"Sep"
+},
+"extDateMonth10":{
+	"message":"Oct",
+	"description":"Oct"
+},
+"extDateMonth11":{
+	"message":"Nov",
+	"description":"Nov"
+},
+"extDateMonth12":{
+	"message":"Dec",
+	"description":"Dec"
+},
+"extDateDay1":{
+	"message":"Sun",
+	"description":"Sun"
+},
+"extDateDay2":{
+	"message":"Mon",
+	"description":"Mon"
+},
+"extDateDay3":{
+	"message":"Tue",
+	"description":"Tue"
+},
+"extDateDay4":{
+	"message":"Wed",
+	"description":"Wed"
+},
+"extDateDay5":{
+	"message":"Thu",
+	"description":"Thu"
+},
+"extDateDay6":{
+	"message":"Fri",
+	"description":"Fri"
+},
+"extDateDay7":{
+	"message":"Sat",
+	"description":"Sat"
+},
+"extDateNextMonth":{
+	"message":"Next Month",
+	"description":"Next Month"
+},
+"extDatePreMonth":{
+	"message":"Previous Month",
+	"description":"Previous Month"
+},
+"extDateNextYear":{
+	"message":"Next Year",
+	"description":"Next Year"
+},
+"extDatePreYear":{
+	"message":"Previous Year",
+	"description":"Previous Year"
+},
+
+"extPopupTitleModify":{
+	"message":"Change",
+	"description":"Change"
+},
+"extPopupTitleRepeat1":{
+	"message":"Repeat everyday",
+	"description":"Repeat everyday"
+},
+"extPopupTitleRepeat2":{
+	"message":"Repeat every 2 days",
+	"description":"Repeat every 2 days"
+},
+"extPopupTitleRepeat7":{
+	"message":"Repeat every week",
+	"description":"Repeat every week"
+},
+"extPopupTitleRepeat30":{
+	"message":"Repeat every month",
+	"description":"Repeat every month"
+},
+"extPopupTitleRepeat365":{
+	"message":"Repeat every year",
+	"description":"Repeat every year"
+},
+"extPopupTitleRemove":{
+	"message":"Delete",
+	"description":"Delete"
+},
+"extPopupTitleChangeSch":{
+	"message":"Change Schedule",
+	"description":"Change Schedule"
+},
+"extPopupTitleNoSch":{
+	"message":"No schedules on this day",
+	"description":"No schedules on this day"
+},
+"extPopupTitleNewSch":{
+	"message":"Create New Schedule",
+	"description":"Create New Schedule"
+},
+"extPopupTitleSave":{
+	"message":"Save",
+	"description":"Save"
+},
+"extPopupTitleCancel":{
+	"message":"Cancel",
+	"description":"Cancel"
 }
 
 }

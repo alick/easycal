@@ -43,33 +43,33 @@ $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
     
     //label
-    $('label[for=editcal_label_title]').html(chrome.i18n.getMessage('extEditLabelTitle'));
-    $('label[for=editcal_label_time]').html(chrome.i18n.getMessage('extEditLabelTime'));
-    $('label[for=editcal_label_year]').html(chrome.i18n.getMessage('extEditLabelYear'));
-    $('label[for=editcal_label_month]').html(chrome.i18n.getMessage('extEditLabelMonth'));
-    $('label[for=editcal_label_day]').html(chrome.i18n.getMessage('extEditLabelDay'));
-    $('label[for=editcal_label_hour]').html(chrome.i18n.getMessage('extEditLabelHour'));
-    $('label[for=editcal_label_min]').html(chrome.i18n.getMessage('extEditLabelMin'));
-    $('label[for=editcal_label_loop]').html(chrome.i18n.getMessage('extEditLabelLoop'));
-    $('label[for=editcal_label_noloop]').html(chrome.i18n.getMessage('extEditLabelNoLoop'));
-    $('label[for=editcal_label_everyday]').html(chrome.i18n.getMessage('extEditLabelEveryDay'));
-    $('label[for=editcal_label_every2day]').html(chrome.i18n.getMessage('extEditLabelEvery2Day'));
-    $('label[for=editcal_label_everyweek]').html(chrome.i18n.getMessage('extEditLabelEveryWeek'));
-    $('label[for=editcal_label_everymonth]').html(chrome.i18n.getMessage('extEditLabelEveryMonth'));
-    $('label[for=editcal_label_everyyear]').html(chrome.i18n.getMessage('extEditLabelEveryYear'));
-    $('label[for=editcal_label_address]').html(chrome.i18n.getMessage('extEditLabelAddress'));
-    $('label[for=editcal_label_summary]').html(chrome.i18n.getMessage('extEditLabelSummary'));
-    $('label[for=editcal_label_content]').html(chrome.i18n.getMessage('extEditLabelContent'));
-    $('label[for=editcal_label_type]').html(chrome.i18n.getMessage('extEditLabelType'));
-    $('label[for=editcal_label_meeting]').html(chrome.i18n.getMessage('extEditLabelMeeting'));
-    $('label[for=editcal_label_memorial]').html(chrome.i18n.getMessage('extEditLabelMemorial'));
-    $('label[for=editcal_label_deadline]').html(chrome.i18n.getMessage('extEditLabelDeadline'));
-    $('label[for=editcal_label_remind]').html(chrome.i18n.getMessage('extEditLabelRemind'));
-    $('label[for=editcal_label_before]').html(chrome.i18n.getMessage('extEditLabelBefore'));
-    $('label[for=editcal_label_remind_day]').html(chrome.i18n.getMessage('extEditLabelRemindDay'));
-    $('label[for=editcal_label_remind_hour]').html(chrome.i18n.getMessage('extEditLabelRemindHour'));
-    $('label[for=editcal_label_remind_min]').html(chrome.i18n.getMessage('extEditLabelRemindMinute'));
-    $('label[for=editcal_label]').html(chrome.i18n.getMessage('extEditLabel'));
+    $('#editcal_label_title').html(chrome.i18n.getMessage('extEditLabelTitle'));
+    $('#editcal_label_time').html(chrome.i18n.getMessage('extEditLabelTime'));
+    $('#editcal_label_year').html(chrome.i18n.getMessage('extEditLabelYear'));
+    $('#editcal_label_month').html(chrome.i18n.getMessage('extEditLabelMonth'));
+    $('#editcal_label_day').html(chrome.i18n.getMessage('extEditLabelDay'));
+    $('#editcal_label_hour').html(chrome.i18n.getMessage('extEditLabelHour'));
+    $('#editcal_label_min').html(chrome.i18n.getMessage('extEditLabelMin'));
+    $('#editcal_label_loop').html(chrome.i18n.getMessage('extEditLabelLoop'));
+    $('#editcal_label_noloop').html(chrome.i18n.getMessage('extEditLabelNoLoop'));
+    $('#editcal_label_everyday').html(chrome.i18n.getMessage('extEditLabelEveryDay'));
+    $('#editcal_label_every2day').html(chrome.i18n.getMessage('extEditLabelEvery2Day'));
+    $('#editcal_label_everyweek').html(chrome.i18n.getMessage('extEditLabelEveryWeek'));
+    $('#editcal_label_everymonth').html(chrome.i18n.getMessage('extEditLabelEveryMonth'));
+    $('#editcal_label_everyyear').html(chrome.i18n.getMessage('extEditLabelEveryYear'));
+    $('#editcal_label_address').html(chrome.i18n.getMessage('extEditLabelAddress'));
+    $('#editcal_label_summary').html(chrome.i18n.getMessage('extEditLabelSummary'));
+    $('#editcal_label_content').html(chrome.i18n.getMessage('extEditLabelContent'));
+    $('#editcal_label_type').html(chrome.i18n.getMessage('extEditLabelType'));
+    $('#editcal_label_meeting').html(chrome.i18n.getMessage('extEditLabelMeeting'));
+    $('#editcal_label_memorial').html(chrome.i18n.getMessage('extEditLabelMemorial'));
+    $('#editcal_label_deadline').html(chrome.i18n.getMessage('extEditLabelDeadline'));
+    $('#editcal_label_remind').html(chrome.i18n.getMessage('extEditLabelRemind'));
+    $('#editcal_label_before').html(chrome.i18n.getMessage('extEditLabelBefore'));
+    $('#editcal_label_remind_day').html(chrome.i18n.getMessage('extEditLabelRemindDay'));
+    $('#editcal_label_remind_hour').html(chrome.i18n.getMessage('extEditLabelRemindHour'));
+    $('#editcal_label_remind_min').html(chrome.i18n.getMessage('extEditLabelRemindMinute'));
+    $('#editcal_label').html(chrome.i18n.getMessage('extEditLabel'));
 
 
     $('#easycal-editcal').css({
