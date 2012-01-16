@@ -10,6 +10,11 @@
     font: 13px serif normal;
 }
 
+#easycal-editcal #editcal_label_time,#editcal_label_loop,#editcal_label_content,#editcal_label_remind {
+    float: left;
+    width: 5em;
+}
+
 #easycal-editcal .sch_div {
     text-align:left;
     white-space: nowrap;
