@@ -93,11 +93,18 @@ $('body').ajaxComplete(function() {
     var editcal_left = window.pageXOffset +
         ((window_width > editcal_width) ?
          ((window_width - editcal_width) / 2) : 0);
-
+    var mist_origin_top = (window.pageYOffset + window_height / 2) + 'px';
+    var mist_origin_left = (window.pageXOffset + window_width / 2) + 'px';
+    var mist_gradient = '-webkit-radial-gradient(' + mist_origin_left + ' ' +
+            mist_origin_top + ', ellipse closest-side, rgba(127,127,127,0.5),' +
+            'rgba(127,127,127,0.5) 35%, rgba(0,0,0,0.7))';
     $('#easycal-editcal').css({
         position: "absolute",
         top: editcal_top,
         left: editcal_left,
+    });
+    $('#easycal-mist').css({
+        'background-image': mist_gradient,
     });
     
     // Show pictures
