@@ -1,19 +1,28 @@
 console.debug('This is from content scripts!');
 
 var origin_overflowY = document.body.style.overflowY;
-document.body.style.overflowY = 'hidden';
+document.body.style.overflowY = 'visible';//some website has not enough height 
+                                          //like baidu to display our popup layer,
+                                          //so if this is set to 'hidden', part 
+                                          //out of body will not be displayed.
 
 // Add our popup layer div.
 $('body').append('<div id="easycal-editcal"></div>');
 $('body').append('<div id="easycal-mist"></div>');
 $('#easycal-editcal').load(chrome.extension.getURL("editcal.html") +
                            ' fieldset');
+                           
+//some website has not enough height like baidu to display our popup layer,
+//so if height is set to body.height, part of popup layer will not be displayed.
+//modified this to put the whole window in mist
+bodyHeight = $('body').css('height');
+myHeight = Math.max(parseInt(bodyHeight.replace('px', '')), window.innerHeight).toString() + 'px';
 $('#easycal-mist').css({
     position: "absolute",
     top: 0,
     left: 0,
     width: $('body').css('width'),
-    height: $('body').css('height'),
+    height: myHeight,//$('body').css('height'),
     // I do not think we can come up with a big enough and reasonable
     // z-index value without many many tests!
     'z-index': 10001,
@@ -32,6 +41,8 @@ $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
 
     $('#easycal-editcal').css({
+        'font' : '13px serif normal',
+        'color' : 'rgb(0,0,0)',
         width: '33em', // the appropriate value ?
         'z-index': 10002,
         'background-color': 'white',
@@ -71,11 +82,11 @@ $('body').ajaxComplete(function() {
     });
     $('#easycal-editcal #easycal-form-submit').bind('click', function(){
 
-        var userYear = Number($('#year').val());
-        var userMonth = Number($('#month').val()-1);
-        var userDate = Number($('#day').val());
-        var userHour = Number($('#hour').val());
-        var userMinute = Number($('#minute').val());
+        var userYear = Number($('#easycal_year').val());
+        var userMonth = Number($('#easycal_month').val()-1);
+        var userDate = Number($('#easycal_day').val());
+        var userHour = Number($('#easycal_hour').val());
+        var userMinute = Number($('#easycal_minute').val());
         var userSecond = 0; // Assume second is 0.
 
         g_schedule.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
@@ -94,16 +105,17 @@ $('body').ajaxComplete(function() {
             }
             return false;
         }
+        
+        g_schedule.loop = $('select[name=easycal_loop]').val();
 
-        g_schedule.sched_loc = $('#address').val();
-        g_schedule.summary = $('#summary').val();
-        g_schedule.content = $('#content').val();
+        g_schedule.sched_loc = $('#easycal_address').val();
+        g_schedule.content = $('#easycal_content').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
-        g_schedule.summary = $('#summary').val();
+        g_schedule.summary = g_schedule.content;//$('#easycal_summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
 
-        g_schedule.timebefore = Number($('#remindTime').val());
-        var timebefore = Number($('#remindTime').val());
+        g_schedule.timebefore = Number($('#easycal_remindTime').val());
+        var timebefore = Number($('#easycal_remindTime').val());
         var timestyle=$('select[name=remindUnit]').val();
 
         g_schedule.timebefore = timebefore;
@@ -142,20 +154,20 @@ $('body').ajaxComplete(function() {
                 // Let user see the info
                 
                 var pic_height = $('#form_fill').css('height');
+                var pic_width = $('#form_fill').css('width');
+                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;border:0;'>");
+                $('#form_fill').css("height", pic_height);
+                $('#form_fill').css("width", pic_width);
                 $('#form_fill').css("text-align", "center");
-                $('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_1.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");
-                
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_2.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 330);
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_3.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 660);
-                setTimeout(function(){$('#form_fill').html("<img alt='saving' src='"+chrome.extension.getURL("easycal_img/saving_ok.png")+"' height='"+pic_height+"' style='padding:0;margin:0;'>");}, 1000);
-                
+                $('#fieldset_easycal').css('text-align', 'center');
+                                        
                 setTimeout(
                     function(){
                         $('#easycal-editcal').remove();
                         $('#easycal-mist').remove();
                         document.body.style.overflowY=origin_overflowY;
                     },
-                    2000);
+                    1000);
             }
         });
 
@@ -182,16 +194,16 @@ function fillForm() {
     if (g_schedule) {
         console.log('Filling the form...');
         var time = new Date(g_schedule.sched_time);
-        $('#easycal-editcal #year').val(time.getFullYear());
-        $('#easycal-editcal #month').val(time.getMonth() + 1);
-        $('#easycal-editcal #day').val(time.getDate());
-        $('#easycal-editcal #hour').val(time.getHours());
-        $('#easycal-editcal #minute').val(time.getMinutes());
+        $('#easycal-editcal #easycal_year').val(time.getFullYear());
+        $('#easycal-editcal #easycal_month').val(time.getMonth() + 1);
+        $('#easycal-editcal #easycal_day').val(time.getDate());
+        $('#easycal-editcal #easycal_hour').val(time.getHours());
+        $('#easycal-editcal #easycal_minute').val(time.getMinutes());
 
-        $('#easycal-editcal #address').val(g_schedule.sched_loc);
-        $('#easycal-editcal #summary').val(g_schedule.summary);
-        $('#easycal-editcal #content').val(g_schedule.content);
+        $('#easycal-editcal #easycal_address').val(g_schedule.sched_loc);
+        $('#easycal-editcal #easycal_summary').val(g_schedule.summary);
+        $('#easycal-editcal #easycal_content').val(g_schedule.content);
         $('#easycal-editcal input:radio[name=type][value=meeting]')[0].checked = true;
-        $('#easycal-editcal #remindTime').val('15');
+        $('#easycal-editcal #easycal_remindTime').val('15');
     }
 }

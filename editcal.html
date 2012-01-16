@@ -12,33 +12,45 @@
 </head>
 <body>
 
-<fieldset>
-<div class="div_title" id="div_title"><img id="editcal_logo" alt="EasyCal" src="" width="21" height="21">&nbsp;新建日程&nbsp;</div>
+<fieldset id="fieldset_easycal">
+<div class="div_title" id="div_title"><table id="table_title"><tr><td><img id="editcal_logo" alt="EasyCal" src="" width="24" height="24"></td><td>新建日程</td></tr></table></div>
 
 <form id="form_fill" action="" method="post">
 
 <div class="sch_div" id="div_time">
     <label for="year">时间: </label>
-<input type="text" maxlength="4" style="width:3em;" id="year">&nbsp;-&nbsp;
-<input type="text" maxlength="2" style="width:1.6em;" id="month">&nbsp;-&nbsp;
-<input type="text" maxlength="2" style="width:1.6em;" id="day">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="text" maxlength="2" style="width:1.6em;" id="hour">&nbsp;:&nbsp;
-<input type="text" maxlength="2" style="width:1.6em;" id="minute">
+<input type="text" maxlength="4" style="width:3em;" id="easycal_year">年
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_month">月
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_day">日&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_hour">时
+<input type="text" maxlength="2" style="width:1.6em;" id="easycal_minute">分
+</div>
+
+<div class="sch_div" id="div_loop">
+    <label for="loop">重复: </label>
+<select name="easycal_loop">
+<option value="0" selected="selected">不重复</option>
+<option value="1">每天</option>
+<option value="2">每两天</option>
+<option value="7">每周</option>
+<option value="30">每月</option>
+<option value="365">每年</option>
+</select>
 </div>
 
 <div class="sch_div" id="div_loc">
     <label for="address">地点: </label>
-<input type="text" id="address">
+<input type="text" id="easycal_address">
 </div>
 
 <div class="sch_div" id="div_abstr">
     <label for="summary">摘要: </label>
-<input type="text" id="summary" name="summary"></input>
+<input type="text" id="easycal_summary" name="easycal_summary"></input>
 </div>
 
 <div class="sch_div" id="div_content">
     <label for="content">内容: </label>
-<textarea cols="50" rows="4" id="content" name="content"></textarea>
+<textarea cols="50" rows="4" id="easycal_content" name="easycal_content"></textarea>
 </div>
 
 <div class="sch_div" id="div_type">
@@ -54,7 +66,7 @@
 <div class="sch_div" id="div_remind">
     <label for="remindTime">提醒: </label>
     <label for="remindTime">提前 </label>
-<input type="text" style= "overflow-x:visible;width:2em;" id="remindTime">
+<input type="text" style= "overflow-x:visible;width:2em;" id="easycal_remindTime">
 <select name="remindUnit">
 <option value="day">天</option>
 <option value="hour">小时</option>
