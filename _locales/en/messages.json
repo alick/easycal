@@ -63,12 +63,12 @@
 	"description":"No repeat"
 },
 "extEditLabelEveryDay":{
-	"message":"Everyday",
-	"description":"Everyday"
+	"message":"Every day",
+	"description":"Every day"
 },
 "extEditLabelEvery2Day":{
-	"message":"Every 2 day",
-	"description":"Every 2 day"
+	"message":"Every 2 days",
+	"description":"Every 2 days"
 },
 "extEditLabelEveryWeek":{
 	"message":"Every week",
@@ -229,8 +229,8 @@
 	"description":"Change"
 },
 "extPopupTitleRepeat1":{
-	"message":"Repeat everyday",
-	"description":"Repeat everyday"
+	"message":"Repeat every day",
+	"description":"Repeat every day"
 },
 "extPopupTitleRepeat2":{
 	"message":"Repeat every 2 days",
