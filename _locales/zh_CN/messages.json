@@ -131,6 +131,100 @@
 "extEditLabelRemindMinute":{
 	"message":"分",
 	"description":"minutes"
+},
+
+"extDateMonth1":{
+	"message":"一月",
+	"description":"Jan"
+},
+"extDateMonth2":{
+	"message":"二月",
+	"description":"Feb"
+},
+"extDateMonth3":{
+	"message":"三月",
+	"description":"Mar"
+},
+"extDateMonth4":{
+	"message":"四月",
+	"description":"Apr"
+},
+"extDateMonth5":{
+	"message":"五月",
+	"description":"May"
+},
+"extDateMonth6":{
+	"message":"六月",
+	"description":"Jun"
+},
+"extDateMonth7":{
+	"message":"七月",
+	"description":"Jul"
+},
+"extDateMonth8":{
+	"message":"八月",
+	"description":"Aug"
+},
+"extDateMonth9":{
+	"message":"九月",
+	"description":"Sep"
+},
+"extDateMonth10":{
+	"message":"十月",
+	"description":"Oct"
+},
+"extDateMonth11":{
+	"message":"十一月",
+	"description":"Nov"
+},
+"extDateMonth12":{
+	"message":"十二月",
+	"description":"Dec"
+},
+"extDateDay1":{
+	"message":"日",
+	"description":"Sun"
+},
+"extDateDay2":{
+	"message":"一",
+	"description":"Mon"
+},
+"extDateDay3":{
+	"message":"二",
+	"description":"Tue"
+},
+"extDateDay4":{
+	"message":"三",
+	"description":"Wed"
+},
+"extDateDay5":{
+	"message":"四",
+	"description":"Thu"
+},
+"extDateDay6":{
+	"message":"五",
+	"description":"Fri"
+},
+"extDateDay7":{
+	"message":"六",
+	"description":"Sat"
+},
+"extDateNextMonth":{
+	"message":"下一月",
+	"description":"Next Month"
+},
+"extDatePreMonth":{
+	"message":"上一月",
+	"description":"Previous Month"
+},
+"extDateNextYear":{
+	"message":"下一年",
+	"description":"Next Year"
+},
+"extDatePreYear":{
+	"message":"上一年",
+	"description":"Previous Year"
 }
+
 
 }

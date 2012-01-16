@@ -62,12 +62,29 @@ g_l = [];
 //g_l["MONTH_BCK"] = "Move a month backward";
 //g_l["YEAR_FWD"] = "Move a year forward";
 //g_l["YEAR_BCK"] = "Move a year backward";
-g_l["MONTHS"] = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
-g_l["DAYS_3"] = ["日","一","二","三","四","五","六"];
-g_l["MONTH_FWD"] = "下一月";
-g_l["MONTH_BCK"] = "上一月";
-g_l["YEAR_FWD"] = "上一年";
-g_l["YEAR_BCK"] = "下一年";
+g_l["MONTHS"] = [chrome.i18n.getMessage("extDateMonth1"),
+                 chrome.i18n.getMessage("extDateMonth2"),
+                 chrome.i18n.getMessage("extDateMonth3"),
+                 chrome.i18n.getMessage("extDateMonth4"),
+                 chrome.i18n.getMessage("extDateMonth5"),
+                 chrome.i18n.getMessage("extDateMonth6"),
+                 chrome.i18n.getMessage("extDateMonth7"),
+                 chrome.i18n.getMessage("extDateMonth8"),
+                 chrome.i18n.getMessage("extDateMonth9"),
+                 chrome.i18n.getMessage("extDateMonth10"),
+                 chrome.i18n.getMessage("extDateMonth11"),
+                 chrome.i18n.getMessage("extDateMonth12")];
+g_l["DAYS_3"] = [chrome.i18n.getMessage("extDateDay1"),
+                 chrome.i18n.getMessage("extDateDay2"),
+                 chrome.i18n.getMessage("extDateDay3"),
+                 chrome.i18n.getMessage("extDateDay4"),
+                 chrome.i18n.getMessage("extDateDay5"),
+                 chrome.i18n.getMessage("extDateDay6"),
+                 chrome.i18n.getMessage("extDateDay7")];
+g_l["MONTH_FWD"] = chrome.i18n.getMessage("extDateNextMonth");
+g_l["MONTH_BCK"] = chrome.i18n.getMessage("extDatePreMonth");
+g_l["YEAR_FWD"] = chrome.i18n.getMessage("extDateNextYear");
+g_l["YEAR_BCK"] = chrome.i18n.getMessage("extDatePreYear");
 g_l["CLOSE"] = "Close the calendar";
 g_l["ERROR_2"] = g_l["ERROR_1"] = "Date object invalid!";
 g_l["ERROR_4"] = g_l["ERROR_3"] = "Target invalid";
