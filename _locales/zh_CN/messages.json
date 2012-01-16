@@ -93,7 +93,7 @@
 	"description":"Summary:"
 },
 "extEditLabelContent":{
-	"message":"内容: ",
+	"message":"日程: ",
 	"description":"Schedule:"
 },
 "extEditLabelType":{
@@ -224,6 +224,56 @@
 "extDatePreYear":{
 	"message":"上一年",
 	"description":"Previous Year"
+},
+
+
+"extPopupTitleModify":{
+	"message":"修改",
+	"description":"Change"
+},
+"extPopupTitleRepeat1":{
+	"message":"每天重复",
+	"description":"Repeat everyday"
+},
+"extPopupTitleRepeat2":{
+	"message":"每两天重复",
+	"description":"Repeat every 2 days"
+},
+"extPopupTitleRepeat7":{
+	"message":"每周重复",
+	"description":"Repeat every week"
+},
+"extPopupTitleRepeat30":{
+	"message":"每月重复",
+	"description":"Repeat every month"
+},
+"extPopupTitleRepeat365":{
+	"message":"每年重复",
+	"description":"Repeat every year"
+},
+"extPopupTitleRemove":{
+	"message":"删除",
+	"description":"Delete"
+},
+"extPopupTitleChangeSch":{
+	"message":"修改日程",
+	"description":"Change Schedule"
+},
+"extPopupTitleNoSch":{
+	"message":"这一天没有日程",
+	"description":"No schedules on this day"
+},
+"extPopupTitleNewSch":{
+	"message":"新建日程",
+	"description":"Create New Schedule"
+},
+"extPopupTitleSave":{
+	"message":"保存",
+	"description":"Save"
+},
+"extPopupTitleCancel":{
+	"message":"取消",
+	"description":"Cancel"
 }
 
 
