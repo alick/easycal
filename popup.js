@@ -215,12 +215,12 @@ function getSchedulesByTime(obj) {
             //"<label for='loop'>重复: </label>" +
             "<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelLoop")+"'>" + 
             "<select id='easycal_loop' name='easycal_loop'>" +
-            "<option value='0' selected='selected'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
-            "<option value='1'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
-            "<option value='2'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
-            "<option value='7'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
-            "<option value='30'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
-            "<option value='365'>"+chrome.i18n.getMessage("extEditLabelMin")+"</option>" +
+            "<option value='0' selected='selected'>"+chrome.i18n.getMessage("extEditLabelNoLoop")+"</option>" +
+            "<option value='1'>"+chrome.i18n.getMessage("extEditLabelEveryDay")+"</option>" +
+            "<option value='2'>"+chrome.i18n.getMessage("extEditLabelEvery2Day")+"</option>" +
+            "<option value='7'>"+chrome.i18n.getMessage("extEditLabelEveryWeek")+"</option>" +
+            "<option value='30'>"+chrome.i18n.getMessage("extEditLabelEveryMonth")+"</option>" +
+            "<option value='365'>"+chrome.i18n.getMessage("extEditLabelEveryYear")+"</option>" +
             "</select>" +
             "</div>" +
 
