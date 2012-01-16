@@ -10,7 +10,7 @@
     "content_scripts": [
     {
         "matches": ["<all_urls>"],
-        "js": ["cs.js", "jquery.js"]
+        "js": ["cs.js"]
     }
     ],
     "permissions": ["contextMenus", "tabs", "notifications",

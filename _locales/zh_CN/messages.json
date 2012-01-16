@@ -29,7 +29,7 @@
 },
 
 "extEditLabelTitle":{
-	"message":"新建日程(来自LOCALE)",
+	"message":"新建日程",
 	"description":"Create New Schedule"
 },
 "extEditLabelTime":{

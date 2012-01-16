@@ -43,7 +43,6 @@ $('body').ajaxComplete(function() {
     console.log('Ajax completed.');
     
     //label
-    console.log('label' + chrome.i18n.getMessage('extEditLabelTitle'));
     $('label[for=editcal_label_title]').html(chrome.i18n.getMessage('extEditLabelTitle'));
     $('label[for=editcal_label_time]').html(chrome.i18n.getMessage('extEditLabelTime'));
     $('label[for=editcal_label_year]').html(chrome.i18n.getMessage('extEditLabelYear'));
