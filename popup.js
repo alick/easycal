@@ -135,8 +135,13 @@ function getSchedulesByTime(obj) {
     }
     TodayScheduleList.sort(myCmp);
     
-    document.getElementById('schedhead').innerHTML = obj.year.toString() + chrome.i18n.getMessage("extEditLabelYear") + obj.month.toString() + chrome.i18n.getMessage("extEditLabelMonth") + obj.day.toString() + chrome.i18n.getMessage("extEditLabelDay");
+    var schedhead_html = "<table id='schedhead_table'><tr><td id='schedhead_today'></td><td id='schedhead_help'></td></tr></table>";
+    document.getElementById('schedhead').innerHTML = schedhead_html;
+    document.getElementById('schedhead_today').innerHTML = obj.year.toString() + chrome.i18n.getMessage("extEditLabelYear") + obj.month.toString() + chrome.i18n.getMessage("extEditLabelMonth") + obj.day.toString() + chrome.i18n.getMessage("extEditLabelDay");
+    document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+chrome.i18n.getMessage("extPopupHelp")+"' height='20px' width='20px'>";
 
+   
+    
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         //var schedule_str = getItem('sched' + i);
         //if (schedule_str == null) {
@@ -371,6 +376,20 @@ function getSchedulesByTime(obj) {
     $('.sch_div > textarea').css('border', '#ECF1F9 solid 1px');
     $('.sch_div > select').css('border', '#ECF1F9 solid 1px');
     $('#div_submit').css('font-size', '16px');
+    
+    // CSS for sched_head
+    $("#schedhead_table").css('background', 'rgb(226,234,245)');
+    $("#schedhead_table > tbody > tr").css('background', 'rgb(226,234,245)');
+    $("#schedhead_table").css('margin', '0 0 0 0');
+    $("#schedhead_table").css('padding', '0 0 5px 0');
+    $("#schedhead_table").css('text-align', 'center');
+    $("#schedhead_table").css('font-size', 'font-size:1.0em;');
+    $("#schedhead_table").css('text-align', 'center');
+    $("#schedhead_table").css('width', '20.5em');
+    $("#schedhead_table").css('height', '20px');
+    $("#schedhead_today").css('width', '19em');
+    $("#schedhead_help").css('width', '1.5em');
+
 
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
@@ -523,6 +542,9 @@ function getSchedulesByTime(obj) {
             $("#div_add").css("display", "block");
             $('#div_new .warning').remove();
             
+        }else if (action == "help") {
+            // Open tab "Help.html"
+            chrome.tabs.create({"url":"Help.html"});
         } else {
             console.warn("Not supported yet!"+action);
         }
@@ -546,6 +568,8 @@ function getSchedulesByTime(obj) {
             $(this)[0].src="popup_add_mouseover.png";
         } else if (action == "New_Cancel") {
             $(this)[0].src="Delete-New-mouseover.png";
+        } else if (action == "help") {
+            $(this)[0].src="label/help_mouseover.png";
         } else {
             console.log('Not supported');
         }
@@ -569,6 +593,8 @@ function getSchedulesByTime(obj) {
             $(this)[0].src="popup_add.png";
         } else if (action == "New_Cancel") {
             $(this)[0].src="Delete-New.png";
+        } else if (action == "help") {
+            $(this)[0].src="label/help.png";
         } else {
             console.log('Not supported');
         }

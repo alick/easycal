@@ -271,6 +271,12 @@
 "extPopupTitleCancel":{
 	"message":"Cancel",
 	"description":"Cancel"
+},
+
+"extPopupHelp":{
+    "message":"Help",
+	"description":"Help"
 }
+
 
 }

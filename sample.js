@@ -112,3 +112,9 @@ var id = chrome.contextMenus.create({"title": title, "contexts":["selection"],
                                        "onclick": genericOnClick});
 //console.log("'" + context + "' item:" + id);
 
+// Show help at first install
+if (getItem("InitiallyShowHelp") == null) {
+    setItem("InitiallyShowHelp", "Done");
+    // Open tab "Help.html"
+    chrome.tabs.create({"url":"Help.html"});
+}

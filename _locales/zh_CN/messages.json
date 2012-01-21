@@ -274,7 +274,11 @@
 "extPopupTitleCancel":{
 	"message":"取消",
 	"description":"Cancel"
-}
+},
 
+"extPopupHelp":{
+    "message":"帮助",
+	"description":"Help"
+}
 
 }
