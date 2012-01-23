@@ -1,3 +1,5 @@
+var CONSTANT_CONTENT_LENGTH = 20;
+
 g_globalObject = {}
 
 window.onload = function(){
@@ -192,10 +194,10 @@ function getSchedulesByTime(obj) {
         sched_html += '<td class="summary"  style="vertical-align:middle;">';              
         sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content;
-        if (disp_str.length > 13) {
-            disp_str = disp_str.substr(0, 12) + '...';
+        if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
+            disp_str = disp_str.substr(0, CONSTANT_CONTENT_LENGTH-1) + '...';
         }
-        sched_html += "&nbsp;" + disp_str + "</a></td>";
+        sched_html += disp_str + "</a></td>";
         
         sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
