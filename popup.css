@@ -68,7 +68,11 @@ td.summary {
 }
 
 td.time {
-    width:2.5em;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    width: 3em;
+    text-align: right;
 }
 
 td.td_label {
@@ -95,10 +99,6 @@ div#div_submit {
     font-size: smaller;
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
-}
-
-.time {
-    text-align: right;
 }
 
 .warning {
