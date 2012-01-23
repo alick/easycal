@@ -64,14 +64,14 @@ td.td_outer {
 */
 
 td.summary {
-    width: 9.7em;
+    width: 9.5em;
 }
 
 td.time {
     font-family: monospace;
     margin: 0;
     padding: 0;
-    width: 3em;
+    width: 3.3em;
     text-align: right;
 }
 
