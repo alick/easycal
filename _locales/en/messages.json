@@ -252,7 +252,10 @@
 "extPopupHelp":{
     "message":"Help",
 	"description":"Help"
+},
+
+"extHelpPage":{
+    "message":"Help-en.html",
+	"description":"file name of Help file"
 }
-
-
 }

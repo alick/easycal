@@ -504,7 +504,7 @@ function getSchedulesByTime(obj) {
             
         }else if (action == "help") {
             // Open tab "Help.html"
-            chrome.tabs.create({"url":"Help.html"});
+            chrome.tabs.create({"url":chrome.i18n.getMessage("extHelpPage")});
         } else {
             console.warn("Not supported yet!"+action);
         }

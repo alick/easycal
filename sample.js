@@ -109,5 +109,5 @@ var id = chrome.contextMenus.create({"title": title, "contexts":["selection"],
 if (getItem("InitiallyShowHelp") == null) {
     setItem("InitiallyShowHelp", "Done");
     // Open tab "Help.html"
-    chrome.tabs.create({"url":"Help.html"});
+    chrome.tabs.create({"url":chrome.i18n.getMessage("extHelpPage")});
 }

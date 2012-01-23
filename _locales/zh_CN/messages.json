@@ -279,6 +279,10 @@
 "extPopupHelp":{
     "message":"帮助",
 	"description":"Help"
-}
+},
 
+"extHelpPage":{
+    "message":"Help.html",
+	"description":"file name of Help file"
+}
 }
