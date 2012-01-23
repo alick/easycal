@@ -105,6 +105,10 @@ div#div_add table tbody tr td{
     font-size: 14px;
 }
 
+div#div_new table tbody tr td{
+    font-size: 14px;
+}
+
 .adding a {
     color: black;
     /*font-size: smaller;*/
