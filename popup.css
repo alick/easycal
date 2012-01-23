@@ -39,17 +39,12 @@ td.td_outer {
     width: 18em;
     height: 198px;
     margin: 0;
-    padding: 8px 0 0 4px;
+    padding: 4px 0 0 4px;
     text-align:left;
     outline:rgb(226,234,245) 1px solid;
     background-color:rgb(253,254,255);
     overflow-y:scroll;
     overflow-x:visible;
-}
-
-.div_sched_inner {
-    margin: 0 0 1px 0;
-    padding: 0;
 }
 
 
@@ -103,11 +98,11 @@ div#div_submit {
 }
 
 div.div_sched_inner {
-    margin: 0 0 1px 3px;
+    margin: 3px 0 3px 3px;
 }
 
 div#div_add{
-    margin: 2px 0 1px 3px;
+    margin: 4px 0 1px 3px;
 }
 
 div#div_add table tbody tr td{
@@ -115,7 +110,7 @@ div#div_add table tbody tr td{
 }
 
 div#div_new{
-    margin: 2px 0 1px 3px;
+    margin: 4px 0 1px 3px;
 }
 
 div#div_new table tbody tr td{
