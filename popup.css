@@ -73,14 +73,14 @@ table {
 }
 
 td.summary {
-    width: 9.5em;
+    width: 9em;
 }
 
 td.time {
     font-family: monospace;
     margin: 0;
     padding: 0;
-    width: 2.5em;
+    width: 3.5em;
     text-align: right;
 }
 
@@ -90,7 +90,7 @@ td.td_label {
 
 td.adding {
     /*width:13.8em;*/
-    width: 13.5em;
+    width: 14em;
 }
 
 div#div_submit {
@@ -106,7 +106,7 @@ div#div_submit {
 
 .summary a {
     color: black;
-    /*font-size: smaller;*/
+    font-size: smaller;
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
 }
