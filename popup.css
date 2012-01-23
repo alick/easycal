@@ -47,6 +47,11 @@ td.td_outer {
     overflow-x:visible;
 }
 
+.div_sched_inner {
+    margin: 0 0 1px 0;
+    padding: 0;
+}
+
 
 /*
 .triangle {
@@ -63,15 +68,24 @@ td.td_outer {
 }
 */
 
+td {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+table {
+    border-collapse: collapse;
+}
+
 td.summary {
-    width: 9.5em;
+    width: 9em;
 }
 
 td.time {
     font-family: monospace;
     margin: 0;
     padding: 0;
-    width: 3.3em;
+    width: 3.5em;
     text-align: right;
 }
 
@@ -80,7 +94,8 @@ td.td_label {
 }
 
 td.adding {
-    width:13.8em;
+    /*width:13.8em;*/
+    width: 14em;
 }
 
 div#div_submit {

@@ -262,7 +262,7 @@ function getSchedulesByTime(obj) {
     
     // Add '+' sign
     sched_table += 
-                   "<div id='div_add' style='text-align:center;padding:0.2em 0em 0.1em 0em;'>" +
+                   "<div id='div_add' style='text-align:center;padding:1px 0 1px 0;'>" +
                    "<table class='sched_item_table'><tr>"+
                    "<td><img class='popup-menu-item' title='"+chrome.i18n.getMessage("extPopupTitleNewSch")+"' alt='New' src='popup_add.png' height='20px' width='20px'></td>"+
                    "<td class='adding'><a href='#'>"+chrome.i18n.getMessage("extPopupTitleNewSch")+"</a></td>"+
