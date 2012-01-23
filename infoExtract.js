@@ -122,19 +122,3 @@ function timeExtraction(my_selection) {
     
     // =========================================================
 }
-
-function locExtraction(my_selection) {
-    // ================= location extraction =======================
-    var patt_loc = /地点[:：](\S+)/;
-    var results_loc = patt_loc.exec(my_selection);
-    var sched_loc = '';
-    
-    if (results_loc) {
-        sched_loc = results_loc[1];
-        console.log('location detected: '+sched_loc);
-    }
-    
-    // =========================================================
-    return sched_loc;
-}
-

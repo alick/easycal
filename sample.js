@@ -39,25 +39,19 @@ function genericOnClick(info, tab) {
     var storekey = "sched" + sched_index;
     var schedule = {
         id: sched_index,
-        type: "default",
-        add_time: timestamp,
-        summary: my_selection,
         content: my_selection,
         sched_time: timestamp + 1000 * 60 * 60 * 24,  // Using the same time tomorrow as the schedule time
-        sched_loc: '',
-		sched_remindtime:1000*60*15,//remind the user 15min before the deadline
+        sched_remindtime:1000*60*15,//remind the user 15min before the deadline
+        add_time: timestamp,
     };
     
     
     schedule.sched_time = timeExtraction(my_selection)
-    schedule.sched_loc = locExtraction(my_selection)
     
     chrome.tabs.insertCSS(null, {file: "editcal.css"});
     chrome.tabs.executeScript(null, {file: "jquery.js"});
-    //chrome.tabs.executeScript(null, {file: "storage.js"});
     chrome.tabs.executeScript(null, {file: "editcal.js"});
     //chrome.tabs.create({"url":"http://www.google.com/calendar/event?action=TEMPLATE&text="+my_selection});
-    //chrome.tabs.create({"url":"editcal.html"});
     chrome.tabs.getSelected(null, function(tab) {
         var request = {
             newsched: true,
@@ -95,7 +89,6 @@ function genericOnClick(info, tab) {
                 g_schedule = JSON.parse(request.schedule_str);
                 console.log("newsched:" + g_newsched);
                 console.log("time: " + g_schedule.sched_time);
-                console.log("summary: " + g_schedule.summary);
                 var storekey = "sched" + g_schedule.id;
                 setItem(storekey, JSON.stringify(g_schedule));
                 sendResponse({farewell: "OK. I got it."});

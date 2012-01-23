@@ -191,12 +191,11 @@ function getSchedulesByTime(obj) {
 
         sched_html += '<td class="summary"  style="vertical-align:middle;">';              
         sched_html += '<a href="#" title="' + s.content + '">';
-        var disp_str = s.content; //s.summary;
+        var disp_str = s.content;
         if (disp_str.length > 13) {
             disp_str = disp_str.substr(0, 12) + '...';
         }
         sched_html += "&nbsp;" + disp_str + "</a></td>";
-        //sched_html += s.summary + "</td>";
         
         sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
@@ -622,25 +621,12 @@ function popup_save(sched_id, s) {
         var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
         console.warn(msg);
 
-        // FIXME
-        // #div_time is duplicate.
-        //var div = $('#' + sched_id + '_edit #div_time');
-        //if (div.html().indexOf(msg) == -1) {
-        //    div.append('<span class="warning">' + msg + '</span>');
-        //} else {
-        //    div.find(".warning").append("!");
-        //}
-        
-        // consider return where is wrong
         return false;
     }
     
     s.loop = $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val();
 
-    s.sched_loc = $("#" + sched_id + "_edit > div > div#div_loc > input#address").val();
     s.content = $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"];
-    s.summary = s.content;
-    s.type = $("#" + sched_id + "_edit > div > #div_type > input:radio[checked=checked]").attr('value');
 
     var timebefore = $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"];
     var timestyle = $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val();
@@ -687,13 +673,10 @@ function popup_new() {
 
     var s = {
         id: 0,
-        type: "meeting",
-        add_time: new Date().getTime(),
-        summary: "",
         content: "",
         sched_time: new Date().getTime(),  // Using the same time
-        sched_loc: '',
         sched_remindtime:1000*60*15,//remind the user 15min before the deadline
+        add_time: new Date().getTime(),
     };
     
     // Get the Unique sched_index; Note that the method 
@@ -713,25 +696,12 @@ function popup_new() {
         var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
         console.warn(msg);
 
-        // FIXME
-        // #div_time is duplicate.
-        //var div = $('#div_new #div_time');
-        //if (div.html().indexOf(msg) == -1) {
-        //    div.append('<span class="warning">' + msg + '</span>');
-        //} else {
-        //    div.find(".warning").append("!");
-        //}
-        
-        // consider return where is wrong
         return false;
     }
 
     s.loop = $("#div_new > div > div#div_loop > #easycal_loop").val();
 
-    s.sched_loc = $("#div_new > div > div#div_loc > input#address").val();
     s.content = $("#div_new > div > div#div_content > #content")[0]["value"];
-    s.summary = s.content;
-    s.type = $("#div_new > div > #div_type > input:radio[checked=checked]").attr('value');
 
     var timebefore = $("#div_new > div > div#div_remind > #remindTime")[0]["value"];
     var timestyle = $("#div_new > div > div#div_remind > #remindUnit").val();

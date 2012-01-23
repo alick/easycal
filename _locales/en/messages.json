@@ -82,33 +82,9 @@
 	"message":"Every year",
 	"description":"Every year"
 },
-"extEditLabelAddress":{
-	"message":"Location:",
-	"description":"Location:"
-},
-"extEditLabelSummary":{
-	"message":"Summary:",
-	"description":"Summary:"
-},
 "extEditLabelContent":{
 	"message":"Schedule:",
 	"description":"Schedule:"
-},
-"extEditLabelType":{
-	"message":"Type:",
-	"description":"Type:"
-},
-"extEditLabelMeeting":{
-	"message":"Meeting",
-	"description":"Meeting"
-},
-"extEditLabelMemorial":{
-	"message":"Memorial",
-	"description":"Memorial"
-},
-"extEditLabelDeadline":{
-	"message":"Deadline",
-	"description":"Deadline"
 },
 "extEditLabelRemind":{
 	"message":"Remind:",

@@ -13,7 +13,6 @@
                 g_schedule = JSON.parse(request.schedule_str);
                 console.log("newsched:" + g_newsched);
                 console.log("time: " + g_schedule.sched_time);
-                console.log("summary: " + g_schedule.summary);
                 sendResponse({farewell: "OK. Goodbye."});
             }
             else {

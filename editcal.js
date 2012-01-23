@@ -61,13 +61,7 @@ $('body').ajaxComplete(function() {
     $('#editcal_label_everyweek').html(chrome.i18n.getMessage('extEditLabelEveryWeek'));
     $('#editcal_label_everymonth').html(chrome.i18n.getMessage('extEditLabelEveryMonth'));
     $('#editcal_label_everyyear').html(chrome.i18n.getMessage('extEditLabelEveryYear'));
-    $('#editcal_label_address').html(chrome.i18n.getMessage('extEditLabelAddress'));
-    $('#editcal_label_summary').html(chrome.i18n.getMessage('extEditLabelSummary'));
     $('#editcal_label_content').html(chrome.i18n.getMessage('extEditLabelContent'));
-    $('#editcal_label_type').html(chrome.i18n.getMessage('extEditLabelType'));
-    $('#editcal_label_meeting').html(chrome.i18n.getMessage('extEditLabelMeeting'));
-    $('#editcal_label_memorial').html(chrome.i18n.getMessage('extEditLabelMemorial'));
-    $('#editcal_label_deadline').html(chrome.i18n.getMessage('extEditLabelDeadline'));
     $('#editcal_label_remind').html(chrome.i18n.getMessage('extEditLabelRemind'));
     $('#editcal_label_before').html(chrome.i18n.getMessage('extEditLabelBefore'));
     $('#editcal_label_remind_day').html(chrome.i18n.getMessage('extEditLabelRemindDay'));
@@ -158,10 +152,8 @@ $('body').ajaxComplete(function() {
         
         g_schedule.loop = $('select[name=easycal_loop]').val();
 
-        g_schedule.sched_loc = $('#easycal_address').val();
         g_schedule.content = $('#easycal_content').val();
         g_schedule.type = $('input:radio[name=type]:checked').val();
-        g_schedule.summary = g_schedule.content;//$('#easycal_summary').val();
         //g_schedule.remind = $('select[name=remindUnit]').val();
 
         g_schedule.timebefore = Number($('#easycal_remindTime').val());
@@ -200,8 +192,6 @@ $('body').ajaxComplete(function() {
             console.log(response.farewell);
             if (response.farewell === "OK. I got it.") {
                 console.log("Your schedule has been successfully saved ^_^");
-                // TODO
-                // Let user see the info
                 
                 var pic_height = $('#form_fill').css('height');
                 var pic_width = $('#form_fill').css('width');
@@ -250,8 +240,6 @@ function fillForm() {
         $('#easycal-editcal #easycal_hour').val(time.getHours());
         $('#easycal-editcal #easycal_minute').val(time.getMinutes());
 
-        $('#easycal-editcal #easycal_address').val(g_schedule.sched_loc);
-        $('#easycal-editcal #easycal_summary').val(g_schedule.summary);
         $('#easycal-editcal #easycal_content').val(g_schedule.content);
         $('#easycal-editcal input:radio[name=type][value=meeting]')[0].checked = true;
         $('#easycal-editcal #easycal_remindTime').val('15');
