@@ -63,6 +63,15 @@ td.td_outer {
 }
 */
 
+td {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+table {
+    border-collapse: collapse;
+}
+
 td.summary {
     width: 9.5em;
 }
@@ -71,7 +80,7 @@ td.time {
     font-family: monospace;
     margin: 0;
     padding: 0;
-    width: 3em;
+    width: 2.5em;
     text-align: right;
 }
 
@@ -80,7 +89,8 @@ td.td_label {
 }
 
 td.adding {
-    width:13.8em;
+    /*width:13.8em;*/
+    width: 13.5em;
 }
 
 div#div_submit {
@@ -89,14 +99,14 @@ div#div_submit {
 
 .adding a {
     color: black;
-    font-size: smaller;
+    /*font-size: smaller;*/
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
 }
 
 .summary a {
     color: black;
-    font-size: smaller;
+    /*font-size: smaller;*/
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
 }
