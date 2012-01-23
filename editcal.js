@@ -241,7 +241,6 @@ function fillForm() {
         $('#easycal-editcal #easycal_minute').val(time.getMinutes());
 
         $('#easycal-editcal #easycal_content').val(g_schedule.content);
-        $('#easycal-editcal input:radio[name=type][value=meeting]')[0].checked = true;
         $('#easycal-editcal #easycal_remindTime').val('15');
     }
 }

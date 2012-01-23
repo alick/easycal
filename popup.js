@@ -228,27 +228,12 @@ function getSchedulesByTime(obj) {
             "</select>" +
             "</div>" +
 
-            
             "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
             //"日程: " + 
             "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelContent")+"'>" + 
             "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
             "</div>" + 
 
-            "<div class='sch_div' id='div_loc' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-            chrome.i18n.getMessage("extEditLabelAddress") + 
-            "<input type='text' style='width:14em;height:1em;' id='address'>" + 
-            "</div>" + 
-            
-            
-            
-            "<div class='sch_div' id='div_type' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-            chrome.i18n.getMessage("extEditLabelType") + 
-            "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> "+chrome.i18n.getMessage("extEditLabelMeeting")+"" + 
-            "<input type='radio' name='type' id='memorial' value='memorial'/> "+chrome.i18n.getMessage("extEditLabelMemorial")+"" + 
-            "<input type='radio' name='type' id='deadline' value='deadline'/> "+chrome.i18n.getMessage("extEditLabelDeadline")+"" + 
-            "</div>" + 
-            
             "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0em 0.2em;'>" + 
             //"提醒: " + 
             "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;' title='"+chrome.i18n.getMessage("extEditLabelRemind")+"'>" + 
@@ -261,10 +246,6 @@ function getSchedulesByTime(obj) {
             "</select>" + 
             "</div>" + 
             
-            "<div id='div_submit' style='display:none;text-align:center;background-color:#C0C0C0;padding:0.5em 0.5em 0.5em 0.5em;'>" + 
-            "<input type='submit' class='popup-menu-item' alt='Edit_Save' id='submit' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0em 0.5em 0em;'/> " + 
-            "<input type='submit' class='popup-menu-item' alt='Edit_Cancel' id='cancel' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0em 0.5em 0em;' />" + 
-            "</div>" + 
             "</div>";
             
         editing_div += "</div>";
@@ -330,20 +311,6 @@ function getSchedulesByTime(obj) {
         "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
         "</div>" + 
 
-        "<div class='sch_div' id='div_loc' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        chrome.i18n.getMessage("extEditLabelAddress") + 
-        "<input type='text' style='width:14em;height:1em;' id='address'>" + 
-        "</div>" + 
-        
-        
-        
-        "<div class='sch_div' id='div_type' style='display:none;padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        chrome.i18n.getMessage("extEditLabelType") + 
-        "<input type='radio' name='type' id='meeting' value='meeting' checked='checked'/> "+chrome.i18n.getMessage("extEditLabelMeeting")+"" + 
-        "<input type='radio' name='type' id='memorial' value='memorial'/> "+chrome.i18n.getMessage("extEditLabelMemorial")+"" + 
-        "<input type='radio' name='type' id='deadline' value='deadline'/> "+chrome.i18n.getMessage("extEditLabelDeadline")+"" + 
-        "</div>" + 
-        
         "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
         //"提醒: " + 
         "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;' title='"+chrome.i18n.getMessage("extEditLabelRemind")+"'>" + 
@@ -356,10 +323,6 @@ function getSchedulesByTime(obj) {
         "</select>" + 
         "</div>" + 
         
-        "<div id='div_submit_des' style='display:none;text-align:right;background-color:#E8EAF0;padding:0.2em 0.5em 0.2em 0.5em;'>" + 
-        "<input type='submit' class='popup-menu-item' alt='New_Save' id='submit_des' value='保存' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;'/> " + 
-        "<input type='submit' class='popup-menu-item' alt='New_Cancel' id='cancel_des' value='取消' style='padding:0.2em 1em 0.2em 1em;margin:0.5em 0.5em 0.5em 0.5em;' />" + 
-        "</div>" + 
         "</div>" + 
         "</div>";
     sched_table += adding_div;
@@ -439,9 +402,7 @@ function getSchedulesByTime(obj) {
                         strMin = time.getMinutes().toString();
                         if (strMin.length == 1) strMin = '0'+strMin;
                         $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = strMin;
-                        $("#" + sched_id + "_edit > div > div#div_loc > input#address").val(s.sched_loc);
                         $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
-                        $("#" + sched_id + "_edit > div > #div_type > input:radio[value="+s.type+"]")[0].checked = true;
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
                         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
                         $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
