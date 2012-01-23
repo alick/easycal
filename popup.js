@@ -262,7 +262,7 @@ function getSchedulesByTime(obj) {
     
     // Add '+' sign
     sched_table += 
-                   "<div id='div_add' style='text-align:center;padding:0.2em 0em 0.1em 0em;' class='div_sched_inner'>" +
+                   "<div id='div_add' style='text-align:center;padding:1px 0 1px 0;' class='div_sched_inner'>" +
                    "<table class='sched_item_table'><tr>"+
                    "<td><img class='popup-menu-item' title='"+chrome.i18n.getMessage("extPopupTitleNewSch")+"' alt='New' src='popup_add.png' height='20px' width='20px'></td>"+
                    "<td class='adding'><a href='#'>"+chrome.i18n.getMessage("extPopupTitleNewSch")+"</a></td>"+
@@ -274,7 +274,7 @@ function getSchedulesByTime(obj) {
     var adding_div = 
         "<div id='div_new' style='display:none;font-size:0.6em;' class='div_sched_inner'>" +
         
-        "<div id='div_submit' style='text-align:center;font-size:16px;padding:0.2em 0em 0.1em 0em;'>" +
+        "<div id='div_submit' style='text-align:center;font-size:16px;padding:1px 0 1px 0;'>" +
         "<table class='sched_item_table'><tr>"+
         "<td><img class='popup-menu-item' title='"+chrome.i18n.getMessage("extPopupTitleSave")+"' alt='New_Save' src='popup_add.png' height='20px' width='20px'></td>"+
         "<td class='adding'><a href='#'>"+chrome.i18n.getMessage("extPopupTitleNewSch")+"</a></td>"+

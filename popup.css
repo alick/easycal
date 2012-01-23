@@ -47,6 +47,11 @@ td.td_outer {
     overflow-x:visible;
 }
 
+.div_sched_inner {
+    margin: 0 0 1px 0;
+    padding: 0;
+}
+
 
 /*
 .triangle {
@@ -98,11 +103,19 @@ div#div_submit {
 }
 
 div.div_sched_inner {
-    margin: 0 0 2px 3px;
+    margin: 0 0 1px 3px;
+}
+
+div#div_add{
+    margin: 2px 0 1px 3px;
 }
 
 div#div_add table tbody tr td{
     font-size: 14px;
+}
+
+div#div_new{
+    margin: 2px 0 1px 3px;
 }
 
 div#div_new table tbody tr td{
@@ -111,7 +124,7 @@ div#div_new table tbody tr td{
 
 .adding a {
     color: black;
-    /*font-size: smaller;*/
+    font-size: smaller;
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
 }
