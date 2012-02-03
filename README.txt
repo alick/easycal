@@ -1,5 +1,6 @@
-This is easycal, an appealing and easy-to-use calendar app as an Chrome
-extension.
+This is the project homepage of easycal, an appealing and easy-to-use
+calendar app as an Chrome extension. You can install it right at
+[https://chrome.google.com/webstore/detail/jigbmbnnlofcabgibnakoocachndoifm Chrome Webstore].
 
 Easycal aims at erasing the pain when you use some other calendar
 software. You need fewer clicks and typing to manage your schedule with
