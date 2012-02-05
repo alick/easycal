@@ -98,11 +98,8 @@ self.port.on('fillform', function(schedule) {
     console.debug("begin to fill the form...");
     console.log("schedule: " + JSON.stringify(schedule));
     sched_id = schedule.id;
-    if (form_html) {
-        $('#form_fill').html(form_html);
-    } else {
-        console.warn('form_html wrong');
-    }
+    $("#form_fill").css('display', 'block');
+    $('#saved_img').css('display', 'none');
     var time = new Date(schedule.sched_time);
     $('#easycal_year').val(time.getFullYear());
     $('#easycal_month').val(time.getMonth() + 1);
@@ -118,10 +115,8 @@ self.port.on('save_response', function(response) {
     if (response === "OK") {
         console.log("Your schedule has been successfully saved ^_^");
 
-        var saved_html = "<img alt='saving' src='saving_ok.png' style='padding:0;margin:0;border:0;' />";
-        form_html = $('#form_fill').html();
-        $("#form_fill").html(saved_html);
-        console.debug('form_fill:' + $('#form_fill').html());
+        $("#form_fill").css('display', 'none');
+        $('#saved_img').css('display', 'block');
 
         setTimeout(
             function(){
