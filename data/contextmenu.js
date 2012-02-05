@@ -1,3 +1,21 @@
+// When this item is clicked, post a message back with the schedule
+self.on("click", function () {
+    var text = window.getSelection().toString();
+    var this_time = new Date();
+    var timestamp = this_time.getTime();
+    var schedule = {
+        id: -1, // id unknown
+        content: text,
+        sched_time: timestamp + 1000 * 60 * 60 * 24,  // Using the same time tomorrow as the schedule time
+        sched_remindtime: 1000*60*15,//remind the user 15min before the deadline
+        add_time: timestamp,
+    };
+
+    schedule.sched_time = timeExtraction(text);
+
+    self.postMessage(schedule);
+});
+
 function timeExtraction(my_selection) {
     // ================= time extraction =======================
     var patt1 = /(\d+)年(\d+)月(\d+)日*/;
@@ -6,7 +24,7 @@ function timeExtraction(my_selection) {
     var patt4 = /(\d+)-(\d+)/;
     var patt5 = /(\d+)日/;
     var patt6 = /([今明])[天晚]/;
-    
+
     var patt_t = /([上中下]午|晚上*)(\d+)[:：](\d+)/;
     var patt_t_0 = /(\d+)[:：](\d+)/;
     var patt_t_1 = /([上中下]午|晚上*)(\d+)[时点](\d+)[分]*/;
@@ -14,14 +32,14 @@ function timeExtraction(my_selection) {
     var patt_t_3 = /([上中下]午|晚上*)(\d+)[时点]/;
     var patt_t_4 = /(\d+)[时点]/
     var patt_t_5 = /([上中下]午|晚上*)/;
-    
+
     var results1 = patt1.exec(my_selection);
     var results2 = patt2.exec(my_selection);
     var results3 = patt3.exec(my_selection);
     var results4 = patt4.exec(my_selection);
     var results5 = patt5.exec(my_selection);
     var results6 = patt6.exec(my_selection);
-    
+
     var results_t = patt_t.exec(my_selection);
     var results_t_0 = patt_t_0.exec(my_selection);
     var results_t_1 = patt_t_1.exec(my_selection);
@@ -29,9 +47,9 @@ function timeExtraction(my_selection) {
     var results_t_3 = patt_t_3.exec(my_selection);
     var results_t_4 = patt_t_4.exec(my_selection);
     var results_t_5 = patt_t_5.exec(my_selection);
-    
+
     var now_time = new Date();
-    
+
     // day
     if (results1) {
         now_time.setFullYear(Number(results1[1]), Number(results1[2])-1, Number(results1[3]));
@@ -118,7 +136,5 @@ function timeExtraction(my_selection) {
         }
     }
     console.log('time detected: '+now_time.toLocaleString());
-    return now_time;
-    
-    // =========================================================
+    return now_time.getTime();
 }

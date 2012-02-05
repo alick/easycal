@@ -121,7 +121,7 @@ console.debug('This is from editcal.js!');
 
 self.on('message', function(schedule) {
     console.log("begin to fill the form");
-    console.log("schedule: " + schedule);
+    console.log("schedule: " + JSON.stringify(schedule));
     if (schedule) {
         console.log('Filling the form...');
         /*
