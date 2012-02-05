@@ -1,28 +1,30 @@
-#easycal-editcal fieldset {
+#fieldset_easycal {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     background-color: white;
     color: black;
     /*border: 1em solid rgba(57, 57, 57, 0.5);*/
     border-style: none;
-    outline: rgba(57, 57, 57, 0.3) solid 2em;
+    /*outline: rgba(57, 57, 57, 0.3) solid 2em;*/
     width:33em;
     font: 13px serif normal;
+    text-align: center;
+    vertical-align: center;
 }
 
-#easycal-editcal #editcal_label_time,#editcal_label_loop,#editcal_label_content,#editcal_label_remind {
+#editcal_label_time,#editcal_label_loop,#editcal_label_content,#editcal_label_remind {
     display: inline-block;
     width: 5em; /* suitable for English locale */
 }
 
-#easycal-editcal .sch_div {
+.sch_div {
     text-align:left;
     white-space: nowrap;
     padding: 0.25em 0em 0.25em 0.5em;
 }
 
 
-#easycal-editcal #div_title {
+#div_title {
     text-align:left;
     font: 16px serif normal;
     color:rgb(0,0,0);
@@ -32,7 +34,7 @@
     background-color:rgb(182, 209, 238);
 }
 
-#easycal-editcal #table_title {
+#table_title {
     text-align:left;
     font: 16px serif normal;
     color:rgb(0,0,0);
@@ -45,55 +47,55 @@
     border:0;
 }
 
-#easycal-editcal #table_title tr td {
+#table_title tr td {
     text-align:left;
     font: 16px serif normal;
     color:rgb(0,0,0);
-}    
+}
 
-#easycal-editcal #div_title #editcal_logo {
+#div_title #editcal_logo {
     padding:0;
     margin:0.2em 0.5em 0 0;
     border:0;
 }
 
-#easycal-editcal #div_type {
+#div_type {
     display:none;
 }
 
-#easycal-editcal #div_abstr {
+#div_abstr {
     display:none;
 }
 
-#easycal-editcal #div_loc {
+#div_loc {
     display:none;
 }
 
 
 
-#easycal-editcal #easycal_address {
+#easycal_address {
     font: 13px serif normal;
     color:rgb(0,0,0);
     width: 26em;
 }
-#easycal-editcal #easycal_summary {
-    font: 13px serif normal;
-    color:rgb(0,0,0);
-    width: 26em;
-    vertical-align: top;
-}
-#easycal-editcal #easycal_content {
+#easycal_summary {
     font: 13px serif normal;
     color:rgb(0,0,0);
     width: 26em;
     vertical-align: top;
 }
+#easycal_content {
+    font: 13px serif normal;
+    color:rgb(0,0,0);
+    width: 26em;
+    vertical-align: top;
+}
 
-#easycal-editcal .warning {
+.warning {
     color: red;
 }
 
-#easycal-editcal #div_submit {
+#div_submit {
     font: 13px serif normal;
     color:rgb(0,0,0);
     margin:0.8em 0em 0em 0em;
@@ -102,7 +104,7 @@
     text-align:right;
 }
 
-#easycal-editcal #easycal-form-submit, #easycal-form-cancel {
+#easycal-form-submit, #easycal-form-cancel {
     font: 13px serif normal;
     color:rgb(0,0,0);
     padding: 0.25em 0.25em 0.25em 0.25em;
@@ -111,15 +113,15 @@
 }
 
 
-#easycal-editcal input {
+input {
     border: #ECF1F9 solid 1px;
 }
 
-#easycal-editcal textarea {
+textarea {
     border: #ECF1F9 solid 1px;
 }
 
-#easycal-editcal select {
+select {
     border: #ECF1F9 solid 1px;
 }
 
