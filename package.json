@@ -1,9 +1,9 @@
 {
     "name": "easycal", 
     "license": "GPL 3.0", 
-    "author": "", 
+    "author": "The EasyCal Team", 
     "version": "1.6", 
     "fullName": "EasyCal", 
     "id": "jid1-dZy2LN9Wv9XZrw", 
-    "description": "a basic add-on"
+    "description": "a easy to use calendar as a browser add-on"
 }
