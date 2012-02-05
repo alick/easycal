@@ -10,7 +10,7 @@ exports.test_id = function(test) {
 
 exports.test_url = function(test) {
   require("request").Request({
-    url: "http://www.mozilla.org/",
+    url: "http://www.google.com/",
     onComplete: function(response) {
       test.assertEqual(response.statusText, "OK");
       test.done();
@@ -22,9 +22,9 @@ exports.test_url = function(test) {
 exports.test_open_tab = function(test) {
   const tabs = require("tabs");
   tabs.open({
-    url: "http://www.mozilla.org/",
+    url: "http://www.baidu.com/",
     onReady: function(tab) {
-      test.assertEqual(tab.url, "http://www.mozilla.org/");
+      test.assertEqual(tab.url, "http://www.baidu.com/");
       test.done();
     }
   });
