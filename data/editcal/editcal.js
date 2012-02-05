@@ -94,12 +94,14 @@ $('#easycal-form-submit').on('click', function(){
 });
 */
 
+self.port.on('reset_html', function() {
+    $('#saved_img').css('display', 'none');
+    $("#form_fill").css('display', 'block');
+});
 self.port.on('fillform', function(schedule) {
     console.debug("begin to fill the form...");
     console.log("schedule: " + JSON.stringify(schedule));
     sched_id = schedule.id;
-    $("#form_fill").css('display', 'block');
-    $('#saved_img').css('display', 'none');
     var time = new Date(schedule.sched_time);
     $('#easycal_year').val(time.getFullYear());
     $('#easycal_month').val(time.getMonth() + 1);
