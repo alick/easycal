@@ -1,9 +1,11 @@
+console.debug('Hello from popup.js');
 var CONSTANT_CONTENT_LENGTH = 20;
 
-g_globalObject = {}
+g_globalObject = {};
 
-window.onload = function(){
-    sl = getSchedulesList();
+//window.onload = function(){
+    console.log('window loaded');
+    //sl = getSchedulesList();
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
@@ -29,14 +31,14 @@ window.onload = function(){
         month: today.getMonth() + 1,
         day: today.getDate(),
     };
-    getSchedulesByTime(today_obj);
+    //getSchedulesByTime(today_obj);
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
-        getSchedulesByTime(obj);
+        //getSchedulesByTime(obj);
     });
-};
+//};
 
 
 function getSchedulesList() {
