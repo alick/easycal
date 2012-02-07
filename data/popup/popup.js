@@ -10,7 +10,7 @@ g_globalObject = {};
         useMode:1,
         isStripped:true,
         target:"calendar",
-        SchedulesList:sl,
+        //SchedulesList:sl,
         /*selectedDate:{
           day:5,
           month:9,

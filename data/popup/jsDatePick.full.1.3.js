@@ -56,35 +56,12 @@
 */
 // The language array - change these values to your language to better fit your needs!
 g_l = [];
-//g_l["MONTHS"] = ["Janaury","February","March","April","May","June","July","August","September","October","November","December"];
-//g_l["DAYS_3"] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-//g_l["MONTH_FWD"] = "Move a month forward";
-//g_l["MONTH_BCK"] = "Move a month backward";
-//g_l["YEAR_FWD"] = "Move a year forward";
-//g_l["YEAR_BCK"] = "Move a year backward";
-g_l["MONTHS"] = [chrome.i18n.getMessage("extDateMonth1"),
-                 chrome.i18n.getMessage("extDateMonth2"),
-                 chrome.i18n.getMessage("extDateMonth3"),
-                 chrome.i18n.getMessage("extDateMonth4"),
-                 chrome.i18n.getMessage("extDateMonth5"),
-                 chrome.i18n.getMessage("extDateMonth6"),
-                 chrome.i18n.getMessage("extDateMonth7"),
-                 chrome.i18n.getMessage("extDateMonth8"),
-                 chrome.i18n.getMessage("extDateMonth9"),
-                 chrome.i18n.getMessage("extDateMonth10"),
-                 chrome.i18n.getMessage("extDateMonth11"),
-                 chrome.i18n.getMessage("extDateMonth12")];
-g_l["DAYS_3"] = [chrome.i18n.getMessage("extDateDay1"),
-                 chrome.i18n.getMessage("extDateDay2"),
-                 chrome.i18n.getMessage("extDateDay3"),
-                 chrome.i18n.getMessage("extDateDay4"),
-                 chrome.i18n.getMessage("extDateDay5"),
-                 chrome.i18n.getMessage("extDateDay6"),
-                 chrome.i18n.getMessage("extDateDay7")];
-g_l["MONTH_FWD"] = chrome.i18n.getMessage("extDateNextMonth");
-g_l["MONTH_BCK"] = chrome.i18n.getMessage("extDatePreMonth");
-g_l["YEAR_FWD"] = chrome.i18n.getMessage("extDateNextYear");
-g_l["YEAR_BCK"] = chrome.i18n.getMessage("extDatePreYear");
+g_l["MONTHS"] = ["Janaury","February","March","April","May","June","July","August","September","October","November","December"];
+g_l["DAYS_3"] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+g_l["MONTH_FWD"] = "Move a month forward";
+g_l["MONTH_BCK"] = "Move a month backward";
+g_l["YEAR_FWD"] = "Move a year forward";
+g_l["YEAR_BCK"] = "Move a year backward";
 g_l["CLOSE"] = "Close the calendar";
 g_l["ERROR_2"] = g_l["ERROR_1"] = "Date object invalid!";
 g_l["ERROR_4"] = g_l["ERROR_3"] = "Target invalid";
@@ -121,8 +98,6 @@ g_currentDateObject.month = g_currentDateObject.dateObject.getMonth() + 1;
 g_currentDateObject.year = g_currentDateObject.dateObject.getFullYear();
 
 JsgetElem = function(id){ return document.getElementById(id); };
-
-g_ScheduleList = {}
 
 String.prototype.trim = function() {
 	return this.replace(/^\s+|\s+$/g,"");
@@ -247,9 +222,6 @@ JsDatePick.prototype.setConfiguration = function(aConf){
 	this.oConfiguration.dateFormat		= (aConf["dateFormat"] != null) ? aConf["dateFormat"] : "%m-%d-%Y";
 	this.oConfiguration.imgPath			= (g_jsDatePickImagePath.length != null) ? g_jsDatePickImagePath : "img/";
 	this.oConfiguration.weekStartDay   	= (aConf["weekStartDay"] != null) ? aConf["weekStartDay"] : 1;
-	
-	// Wangheda added, to enable display of state having schedule.
-	g_ScheduleList = (aConf["SchedulesList"] != null) ? aConf["SchedulesList"] : {};
 	
 	this.selectedDayObject = {};
 	this.flag_DayMarkedBeforeRepopulation = false;
@@ -666,28 +638,20 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 		disabledDayFlag = false;
 		aDayDiv 	= d.createElement("div");
 		
-		this_Date = 1;
 		if (this.lastPostedDay){
 			if (this.lastPostedDay == oDay.getDate()){
 				aTextNode	= parseInt(this.lastPostedDay,10)+1;
-				this_Date = parseInt(this.lastPostedDay,10)+1;
 			} else {
 				aTextNode	= d.createTextNode(oDay.getDate());
-				this_Date = oDay.getDate();
 			}
 		} else {
 			aTextNode	= d.createTextNode(oDay.getDate());
-			this_Date = oDay.getDate();
 		}
 		
 		aDayDiv.appendChild(aTextNode);
 		aMainBox.appendChild(aDayDiv);
 		
 		aDayDiv.setAttribute("globalNumber",this.globalNumber);
-		
-		//
-		aDayDiv.setAttribute("easycal_this_day", this.currentYear.toString()+'-'+cmpMonth.toString()+'-'+this_Date.toString());
-		    
 		
 		if (columnNumber == 7){
 			if (g_jsDatePickDirectionality == "ltr"){
@@ -720,18 +684,10 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			}
 			if (parseInt(this.getAttribute("isToday")) == 1){
 				gRef.setC(this, "dayOverToday");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver.gif) left top no-repeat";
 			} else {
 				gRef.setC(this, "dayOver");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayOver.gif) left top no-repeat";
 			}
 		};
 		
@@ -747,18 +703,10 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			}
 			if (parseInt(this.getAttribute("isToday")) == 1){
 				gRef.setC(this, "dayNormalToday");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 			} else {
 				gRef.setC(this, "dayNormal");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 			}
 		};
 		
@@ -774,18 +722,10 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			}
 			if (parseInt(this.getAttribute("isToday")) == 1){
 				gRef.setC(this, "dayDownToday");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
 			} else {
 				gRef.setC(this, "dayDown");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-    				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-    			} else {
-    			    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
-    			}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
 			}
 		};
 		
@@ -798,18 +738,10 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			}
 			if (parseInt(this.getAttribute("isToday")) == 1){
 				gRef.setC(this, "dayNormalToday");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 			} else {
 				gRef.setC(this, "dayNormal");
-				if (g_ScheduleList[this.getAttribute("easycal_this_day")] == 1) {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-				} else {
-				    this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-				}
+				this.style.background = "url(" + gRef.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 			}
 			
 			gRef.setDaySelection(this);
@@ -823,18 +755,10 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			
 			if (parseInt(aDayDiv.getAttribute("isToday")) == 1){
 				this.setC(aDayDiv, "dayDownToday");
-				if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-				    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-				} else {
-				    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown.gif) left top no-repeat";
-				}
+				aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown.gif) left top no-repeat";
 			} else {
 				this.setC(aDayDiv, "dayDown");
-				if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-				    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-				} else {
-				    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown.gif) left top no-repeat";
-				}
+				aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayDown.gif) left top no-repeat";
 			}	
 			
 		} else {
@@ -843,34 +767,18 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 			if (parseInt(aDayDiv.getAttribute("isToday")) == 1){
 				if (disabledDayFlag){
 					this.setC(aDayDiv, "dayDisabled");
-					if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-					} else {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
-					}
+					aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
 				} else {
 					this.setC(aDayDiv, "dayNormalToday");
-					if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-					} else {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
-					}
+					aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
 				}
 			} else {
 				if (disabledDayFlag){
 					this.setC(aDayDiv, "dayDisabled");
-					if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-					} else {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
-					}
+					aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
 				} else {
 					this.setC(aDayDiv, "dayNormal");
-					if (g_ScheduleList[aDayDiv.getAttribute("easycal_this_day")] == 1) {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-					} else {
-					    aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
-					}
+					aDayDiv.style.background = "url(" + this.oConfiguration.imgPath + this.oConfiguration.cellColorScheme + "_dayNormal.gif) left top no-repeat";
 				}
 			}
 		}
@@ -960,18 +868,10 @@ JsDatePick.prototype.setDaySelection = function(anElement){
 		
 		if (parseInt(this.lastMarkedDayObject.getAttribute("isToday")) == 1){
 			this.setC(this.lastMarkedDayObject, "dayNormalToday");
-			if (g_ScheduleList[this.lastMarkedDayObject.getAttribute("easycal_this_day")] == 1) {
-    			this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-    		} else {
-    		    this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-    		}
+			this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 		} else {
 			this.setC(this.lastMarkedDayObject, "dayNormal");
-			if (g_ScheduleList[this.lastMarkedDayObject.getAttribute("easycal_this_day")] == 1) {
-    			this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal_has_sch.gif) left top no-repeat";
-    		} else {
-    		    this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
-    		}
+			this.lastMarkedDayObject.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayNormal.gif) left top no-repeat";
 		}
 	}
 	
@@ -987,18 +887,10 @@ JsDatePick.prototype.setDaySelection = function(anElement){
 	
 	if (parseInt(anElement.getAttribute("isToday")) == 1){
 		this.setC(anElement, "dayDownToday");
-		if (g_ScheduleList[anElement.getAttribute("easycal_this_day")] == 1) {
-		    anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-		} else {
-		    anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
-		}
+		anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
 	} else {
 		this.setC(anElement, "dayDown");
-		if (g_ScheduleList[anElement.getAttribute("easycal_this_day")] == 1) {
-		    anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown_has_sch.gif) left top no-repeat";
-		} else {
-		    anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
-		}
+		anElement.style.background = "url(" + this.oConfiguration.imgPath + currentColorScheme + "_dayDown.gif) left top no-repeat";
 	}
 };
 
