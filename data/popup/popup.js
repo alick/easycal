@@ -3,9 +3,10 @@ var CONSTANT_CONTENT_LENGTH = 20;
 
 g_globalObject = {};
 
-//window.onload = function(){
-    console.log('window loaded');
-    //sl = getSchedulesList();
+self.port.on('send_storage', function(storage){
+    console.debug('received storage');
+    console.log(JSON.stringify(storage));
+    //sl = getSchedulesList(storage);
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
@@ -31,26 +32,26 @@ g_globalObject = {};
         month: today.getMonth() + 1,
         day: today.getDate(),
     };
-    //getSchedulesByTime(today_obj);
+    getSchedulesByTime(storage, today_obj);
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
         //getSchedulesByTime(obj);
     });
-//};
+});
 
 
-function getSchedulesList() {
-    var maxid_plus1 = getItem('sched_index');
-    if (maxid_plus1 == null) {
+function getSchedulesList(storage) {
+    var maxid_plus1 = storage.getItem('sched_index');
+    if (maxid_plus1 === null || maxid_plus1 === undefined) {
         return {};
     }
     var sched_table = "<table>";
 
-    SchedulesList = {}
+    SchedulesList = {};
     for (var i = 0; i < maxid_plus1; ++i) {
-        var schedule_str = getItem('sched' + i);
+        var schedule_str = storage.getItem('sched' + i);
         if (schedule_str == null) {
             continue;
         }
@@ -93,23 +94,30 @@ function myCmp(a, b) {
 }
 
 
-function getSchedulesByTime(obj) {
-    var maxid_plus1 = getItem('sched_index');
+function getSchedulesByTime(storage, obj) {
+    console.debug('Starting getSchedulesByTime...');
+    /*
+    var maxid_plus1 = storage.getItem('sched_index');
     if (maxid_plus1 == null) {
         setItem('sched_index', 0);
         maxid_plus1 = 0;
     }
     maxid_plus1 = Number(maxid_plus1)
     //var sched_table = "<table>";
+    */
     var sched_table = "";
     
     //sort
     TodayScheduleList = Array();
-    for (var i = 0; i < maxid_plus1; ++i) {
-        var schedule_str = getItem('sched' + i);
-        if (schedule_str == null) {
+    for (var key in storage) {
+        // First make sure key is of format 'sched<num>'
+        if ((key.indexOf('sched') < 0) || isNaN(parseInt(key.substr(5)))) {
+            // not sched key
             continue;
         }
+
+        var schedule_str = storage[key];
+        console.log(key + '->' + schedule_str);
         var s = JSON.parse(schedule_str);
         var time = new Date(s.sched_time);
         var this_day = new Date(obj.year, obj.month-1, obj.day);
@@ -141,10 +149,9 @@ function getSchedulesByTime(obj) {
     
     var schedhead_html = "<table id='schedhead_table'><tr><td id='schedhead_today'></td><td id='schedhead_help'></td></tr></table>";
     document.getElementById('schedhead').innerHTML = schedhead_html;
-    document.getElementById('schedhead_today').innerHTML = obj.year.toString() + chrome.i18n.getMessage("extEditLabelYear") + obj.month.toString() + chrome.i18n.getMessage("extEditLabelMonth") + obj.day.toString() + chrome.i18n.getMessage("extEditLabelDay");
-    document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+chrome.i18n.getMessage("extPopupHelp")+"' height='20px' width='20px'>";
+    document.getElementById('schedhead_today').innerHTML = obj.year.toString() + " - " + obj.month.toString() + " - " + obj.day.toString() + " ";
+    document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+"Help"+"' height='20px' width='20px'>";
 
-   
     
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         //var schedule_str = getItem('sched' + i);
@@ -179,21 +186,23 @@ function getSchedulesByTime(obj) {
         // put label for repeat schedule
         var loop = parseInt(s.loop);
         if (loop > 0) {
+            sched_html += '<img src="label/repeat.png" alt="None" title="';
             if (loop == 1) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat1")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += 'Repeat every day';
             } else if (loop == 2) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat2")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += 'Repeat every 2 days';
             } else if (loop == 7) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat7")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += "Repeat every week";
             } else if (loop == 30) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat30")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += "Repeat every month";
             } else if (loop == 365) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat365")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += "Repeat every year";
             }
+            sched_html += '" height="20px" width="20px" class="easycal_label" style="">';
         }
         sched_html += '</td>';
 
-        sched_html += '<td class="summary"  style="vertical-align:middle;">';              
+        sched_html += '<td class="summary"  style="vertical-align:middle;">';
         sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content;
         if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
@@ -204,6 +213,8 @@ function getSchedulesByTime(obj) {
         sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
         sched_table += "</table></div>";
+
+        /*
         // This is to add a invisible editing div
         var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;padding:0em 0em 0.5em 0em;'>";
         editing_div += 
@@ -254,14 +265,18 @@ function getSchedulesByTime(obj) {
             
         editing_div += "</div>";
         sched_table += editing_div;
+        */
         sched_table += "</div>";
     }
     
+    /*
     // Add tips if there is no schedule
     if (sched_table == "") {
         sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+chrome.i18n.getMessage("extPopupTitleNoSch")+"</div>";
     }
-    
+    */
+
+    /*
     // Add '+' sign
     sched_table += 
                    "<div id='div_add' style='text-align:center;padding:1px 0 1px 0;' class='div_sched_inner'>" +
@@ -271,8 +286,10 @@ function getSchedulesByTime(obj) {
                    "<td><img src='Empty.png' height='20px' width='20px'></td>"+
                    "</tr></table>"+
                    "</div>";
+    */
     
     var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
+    /*
     var adding_div = 
         "<div id='div_new' style='display:none;font-size:0.6em;' class='div_sched_inner'>" +
         
@@ -330,6 +347,7 @@ function getSchedulesByTime(obj) {
         "</div>" + 
         "</div>";
     sched_table += adding_div;
+    */
     
     document.getElementById('sched').innerHTML = sched_table;
     $('#sched').css("display", "block");
@@ -379,7 +397,7 @@ function getSchedulesByTime(obj) {
                 // refresh jsDatePick
                 g_globalObject.repopulateMainBox();
                 // refresh sched
-                getSchedulesByTime(obj);
+                getSchedulesByTime(storage, obj);
             }
         } else if (action == "Edit") {            
             var schedule_str = getItem(sched_id);
