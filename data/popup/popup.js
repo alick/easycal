@@ -30,13 +30,13 @@ self.port.on('show_popup', function(){
         month: today.getMonth() + 1,
         day: today.getDate(),
     };
-    //getSchedulesByTime(storage, today_obj);
+    $('#schedhead_today').text(today_obj.year + "-" + today_obj.month + "-" + today_obj.day);
     self.port.emit('getSchedulesByTime', today_obj);
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
-        //getSchedulesByTime(obj);
+        $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
         self.port.emit('getSchedulesByTime', obj);
     });
 });
@@ -91,18 +91,12 @@ function getSchedulesList(storage) {
 
 self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     var sched_table = "";
-    
-    var schedhead_html = "<table id='schedhead_table'><tr><td id='schedhead_today'></td><td id='schedhead_help'></td></tr></table>";
-    document.getElementById('schedhead').innerHTML = schedhead_html;
-    //document.getElementById('schedhead_today').innerHTML = obj.year.toString() + " - " + obj.month.toString() + " - " + obj.day.toString() + " ";
-    document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+"Help"+"' height='20px' width='20px'>";
 
-    
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         var s = TodayScheduleList[i];
         var time = new Date(s.sched_time);
         
-        // Write shcedule table.
+        // Write schedule table.
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
         console.debug("time: " + time.toISOString());
         var sched_html = "";
@@ -284,7 +278,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     sched_table += adding_div;
     */
     
-    document.getElementById('sched').innerHTML = sched_table;
+    $('#sched').html(sched_table);
     $('#sched').css("display", "block");
     $('#schedhead').css('display', 'block');
     $('tr:odd').css('background-color', '#ECF1F9');//odd num color
@@ -296,6 +290,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     $('.sch_div > select').css('border', '#ECF1F9 solid 1px');
     $('#div_submit').css('font-size', '16px');
     
+    // FIXME
+    // Put static CSS rules into .css file
     // CSS for sched_head
     $("#schedhead_table").css('background', 'rgb(226,234,245)');
     $("#schedhead_table > tbody > tr").css('background', 'rgb(226,234,245)');
@@ -308,7 +304,6 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     $("#schedhead_table").css('height', '20px');
     $("#schedhead_today").css('width', '19em');
     $("#schedhead_help").css('width', '1.5em');
-
 
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
