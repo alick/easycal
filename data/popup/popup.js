@@ -103,7 +103,6 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         
         // Write schedule table.
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
-        console.debug("time: " + time.toISOString());
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
         
@@ -203,12 +202,11 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         sched_table += "</div>";
     }
     
-    /*
     // Add tips if there is no schedule
     if (sched_table == "") {
-        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+chrome.i18n.getMessage("extPopupTitleNoSch")+"</div>";
+        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+("extPopupTitleNoSch")+"</div>";
+        //sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+_("extPopupTitleNoSch")+"</div>";
     }
-    */
 
     /*
     // Add '+' sign
@@ -321,20 +319,16 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         var sched_id = $(this).parent().parent().attr("id");
         if (action == "Remove") {
             console.log("To remove " + sched_id);
-            // remove the g_ScheduleList[XXXX-XX-XX]
-            var schedule_str = getItem(sched_id);
-            if (schedule_str != null) {
-                var s = JSON.parse(schedule_str);
-                var time = new Date(s.sched_time);
-                // remove the key-value pair in LocalStorage
-                removeItem(sched_id);
-                // refresh schedule list
-                g_ScheduleList = getSchedulesList();
-                // refresh jsDatePick
-                g_globalObject.repopulateMainBox();
-                // refresh sched
-                getSchedulesByTime(storage, obj);
-            }
+            self.port.emit('removeSchedule', sched_id);
+            // TODO
+            // refresh schedule list
+            // g_ScheduleList = getSchedulesList();
+            // refresh jsDatePick
+            g_globalObject.repopulateMainBox();
+            // refresh sched
+            //getSchedulesByTime(storage, obj);
+            // Just remove the div
+            $('#div_' + sched_id).remove();
         } else if (action == "Edit") {            
             var schedule_str = getItem(sched_id);
             if (schedule_str != null) {
@@ -344,10 +338,10 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
                     // change icon
                     $(this)[0].src = "Edit-ing-New-mouseover.png";
                     $(this).attr("editing", "1");
-                    
+
                     // Show
                     $("#" + sched_id + "_edit").css("display", "block");
-                    
+
                     // Value Set
                     var schedule_str = getItem(sched_id);
                     if (schedule_str != null) {
