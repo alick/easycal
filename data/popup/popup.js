@@ -39,6 +39,11 @@ self.port.on('show_popup', function(){
         $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
         self.port.emit('getSchedulesByTime', obj);
     });
+
+    $('#schedhead_help').unbind();
+    $('#schedhead_help').click(function(){
+        self.port.emit('open_help_page');
+    });
 });
 
 
