@@ -3,9 +3,7 @@ var CONSTANT_CONTENT_LENGTH = 20;
 
 g_globalObject = {};
 
-self.port.on('send_storage', function(storage){
-    console.debug('received storage');
-    console.log(JSON.stringify(storage));
+self.port.on('show_popup', function(){
     //sl = getSchedulesList(storage);
     g_globalObject = new JsDatePick({
         useMode:1,
@@ -32,12 +30,14 @@ self.port.on('send_storage', function(storage){
         month: today.getMonth() + 1,
         day: today.getDate(),
     };
-    getSchedulesByTime(storage, today_obj);
+    //getSchedulesByTime(storage, today_obj);
+    self.port.emit('getSchedulesByTime', today_obj);
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
         //getSchedulesByTime(obj);
+        self.port.emit('getSchedulesByTime', obj);
     });
 });
 
@@ -89,91 +89,26 @@ function getSchedulesList(storage) {
 }
 
 
-function myCmp(a, b) {
-    return a[0] - b[0];
-}
-
-
-function getSchedulesByTime(storage, obj) {
-    console.debug('Starting getSchedulesByTime...');
-    /*
-    var maxid_plus1 = storage.getItem('sched_index');
-    if (maxid_plus1 == null) {
-        setItem('sched_index', 0);
-        maxid_plus1 = 0;
-    }
-    maxid_plus1 = Number(maxid_plus1)
-    //var sched_table = "<table>";
-    */
+self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     var sched_table = "";
-    
-    //sort
-    TodayScheduleList = Array();
-    for (var key in storage) {
-        // First make sure key is of format 'sched<num>'
-        if ((key.indexOf('sched') < 0) || isNaN(parseInt(key.substr(5)))) {
-            // not sched key
-            continue;
-        }
-
-        var schedule_str = storage[key];
-        console.log(key + '->' + schedule_str);
-        var s = JSON.parse(schedule_str);
-        var time = new Date(s.sched_time);
-        var this_day = new Date(obj.year, obj.month-1, obj.day);
-        var shed_day = new Date(time.getFullYear(), time.getMonth(), time.getDate());
-        var loop = parseInt(s.loop);
-        
-        if (loop > 0 && loop <= 7) {
-            if (this_day.getTime() > shed_day.getTime() && (this_day.getTime() - shed_day.getTime())%(loop*24*60*60*1000) == 0) {
-                time.setFullYear(obj.year, obj.month-1, obj.day);
-            }
-        } else if (loop == 30) {
-            if (this_day.getDate() == shed_day.getDate()) {
-                time.setFullYear(obj.year, obj.month-1, obj.day);
-            }
-        } else if (loop == 365) {
-            if (this_day.getDate() == shed_day.getDate() && this_day.getMonth() == shed_day.getMonth()) {
-                time.setFullYear(obj.year, obj.month-1, obj.day);
-            }
-        }
-        
-        // write shcedule table
-        if ((time.getFullYear() == obj.year) &&
-            ((time.getMonth() + 1) == obj.month) &&
-            (time.getDate() == obj.day)) {
-            TodayScheduleList.push(Array(Number(time.getTime()), s));
-        }
-    }
-    TodayScheduleList.sort(myCmp);
     
     var schedhead_html = "<table id='schedhead_table'><tr><td id='schedhead_today'></td><td id='schedhead_help'></td></tr></table>";
     document.getElementById('schedhead').innerHTML = schedhead_html;
-    document.getElementById('schedhead_today').innerHTML = obj.year.toString() + " - " + obj.month.toString() + " - " + obj.day.toString() + " ";
+    //document.getElementById('schedhead_today').innerHTML = obj.year.toString() + " - " + obj.month.toString() + " - " + obj.day.toString() + " ";
     document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+"Help"+"' height='20px' width='20px'>";
 
     
     for (var i = 0; i < TodayScheduleList.length; ++i) {
-        //var schedule_str = getItem('sched' + i);
-        //if (schedule_str == null) {
-        //    continue;
-        //}
-        
-        var s = TodayScheduleList[i][1];
+        var s = TodayScheduleList[i];
         var time = new Date(s.sched_time);
         
-        // write shcedule table
-        // No filter here since there are repeat schedules
-        // filter is before this for {}
-        //if ((time.getFullYear() == obj.year) &&
-        //    ((time.getMonth() + 1) == obj.month) &&
-        //    (time.getDate() == obj.day)) {
+        // Write shcedule table.
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
         console.debug("time: " + time.toISOString());
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
         
-        sched_html += '<td><img src="Edit-New.png" alt="Edit" title="'+ chrome.i18n.getMessage("extPopupTitleModify")+'" height="20px" width="20px" class="popup-menu-item" editing="0"></td>';
+        sched_html += '<td><img src="Edit-New.png" alt="Edit" title="Change" height="20px" width="20px" class="popup-menu-item" editing="0"></td>';
         
         sched_html += '<td class="time">';
         if (Number(time.getMinutes()) < 10) {
@@ -210,7 +145,7 @@ function getSchedulesByTime(storage, obj) {
         }
         sched_html += disp_str + "</a></td>";
         
-        sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
+        sched_html += '<td><img src="Delete-New.png" alt="Remove" title="Delete" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
         sched_table += "</table></div>";
 
@@ -288,7 +223,7 @@ function getSchedulesByTime(storage, obj) {
                    "</div>";
     */
     
-    var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
+    //var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
     /*
     var adding_div = 
         "<div id='div_new' style='display:none;font-size:0.6em;' class='div_sched_inner'>" +
@@ -379,6 +314,7 @@ function getSchedulesByTime(storage, obj) {
     var imgEdit_mouseover = "Edit-New-mouseover.png";
     
     $('.summary').cluetip();
+    console.debug('Binding click function...');
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
@@ -582,7 +518,7 @@ function getSchedulesByTime(storage, obj) {
         }
     });
 
-}
+});
 
 function popup_save(sched_id, s) {
     var userYear = Number($("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"]);
