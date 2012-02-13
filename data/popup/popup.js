@@ -204,8 +204,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     
     // Add tips if there is no schedule
     if (sched_table == "") {
-        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+("extPopupTitleNoSch")+"</div>";
-        //sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+_("extPopupTitleNoSch")+"</div>";
+        sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+_("extPopupTitleNoSch")+"</div>";
     }
 
     /*
