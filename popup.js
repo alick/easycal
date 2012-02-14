@@ -129,7 +129,6 @@ function getSchedulesByTime(obj) {
     $('#schedhead_today').text(obj.year + chrome.i18n.getMessage("extEditLabelYear") + obj.month + chrome.i18n.getMessage("extEditLabelMonth") + obj.day + chrome.i18n.getMessage("extEditLabelDay"));
     $('#schedhead_help img').attr('title', chrome.i18n.getMessage("extPopupHelp"));
 
-    
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         var s = TodayScheduleList[i][1];
         var time = new Date(s.sched_time);
@@ -148,25 +147,27 @@ function getSchedulesByTime(obj) {
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
         }
         
-        sched_html += '<td class="td_label"  style="">';
+        sched_html += '<td class="td_label">';
         // put label for repeat schedule
         var loop = parseInt(s.loop);
         if (loop > 0) {
+            sched_html += '<img src="label/repeat.png" alt="repeating schedule" title="';
             if (loop == 1) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat1")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += chrome.i18n.getMessage("extPopupTitleRepeat1");
             } else if (loop == 2) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat2")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += chrome.i18n.getMessage("extPopupTitleRepeat2");
             } else if (loop == 7) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat7")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += chrome.i18n.getMessage("extPopupTitleRepeat7");
             } else if (loop == 30) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat30")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += chrome.i18n.getMessage("extPopupTitleRepeat30");
             } else if (loop == 365) {
-                sched_html += '<img src="label/repeat.png" alt="None" title="'+ chrome.i18n.getMessage("extPopupTitleRepeat365")+'" height="20px" width="20px" class="easycal_label" style="">';
+                sched_html += chrome.i18n.getMessage("extPopupTitleRepeat365");
             }
+            sched_html += '" height="20" width="20" class="easycal_label">';
         }
         sched_html += '</td>';
 
-        sched_html += '<td class="summary"  style="vertical-align:middle;">';              
+        sched_html += '<td class="summary"  style="vertical-align:middle;">';
         sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content;
         if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
@@ -304,31 +305,15 @@ function getSchedulesByTime(obj) {
         "</div>";
     sched_table += adding_div;
     
-    document.getElementById('sched').innerHTML = sched_table;
-    $('#sched').css("display", "block");
-    $('#schedhead').css('display', 'block');
-    $('tr:odd').css('background-color', '#ECF1F9');//odd num color
-    $('tr:even').css('background-color', '#E2EAF5');//even num color
+    $('#sched').html(sched_table);
+    $('tr:odd').addClass('tr-odd');
+    $('tr:even').addClass('tr-even');
     
     $('.sched_item_table').css('-webkit-border-horizontal-spacing', '0');
     $('.sch_div > input').css('border', '#ECF1F9 solid 1px');
     $('.sch_div > textarea').css('border', '#ECF1F9 solid 1px');
     $('.sch_div > select').css('border', '#ECF1F9 solid 1px');
     $('#div_submit').css('font-size', '16px');
-    
-    // CSS for sched_head
-    $("#schedhead_table").css('background', 'rgb(226,234,245)');
-    $("#schedhead_table > tbody > tr").css('background', 'rgb(226,234,245)');
-    $("#schedhead_table").css('margin', '0 0 0 0');
-    $("#schedhead_table").css('padding', '0 0 5px 0');
-    $("#schedhead_table").css('text-align', 'center');
-    $("#schedhead_table").css('font-size', 'font-size:1.0em;');
-    $("#schedhead_table").css('text-align', 'center');
-    $("#schedhead_table").css('width', '20.5em');
-    $("#schedhead_table").css('height', '20px');
-    $("#schedhead_today").css('width', '19em');
-    $("#schedhead_help").css('width', '1.5em');
-
 
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
