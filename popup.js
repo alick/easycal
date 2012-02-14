@@ -9,17 +9,6 @@ window.onload = function(){
         isStripped:true,
         target:"calendar",
         SchedulesList:sl,
-        /*selectedDate:{
-          day:5,
-          month:9,
-          year:2006
-          },
-          yearsRange:[1978,2020],
-          limitToToday:false,
-          cellColorScheme:"beige",
-          dateFormat:"%m-%d-%Y",
-          imgPath:"img/",
-          weekStartDay:1*/
     });
 
     // Display schedules of today.
@@ -33,7 +22,7 @@ window.onload = function(){
 
     g_globalObject.setOnSelectedDelegate(function(){
         var obj = g_globalObject.getSelectedDay();
-        console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
+        console.debug("The selected date is : " + obj.year + "-" + obj.month + "-" + obj.day);
         getSchedulesByTime(obj);
     });
 };
@@ -145,20 +134,10 @@ function getSchedulesByTime(obj) {
    
     
     for (var i = 0; i < TodayScheduleList.length; ++i) {
-        //var schedule_str = getItem('sched' + i);
-        //if (schedule_str == null) {
-        //    continue;
-        //}
-        
         var s = TodayScheduleList[i][1];
         var time = new Date(s.sched_time);
         
-        // write shcedule table
-        // No filter here since there are repeat schedules
-        // filter is before this for {}
-        //if ((time.getFullYear() == obj.year) &&
-        //    ((time.getMonth() + 1) == obj.month) &&
-        //    (time.getDate() == obj.day)) {
+        // Write shcedule table
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
         console.debug("time: " + time.toISOString());
         var sched_html = "";
@@ -202,7 +181,7 @@ function getSchedulesByTime(obj) {
         sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
         sched_table += "</table></div>";
-        // This is to add a invisible editing div
+        // This is to add an invisible editing div
         var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;padding:0em 0em 0.5em 0em;'>";
         editing_div += 
             "<div style='display:none;text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>"+chrome.i18n.getMessage("extPopupTitleChangeSch")+"</div>" +
