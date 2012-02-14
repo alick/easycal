@@ -167,7 +167,7 @@ function getSchedulesByTime(obj) {
         }
         sched_html += '</td>';
 
-        sched_html += '<td class="summary"  style="vertical-align:middle;">';
+        sched_html += '<td class="content"  style="vertical-align:middle;">';
         sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content;
         if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
@@ -306,8 +306,8 @@ function getSchedulesByTime(obj) {
     sched_table += adding_div;
     
     $('#sched').html(sched_table);
-    $('tr:odd').addClass('tr-odd');
-    $('tr:even').addClass('tr-even');
+    $('#sched tr:odd').addClass('tr-odd');
+    $('#sched tr:even').addClass('tr-even');
     
     $('.sched_item_table').css('-webkit-border-horizontal-spacing', '0');
     $('.sch_div > input').css('border', '#ECF1F9 solid 1px');
@@ -318,7 +318,7 @@ function getSchedulesByTime(obj) {
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
     
-    $('.summary').cluetip();
+    $('.content').cluetip();
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
@@ -339,7 +339,7 @@ function getSchedulesByTime(obj) {
                 // refresh sched
                 getSchedulesByTime(obj);
             }
-        } else if (action == "Edit") {            
+        } else if (action == "Edit") {
             var schedule_str = getItem(sched_id);
             if (schedule_str != null) {
                 var s = JSON.parse(schedule_str);

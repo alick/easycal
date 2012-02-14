@@ -81,7 +81,7 @@ table {
     border-collapse: collapse;
 }
 
-td.summary {
+td.content {
     width: 9em;
 }
 
@@ -133,7 +133,7 @@ div#div_new table tbody tr td{
     cursor: text; /* fake a non-anchor */
 }
 
-.summary a {
+.content a {
     color: black;
     font-size: smaller;
     text-decoration: none;
