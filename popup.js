@@ -126,12 +126,9 @@ function getSchedulesByTime(obj) {
     }
     TodayScheduleList.sort(myCmp);
     
-    var schedhead_html = "<table id='schedhead_table'><tr><td id='schedhead_today'></td><td id='schedhead_help'></td></tr></table>";
-    document.getElementById('schedhead').innerHTML = schedhead_html;
-    document.getElementById('schedhead_today').innerHTML = obj.year.toString() + chrome.i18n.getMessage("extEditLabelYear") + obj.month.toString() + chrome.i18n.getMessage("extEditLabelMonth") + obj.day.toString() + chrome.i18n.getMessage("extEditLabelDay");
-    document.getElementById('schedhead_help').innerHTML = "<img class='popup-menu-item' src='label/help.png' alt='help' title='"+chrome.i18n.getMessage("extPopupHelp")+"' height='20px' width='20px'>";
+    $('#schedhead_today').text(obj.year + chrome.i18n.getMessage("extEditLabelYear") + obj.month + chrome.i18n.getMessage("extEditLabelMonth") + obj.day + chrome.i18n.getMessage("extEditLabelDay"));
+    $('#schedhead_help img').attr('title', chrome.i18n.getMessage("extPopupHelp"));
 
-   
     
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         var s = TodayScheduleList[i][1];
@@ -139,7 +136,6 @@ function getSchedulesByTime(obj) {
         
         // Write shcedule table
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
-        console.debug("time: " + time.toISOString());
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
         
