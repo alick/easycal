@@ -79,7 +79,6 @@ function myCmp(a, b) {
     return a[0] - b[0];
 }
 
-
 function getSchedulesByTime(obj) {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
@@ -88,19 +87,20 @@ function getSchedulesByTime(obj) {
     }
     maxid_plus1 = Number(maxid_plus1);
 
+    // The form inner HTML used when editing and adding schedules.
     var form_div_html =
-        "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        //"时间: " + 
-        "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title=''>" + 
-        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value=''>"+chrome.i18n.getMessage("extEditLabelYear")+"" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value=''>"+chrome.i18n.getMessage("extEditLabelMonth")+"" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value=''>"+chrome.i18n.getMessage("extEditLabelDay")+" " + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value=''>"+chrome.i18n.getMessage("extEditLabelHour")+"" + 
-        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value=''>"+chrome.i18n.getMessage("extEditLabelMin")+"" + 
+        "<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+        // Time
+        "<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title=''>" +
+        "<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value=''>"+chrome.i18n.getMessage("extEditLabelYear")+"" +
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value=''>"+chrome.i18n.getMessage("extEditLabelMonth")+"" +
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value=''>"+chrome.i18n.getMessage("extEditLabelDay")+" " +
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value=''>"+chrome.i18n.getMessage("extEditLabelHour")+"" +
+        "<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value=''>"+chrome.i18n.getMessage("extEditLabelMin")+"" +
         "</div>" +
-        //重复
+        // To loop or not
         "<div class='sch_div' id='div_loop' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
-        "<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelLoop")+"'>" + 
+        "<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelLoop")+"'>" +
         "<select id='easycal_loop' name='easycal_loop'>" +
         "<option value='0' selected='selected'>"+chrome.i18n.getMessage("extEditLabelNoLoop")+"</option>" +
         "<option value='1'>"+chrome.i18n.getMessage("extEditLabelEveryDay")+"</option>" +
@@ -110,28 +110,25 @@ function getSchedulesByTime(obj) {
         "<option value='365'>"+chrome.i18n.getMessage("extEditLabelEveryYear")+"</option>" +
         "</select>" +
         "</div>" +
-
-        "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" + 
-        //"日程: " + 
-        "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelContent")+"'>" + 
-        "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" + 
-        "</div>" + 
-
-        "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0em 0.2em;'>" + 
-        //"提醒: " + 
-        "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;' title='"+chrome.i18n.getMessage("extEditLabelRemind")+"'>" + 
-        chrome.i18n.getMessage("extEditLabelBefore") + 
-        "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime'>" + 
-        "<select id='remindUnit' name='remindUnit'>" + 
-        "<option value='day'>"+chrome.i18n.getMessage("extEditLabelRemindDay")+"</option>" + 
-        "<option value='hour'>"+chrome.i18n.getMessage("extEditLabelRemindHour")+"</option>" + 
-        "<option value='minute' selected='selected'>"+chrome.i18n.getMessage("extEditLabelRemindMinute")+"</option>" + 
-        "</select>" + 
+        // Schedule content
+        "<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+        "<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+chrome.i18n.getMessage("extEditLabelContent")+"'>" +
+        "<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" +
+        "</div>" +
+        // Whether to remind
+        "<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0em 0.2em;'>" +
+        "<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;' title='"+chrome.i18n.getMessage("extEditLabelRemind")+"'>" +
+        chrome.i18n.getMessage("extEditLabelBefore") +
+        "<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime'>" +
+        "<select id='remindUnit' name='remindUnit'>" +
+        "<option value='day'>"+chrome.i18n.getMessage("extEditLabelRemindDay")+"</option>" +
+        "<option value='hour'>"+chrome.i18n.getMessage("extEditLabelRemindHour")+"</option>" +
+        "<option value='minute' selected='selected'>"+chrome.i18n.getMessage("extEditLabelRemindMinute")+"</option>" +
+        "</select>" +
         "</div>";
 
     var sched_table = "";
-    
-    //sort
+
     TodayScheduleList = Array();
     for (var i = 0; i < maxid_plus1; ++i) {
         var schedule_str = getItem('sched' + i);
@@ -165,6 +162,8 @@ function getSchedulesByTime(obj) {
             TodayScheduleList.push(Array(Number(time.getTime()), s));
         }
     }
+
+    // Sort
     TodayScheduleList.sort(myCmp);
     
     $('#schedhead_today').text(obj.year + chrome.i18n.getMessage("extEditLabelYear") + obj.month + chrome.i18n.getMessage("extEditLabelMonth") + obj.day + chrome.i18n.getMessage("extEditLabelDay"));
