@@ -1,4 +1,57 @@
 g_messages = {
+"extEditLabelLoop":{
+	"message":"Repeat:",
+	"description":"Repeat:"
+},
+"extEditLabelNoLoop":{
+	"message":"No repeat",
+	"description":"No repeat"
+},
+"extEditLabelEveryDay":{
+	"message":"Every day",
+	"description":"Every day"
+},
+"extEditLabelEvery2Day":{
+	"message":"Every 2 days",
+	"description":"Every 2 days"
+},
+"extEditLabelEveryWeek":{
+	"message":"Every week",
+	"description":"Every week"
+},
+"extEditLabelEveryMonth":{
+	"message":"Every month",
+	"description":"Every month"
+},
+"extEditLabelEveryYear":{
+	"message":"Every year",
+	"description":"Every year"
+},
+"extEditLabelContent":{
+	"message":"Schedule:",
+	"description":"Schedule:"
+},
+"extEditLabelRemind":{
+	"message":"Remind:",
+	"description":"Remind:"
+},
+"extEditLabelBefore":{
+	"message":"before",
+	"description":"before"
+},
+"extEditLabelRemindDay":{
+	"message":"days",
+	"description":"days"
+},
+"extEditLabelRemindHour":{
+	"message":"hours",
+	"description":"hours"
+},
+"extEditLabelRemindMinute":{
+	"message":"minutes",
+	"description":"minutes"
+},
+
 "extPopupTitleModify":{
 	"message":"Change",
 	"description":"Change"

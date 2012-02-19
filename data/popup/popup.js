@@ -3,6 +3,46 @@ var CONSTANT_CONTENT_LENGTH = 20;
 
 g_globalObject = {};
 
+// The form inner HTML used when editing and adding schedules.
+var form_div_html =
+"<div class='sch_div' id='div_time' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+// Time
+"<img src='label/time.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title=''>" +
+"<input type='text' maxlength='4' style='width:3em;height:1em;text-align:center;' id='year' value=''> - " +
+"<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='month' value=''> - " +
+"<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='day' value=''> " +
+"<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='hour' value=''> : " +
+"<input type='text' maxlength='2' style='width:1.5em;height:1em;text-align:center;' id='minute' value=''> " +
+"</div>" +
+// To loop or not
+"<div class='sch_div' id='div_loop' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+"<img src='label/loop.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+_("extEditLabelLoop")+"'>" +
+"<select id='easycal_loop' name='easycal_loop'>" +
+"<option value='0' selected='selected'>"+_("extEditLabelNoLoop")+"</option>" +
+"<option value='1'>"+_("extEditLabelEveryDay")+"</option>" +
+"<option value='2'>"+_("extEditLabelEvery2Day")+"</option>" +
+"<option value='7'>"+_("extEditLabelEveryWeek")+"</option>" +
+"<option value='30'>"+_("extEditLabelEveryMonth")+"</option>" +
+"<option value='365'>"+_("extEditLabelEveryYear")+"</option>" +
+"</select>" +
+"</div>" +
+// Schedule content
+"<div class='sch_div' id='div_content' style='padding:0.1em 0.1em 0.1em 0.2em;'>" +
+"<img src='label/sched.png' style='height:1.2em;padding:0em 0.5em 0em 2em;' title='"+_("extEditLabelContent")+"'>" +
+"<textarea cols='28' rows='2' style='width:14em;height:2em;vertical-align: top;' id='content' name='content'></textarea>" +
+"</div>" +
+// Whether to remind
+"<div class='sch_div' id='div_remind' style='padding:0.1em 0.1em 0em 0.2em;'>" +
+"<img src='label/remind.png' style='height:1.2em;padding:0em 0.5em 0.1em 2em;' title='"+_("extEditLabelRemind")+"'>" +
+_("extEditLabelBefore") +
+"<input type='text' style= 'overflow-x:visible;width:3em;height:1em;' id='remindTime'>" +
+"<select id='remindUnit' name='remindUnit'>" +
+"<option value='day'>"+_("extEditLabelRemindDay")+"</option>" +
+"<option value='hour'>"+_("extEditLabelRemindHour")+"</option>" +
+"<option value='minute' selected='selected'>"+_("extEditLabelRemindMinute")+"</option>" +
+"</select>" +
+"</div>";
+
 self.port.on('show_popup', function(){
     //sl = getSchedulesList(storage);
     g_globalObject = new JsDatePick({
@@ -32,9 +72,11 @@ self.port.on('show_popup', function(){
     };
     $('#schedhead_today').text(today_obj.year + "-" + today_obj.month + "-" + today_obj.day);
     self.port.emit('getSchedulesByTime', today_obj);
+    obj = today_obj;
 
     g_globalObject.setOnSelectedDelegate(function(){
-        var obj = g_globalObject.getSelectedDay();
+        // Make obj global.
+        obj = g_globalObject.getSelectedDay();
         console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
         $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
         self.port.emit('getSchedulesByTime', obj);
@@ -166,6 +208,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             //getSchedulesByTime(storage, obj);
             // Just remove the div
             $('#div_' + sched_id).remove();
+        } else if (action == "Edit") {
+            self.port.emit('getScheduleById', sched_id);
         } else {
             console.warn("Not supported yet!"+action);
         }
@@ -224,6 +268,117 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     // Do one check.
     checkDupId();
 });
+
+self.port.on('sendScheduleById', function(schedule_str) {
+    // schedule_str !== null | undefined
+    if (schedule_str === null || schedule_str === undefined) {
+        return;
+    }
+    var s = JSON.parse(schedule_str);
+    var time = new Date(s.sched_time);
+    var sched_id = 'sched' + s.id;
+    var img_selector = '#' + sched_id + ' img[alt="Edit"]';
+    if ($("#" + sched_id + "_edit")[0].style.display == 'none') {
+        // change icon
+        $(img_selector).attr("src", "Edit-ing-New-mouseover.png");
+        $(img_selector).attr("editing", "1");
+
+        // Show
+        $("#" + sched_id + "_edit").css("display", "block");
+        $("#" + sched_id + "_edit div.form_div").html(form_div_html);
+
+        // Value Set
+        $("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"] = time.getFullYear().toString();
+        $("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
+        $("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"] = time.getDate().toString();
+        $("#" + sched_id + "_edit > div > div#div_time > input#hour")[0]["value"] = time.getHours().toString();
+        strMin = time.getMinutes().toString();
+        if (strMin.length == 1) strMin = '0'+strMin;
+        $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = strMin;
+        $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
+        $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
+        $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
+        $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
+    } else {
+        // == Edit_Save but the relative position of DOM tree is different
+        if (saveSchedule("#" + sched_id + "_edit", s) == true) {
+            // change icon
+            $(img_selector)[0].src = "Edit-New-mouseover.png";
+            $(img_selector).attr("editing", "0");
+
+            // Hide and save and refresh
+            $("#" + sched_id + "_edit").css("display", "none");
+            $("#" + sched_id + "_edit div.form_div").html('');
+            // refresh schedule list
+            //g_ScheduleList = getSchedulesList();
+            // refresh jsDatePick
+            g_globalObject.repopulateMainBox();
+            // refresh sched
+            self.port.emit('getSchedulesByTime', obj);
+        }
+        // else: time is wrong, flash div_time
+        else {
+            var origin_color = $("#"+sched_id+"_edit > div > div#div_time")[0].style.background;
+            for (var i=0; i<1200; i+= 400) {
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background='#FFD0D0';}, i);
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background=origin_color;}, i+200);
+            }
+        }
+    }
+});
+
+// Save the schedule edited or added.
+function saveSchedule(sched_div_id, s) {
+    var userYear   = Number($(sched_div_id + " > div > div#div_time > input#year")[0]["value"]);
+    var userMonth  = Number($(sched_div_id + " > div > div#div_time > input#month")[0]["value"]-1);
+    var userDate   = Number($(sched_div_id + " > div > div#div_time > input#day")[0]["value"]);
+    var userHour   = Number($(sched_div_id + " > div > div#div_time > input#hour")[0]["value"]);
+    var userMinute = Number($(sched_div_id + " > div > div#div_time > input#minute")[0]["value"]);
+    var userSecond = 0;
+
+    s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
+    // Checking time in the Javascript way.
+    if (s.sched_time.getFullYear() != userYear ||
+            s.sched_time.getMonth() != userMonth ||
+            s.sched_time.getDate() != userDate ||
+            s.sched_time.getHours() != userHour ||
+            s.sched_time.getMinutes() != userMinute ||
+            s.sched_time.getSeconds() != userSecond) {
+
+        console.warn("Invalid time setting!");
+
+        return false;
+    }
+
+    s.loop = $(sched_div_id + " > div > div#div_loop > #easycal_loop").val();
+
+    s.content = $(sched_div_id + " > div > div#div_content > #content")[0]["value"];
+
+    var timebefore = $(sched_div_id + " > div > div#div_remind > #remindTime")[0]["value"];
+    var timestyle = $(sched_div_id + " > div > div#div_remind > #remindUnit").val();
+
+    s.timebefore = timebefore;
+    s.timestyle = timestyle;
+
+    // s.sched_remindtime is the timestamp due to remind
+    s.sched_remindtime = new Date();
+    if(timestyle=="day") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60*24);
+    }
+    if(timestyle=="hour") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60);
+    }
+    if(timestyle=="minute") {
+        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60);
+    }
+
+    console.log('sched:'+JSON.stringify(s));
+
+    // Store into the storage.
+    self.port.emit('saveSchedule', s);
+
+    return true;
+}
 
 // DEBUGGING CODE
 // Warning Duplicate IDs
