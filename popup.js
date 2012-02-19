@@ -330,11 +330,10 @@ function getSchedulesByTime(obj) {
                     }
                     // else: time is wrong, flash div_time
                     else {
-                        var parentId = $(this).parent().parent().parent().parent().parent().parent().attr('id');
-                        var origin_color = $("#"+parentId+" > div > div > div#div_time")[0].style.background;
+                        var origin_color = $("#" + sched_id + "_edit > div > div#div_time").css('background-color');
                         for (var i=0; i<1200; i+= 400) {
-                            setTimeout(function(){$("#"+parentId+" > div > div > div#div_time")[0].style.background='#FFD0D0';}, i);
-                            setTimeout(function(){$("#"+parentId+" > div > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                            setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', '#FFD0D0');}, i);
+                            setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', origin_color);}, i+200);
                         }
                     }
                 }
@@ -381,11 +380,10 @@ function getSchedulesByTime(obj) {
             }
             // else: time is wrong, flash div_time
             else {
-                parentId = "div_new";
-                var origin_color = $("#"+parentId+" > div > div#div_time")[0].style.background;
+                var origin_color = $("#div_new > div > div#div_time").css('background-color');
                 for (var i=0; i<1200; i+= 400) {
-                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background='#FFD0D0';}, i);
-                    setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                    setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', '#FFD0D0');}, i);
+                    setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', origin_color);}, i+200);
                 }
             }
 
