@@ -260,8 +260,8 @@ function getSchedulesByTime(obj) {
     sched_table += adding_div;
     
     $('#sched').html(sched_table);
-    $('#sched tr:odd').addClass('tr-odd');
-    $('#sched tr:even').addClass('tr-even');
+    $('#sched .div_sched_inner tr:odd').addClass('tr-odd');
+    $('#sched .div_sched_inner tr:even').addClass('tr-even');
     
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
