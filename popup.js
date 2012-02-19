@@ -320,7 +320,7 @@ function getSchedulesByTime(obj) {
                     }
                 } else {
                     // == Edit_Save but the relative position of DOM tree is different
-                    if (popup_save(sched_id, s) == true) {
+                    if (saveSchedule("#" + sched_id + "_edit", s) == true) {
                         // change icon
                         $(this)[0].src = "Edit-New-mouseover.png";
                         $(this).attr("editing", "0");
@@ -336,7 +336,7 @@ function getSchedulesByTime(obj) {
                         getSchedulesByTime(obj);
                     }
                     // else: time is wrong, flash div_time
-                    else { 
+                    else {
                         var parentId = $(this).parent().parent().parent().parent().parent().parent().attr('id');
                         var origin_color = $("#"+parentId+" > div > div > div#div_time")[0].style.background;
                         for (var i=0; i<1200; i+= 400) {
@@ -344,7 +344,6 @@ function getSchedulesByTime(obj) {
                             setTimeout(function(){$("#"+parentId+" > div > div > div#div_time")[0].style.background=origin_color;}, i+200);
                         }
                     }
-                            
                 }
             }
         } else if (action == "New") {
@@ -368,9 +367,18 @@ function getSchedulesByTime(obj) {
             $("#div_new div.form_div #div_loop > #easycal_loop").val(0);
 
         } else if (action == "New_Save") {
+            var sched_index = getItem('sched_index');
+            if (sched_index === null || sched_index === undefined) {
+                sched_index = 0;
+            } else {
+                sched_index = parseInt(sched_index);
+            }
+            var s = {}; // empty schedule object
+            s.id = sched_index;
+            setItem('sched_index', ++sched_index);
             // Save form to new schedule, refresh g_ScheduleList, jsDatePick and sched list
             // Save form
-            if (popup_new() == true) {
+            if (saveSchedule("#div_new", s) == true) {
                 // refresh schedule list
                 g_ScheduleList = getSchedulesList();
                 // refresh jsDatePick
@@ -455,12 +463,13 @@ function getSchedulesByTime(obj) {
 
 }
 
-function popup_save(sched_id, s) {
-    var userYear = Number($("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"]);
-    var userMonth = Number($("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"]-1);
-    var userDate = Number($("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"]);
-    var userHour = Number($("#" + sched_id + "_edit > div > div#div_time > input#hour")[0]["value"]);
-    var userMinute = Number($("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"]);
+// Save the schedule edited or added.
+function saveSchedule(sched_div_id, s) {
+    var userYear   = Number($(sched_div_id + " > div > div#div_time > input#year")[0]["value"]);
+    var userMonth  = Number($(sched_div_id + " > div > div#div_time > input#month")[0]["value"]-1);
+    var userDate   = Number($(sched_div_id + " > div > div#div_time > input#day")[0]["value"]);
+    var userHour   = Number($(sched_div_id + " > div > div#div_time > input#hour")[0]["value"]);
+    var userMinute = Number($(sched_div_id + " > div > div#div_time > input#minute")[0]["value"]);
     var userSecond = 0;
 
     s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
@@ -472,26 +481,22 @@ function popup_save(sched_id, s) {
             s.sched_time.getMinutes() != userMinute ||
             s.sched_time.getSeconds() != userSecond) {
 
-        var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
-        console.warn(msg);
+        console.warn("Invalid time setting!");
 
         return false;
     }
-    
-    s.loop = $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val();
 
-    s.content = $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"];
+    s.loop = $(sched_div_id + " > div > div#div_loop > #easycal_loop").val();
 
-    var timebefore = $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"];
-    var timestyle = $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val();
+    s.content = $(sched_div_id + " > div > div#div_content > #content")[0]["value"];
+
+    var timebefore = $(sched_div_id + " > div > div#div_remind > #remindTime")[0]["value"];
+    var timestyle = $(sched_div_id + " > div > div#div_remind > #remindUnit").val();
 
     s.timebefore = timebefore;
     s.timestyle = timestyle;
 
-    //if(timestyle=="year") s.sched_remindtime = timebefore*1000*60*60*24*365;
-    //if(timestyle=="month") s.sched_remindtime = timebefore*1000*60*60*24*30;
-    
-    // s.sched_remindtime is the timestamp due to remind 
+    // s.sched_remindtime is the timestamp due to remind
     s.sched_remindtime = new Date();
     if(timestyle=="day") {
         s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60*24);
@@ -502,95 +507,17 @@ function popup_save(sched_id, s) {
     if(timestyle=="minute") {
         s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60);
     }
-    //if(timestyle=="second") s.sched_remindtime = timebefore*1000;
 
-    console.log('sched:');
-    console.log(s);
+    console.log('sched:'+JSON.stringify(s));
 
-    console.log('Storing schedule...');
-    // store into local storage
+    // Store into the storage.
     var storekey = "sched" + s.id;
     setItem(storekey, JSON.stringify(s));
 
     return true;
 }
 
-
-function popup_new() {
-    // add all input values
-    var userYear = Number($("#div_new > div > div#div_time > input#year")[0]["value"]);
-    var userMonth = Number($("#div_new > div > div#div_time > input#month")[0]["value"]-1);
-    var userDate = Number($("#div_new > div > div#div_time > input#day")[0]["value"]);
-    var userHour = Number($("#div_new > div > div#div_time > input#hour")[0]["value"]);
-    var userMinute = Number($("#div_new > div > div#div_time > input#minute")[0]["value"]);
-    var userSecond = 0;
-
-    var s = {
-        id: 0,
-        content: "",
-        sched_time: new Date().getTime(),  // Using the same time
-        sched_remindtime:1000*60*15,//remind the user 15min before the deadline
-        add_time: new Date().getTime(),
-    };
-    
-    // Get the Unique sched_index; Note that the method 
-    var sched_index = Number(getItem('sched_index'));
-    s.id = sched_index;
-    setItem('sched_index', ++sched_index);
-
-    s.sched_time = new Date(userYear, userMonth, userDate, userHour, userMinute, userSecond);
-    // Checking time in the Javascript way.
-    if (s.sched_time.getFullYear() != userYear ||
-            s.sched_time.getMonth() != userMonth ||
-            s.sched_time.getDate() != userDate ||
-            s.sched_time.getHours() != userHour ||
-            s.sched_time.getMinutes() != userMinute ||
-            s.sched_time.getSeconds() != userSecond) {
-
-        var msg = chrome.i18n.getMessage("extWarnInvalidTimeSetting");
-        console.warn(msg);
-
-        return false;
-    }
-
-    s.loop = $("#div_new > div > div#div_loop > #easycal_loop").val();
-
-    s.content = $("#div_new > div > div#div_content > #content")[0]["value"];
-
-    var timebefore = $("#div_new > div > div#div_remind > #remindTime")[0]["value"];
-    var timestyle = $("#div_new > div > div#div_remind > #remindUnit").val();
-
-    s.timebefore = timebefore;
-    s.timestyle = timestyle;
-
-    //if(timestyle=="year") s.sched_remindtime = timebefore*1000*60*60*24*365;
-    //if(timestyle=="month") s.sched_remindtime = timebefore*1000*60*60*24*30;
-    
-    // s.sched_remindtime is the timestamp due to remind 
-    s.sched_remindtime = new Date();
-    if(timestyle=="day") {
-        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60*24);
-    }
-    if(timestyle=="hour") {
-        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60*60);
-    }
-    if(timestyle=="minute") {
-        s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60);
-    }
-    //if(timestyle=="second") s.sched_remindtime = timebefore*1000;
-
-    console.log('sched:');
-    console.log(s);
-
-    console.log('Storing schedule...');
-    // store into local storage
-    var storekey = 'sched'+s.id;
-    setItem(storekey, JSON.stringify(s));
-
-    return true;
-}
-
-// DEBUGGING CODE
+// Debugging code
 // Warning Duplicate IDs
 // from: http://stackoverflow.com/questions/482763/jquery-to-check-for-duplicate-ids-in-a-dom
 function checkDupId() {
