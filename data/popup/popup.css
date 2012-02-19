@@ -24,7 +24,7 @@ td.td_outer {
 }
 
 #schedhead {
-    display:none;
+    display:block;
     background:rgb(226,234,245);
     width: 20.5em;
     height: 30px;
@@ -35,6 +35,24 @@ td.td_outer {
     font-size:0.9em;
 }
 
+#schedhead_table {
+    background: rgb(226,234,245);
+    margin: 0;
+    padding: 0 0 5px 0;
+    text-align: center;
+    font-size: 1em;
+    width: 20.5em;
+    height: 20px;
+}
+#schedhead_table > tbody > tr {
+    background: rgb(226,234,245);
+}
+#schedhead_today {
+    width: 19em;
+}
+#schedhead_help {
+    width: 1.5em;
+}
 #sched {
     width: 18em;
     height: 198px;
@@ -47,21 +65,12 @@ td.td_outer {
     overflow-x:visible;
 }
 
-
-/*
-.triangle {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    vertical-align: bottom;
-    width: 0;
-    height: 0;
-    line-height: 0;
-    border-top: 1.2em solid white;
-    border-left: 1.2em solid #B6D1EE;
-    border-left-color: #B6D1EE;
+.tr-odd {
+    background-color: #ECF1F9;
 }
-*/
+.tr-even {
+    background-color: #E2EAF5;
+}
 
 td {
     margin: 0;
@@ -72,7 +81,7 @@ table {
     border-collapse: collapse;
 }
 
-td.summary {
+td.content {
     width: 9em;
 }
 
@@ -124,15 +133,30 @@ div#div_new table tbody tr td{
     cursor: text; /* fake a non-anchor */
 }
 
-.summary a {
+.content a {
     color: black;
     font-size: smaller;
     text-decoration: none;
     cursor: text; /* fake a non-anchor */
 }
+.content a:focus {
+    outline-width: 0; /* override Chrome's default outline style */
+}
 
-.warning {
-    color: red;
+.sched_item_table {
+    -webkit-border-horizontal-spacing: 0;
+}
+.sch_div > input {
+    border: #ECF1F9 solid 1px;
+}
+.sch_div > textarea {
+    border: #ECF1F9 solid 1px;
+}
+.sch_div > select {
+    border: #ECF1F9 solid 1px;
+}
+#div_submit {
+    font-size: 16px;
 }
 
 /* Let's get this party started */
@@ -151,7 +175,7 @@ div#div_new table tbody tr td{
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #ECF1F9rgba(247,250,253,0.8); 
+    background: rgba(247,250,253,0.8); 
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
