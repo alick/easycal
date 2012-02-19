@@ -300,22 +300,17 @@ function getSchedulesByTime(obj) {
                     $("#" + sched_id + "_edit div.form_div").html(form_div_html);
 
                     // Value Set
-                    var schedule_str = getItem(sched_id);
-                    if (schedule_str != null) {
-                        var s = JSON.parse(schedule_str);
-                        var time = new Date(s.sched_time);
-                        $("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"] = time.getFullYear().toString();
-                        $("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
-                        $("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"] = time.getDate().toString();
-                        $("#" + sched_id + "_edit > div > div#div_time > input#hour")[0]["value"] = time.getHours().toString();
-                        strMin = time.getMinutes().toString();
-                        if (strMin.length == 1) strMin = '0'+strMin;
-                        $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = strMin;
-                        $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
-                        $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
-                        $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
-                        $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
-                    }
+                    $("#" + sched_id + "_edit > div > div#div_time > input#year")[0]["value"] = time.getFullYear().toString();
+                    $("#" + sched_id + "_edit > div > div#div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
+                    $("#" + sched_id + "_edit > div > div#div_time > input#day")[0]["value"] = time.getDate().toString();
+                    $("#" + sched_id + "_edit > div > div#div_time > input#hour")[0]["value"] = time.getHours().toString();
+                    strMin = time.getMinutes().toString();
+                    if (strMin.length == 1) strMin = '0'+strMin;
+                    $("#" + sched_id + "_edit > div > div#div_time > input#minute")[0]["value"] = strMin;
+                    $("#" + sched_id + "_edit > div > div#div_content > #content")[0]["value"] = s.content;
+                    $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
+                    $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
+                    $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
                 } else {
                     // == Edit_Save but the relative position of DOM tree is different
                     if (saveSchedule("#" + sched_id + "_edit", s) == true) {
