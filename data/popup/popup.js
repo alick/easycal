@@ -345,10 +345,10 @@ self.port.on('sendScheduleById', function(schedule_str) {
         }
         // else: time is wrong, flash div_time
         else {
-            var origin_color = $("#"+sched_id+"_edit > div > div#div_time")[0].style.background;
+            var origin_color = $("#"+sched_id+"_edit > div > div#div_time").css('background-color');
             for (var i=0; i<1200; i+= 400) {
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background='#FFD0D0';}, i);
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background=origin_color;}, i+200);
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', '#FFD0D0');}, i);
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', origin_color);}, i+200);
             }
         }
     }
@@ -368,11 +368,10 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     }
     // else: time is wrong, flash div_time
     else {
-        parentId = "div_new";
-        var origin_color = $("#div_new > div > div#div_time")[0].style.background;
+        var origin_color = $("#div_new > div > div#div_time").css('background-color');
         for (var i=0; i<1200; i+= 400) {
-            setTimeout(function(){$("#div_new > div > div#div_time")[0].style.background='#FFD0D0';}, i);
-            setTimeout(function(){$("#div_new > div > div#div_time")[0].style.background=origin_color;}, i+200);
+            setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', '#FFD0D0');}, i);
+            setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', origin_color);}, i+200);
         }
     }
 });
