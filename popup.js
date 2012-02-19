@@ -3,7 +3,7 @@ var CONSTANT_CONTENT_LENGTH = 20;
 g_globalObject = {};
 
 window.onload = function(){
-    sl = getSchedulesList();
+    var sl = getSchedulesList();
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
@@ -29,12 +29,11 @@ window.onload = function(){
 
 function getSchedulesList() {
     var maxid_plus1 = getItem('sched_index');
-    if (maxid_plus1 == null) {
+    if (maxid_plus1 === null || maxid_plus1 === undefined) {
         return {};
     }
-    var sched_table = "<table>";
 
-    SchedulesList = {}
+    var SchedulesList = {};
     for (var i = 0; i < maxid_plus1; ++i) {
         var schedule_str = getItem('sched' + i);
         if (schedule_str == null) {
