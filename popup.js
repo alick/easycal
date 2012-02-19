@@ -264,12 +264,6 @@ function getSchedulesByTime(obj) {
     $('#sched tr:odd').addClass('tr-odd');
     $('#sched tr:even').addClass('tr-even');
     
-    $('.sched_item_table').css('-webkit-border-horizontal-spacing', '0');
-    $('.sch_div > input').css('border', '#ECF1F9 solid 1px');
-    $('.sch_div > textarea').css('border', '#ECF1F9 solid 1px');
-    $('.sch_div > select').css('border', '#ECF1F9 solid 1px');
-    $('#div_submit').css('font-size', '16px');
-
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
     
@@ -400,7 +394,6 @@ function getSchedulesByTime(obj) {
             $("#div_new").css("display", "none");
             $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
-            $('#div_new .warning').remove();
             $("#div_new div.form_div").html('');
             
         }else if (action == "help") {

@@ -140,8 +140,20 @@ div#div_new table tbody tr td{
     cursor: text; /* fake a non-anchor */
 }
 
-.warning {
-    color: red;
+.sched_item_table {
+    -webkit-border-horizontal-spacing: 0;
+}
+.sch_div > input {
+    border: #ECF1F9 solid 1px;
+}
+.sch_div > textarea {
+    border: #ECF1F9 solid 1px;
+}
+.sch_div > select {
+    border: #ECF1F9 solid 1px;
+}
+#div_submit {
+    font-size: 16px;
 }
 
 /* Let's get this party started */
