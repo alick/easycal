@@ -153,7 +153,7 @@ function getSchedulesByTime(obj) {
             }
         }
 
-        // write shcedule table
+        // write schedule table
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
             (time.getDate() == obj.day)) {
