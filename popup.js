@@ -1,6 +1,6 @@
 var CONSTANT_CONTENT_LENGTH = 20;
 
-g_globalObject = {}
+g_globalObject = {};
 
 window.onload = function(){
     sl = getSchedulesList();
@@ -27,7 +27,6 @@ window.onload = function(){
     });
 };
 
-
 function getSchedulesList() {
     var maxid_plus1 = getItem('sched_index');
     if (maxid_plus1 == null) {
@@ -43,7 +42,7 @@ function getSchedulesList() {
         }
         var s = JSON.parse(schedule_str);
         var time = new Date(s.sched_time);
-        
+
         // give limited display for DatePick
         var loop = parseInt(s.loop);
         if (loop > 0 && loop <= 7) {
@@ -129,10 +128,10 @@ function getSchedulesByTime(obj) {
 
     var sched_table = "";
 
-    TodayScheduleList = Array();
+    var TodayScheduleList = [];
     for (var i = 0; i < maxid_plus1; ++i) {
         var schedule_str = getItem('sched' + i);
-        if (schedule_str == null) {
+        if (schedule_str === null || schedule_str === undefined) {
             continue;
         }
         var s = JSON.parse(schedule_str);
@@ -140,7 +139,7 @@ function getSchedulesByTime(obj) {
         var this_day = new Date(obj.year, obj.month-1, obj.day);
         var shed_day = new Date(time.getFullYear(), time.getMonth(), time.getDate());
         var loop = parseInt(s.loop);
-        
+
         if (loop > 0 && loop <= 7) {
             if (this_day.getTime() > shed_day.getTime() && (this_day.getTime() - shed_day.getTime())%(loop*24*60*60*1000) == 0) {
                 time.setFullYear(obj.year, obj.month-1, obj.day);
@@ -154,7 +153,7 @@ function getSchedulesByTime(obj) {
                 time.setFullYear(obj.year, obj.month-1, obj.day);
             }
         }
-        
+
         // write shcedule table
         if ((time.getFullYear() == obj.year) &&
             ((time.getMonth() + 1) == obj.month) &&
@@ -165,28 +164,28 @@ function getSchedulesByTime(obj) {
 
     // Sort
     TodayScheduleList.sort(myCmp);
-    
+
     $('#schedhead_today').text(obj.year + chrome.i18n.getMessage("extEditLabelYear") + obj.month + chrome.i18n.getMessage("extEditLabelMonth") + obj.day + chrome.i18n.getMessage("extEditLabelDay"));
     $('#schedhead_help img').attr('title', chrome.i18n.getMessage("extPopupHelp"));
 
     for (var i = 0; i < TodayScheduleList.length; ++i) {
         var s = TodayScheduleList[i][1];
         var time = new Date(s.sched_time);
-        
+
         // Write shcedule table
         sched_table += "<div id='div_"+'sched'+s.id+"' class='div_sched_inner'><div><table class='sched_item_table' style='vertical-align:middle;'>"
         var sched_html = "";
         sched_html += '<tr id="sched' + s.id + '">';
-        
+
         sched_html += '<td><img src="Edit-New.png" alt="Edit" title="'+ chrome.i18n.getMessage("extPopupTitleModify")+'" height="20px" width="20px" class="popup-menu-item" editing="0"></td>';
-        
+
         sched_html += '<td class="time">';
         if (Number(time.getMinutes()) < 10) {
             sched_html += time.getHours() + ":0" + time.getMinutes() + "</td>";
         } else {
             sched_html += time.getHours() + ":" + time.getMinutes() + "</td>";
         }
-        
+
         sched_html += '<td class="td_label">';
         // put label for repeat schedule
         var loop = parseInt(s.loop);
@@ -214,28 +213,28 @@ function getSchedulesByTime(obj) {
             disp_str = disp_str.substr(0, CONSTANT_CONTENT_LENGTH-1) + '...';
         }
         sched_html += disp_str + "</a></td>";
-        
+
         sched_html += '<td><img src="Delete-New.png" alt="Remove" title="'+chrome.i18n.getMessage("extPopupTitleRemove")+'" height="20px" width="20px" class="popup-menu-item"></td></tr>';
         sched_table += sched_html;
         sched_table += "</table></div>";
         // This is to add an invisible editing div
         var editing_div = "<div id='sched"+s.id+"_edit' style='display:none;font-size:0.6em;padding:0em 0em 0.5em 0em;'>";
-        editing_div += 
+        editing_div +=
             "<div style='display:none;text-align:center;font-size:0.8em;font-weight:bold;padding:0.5em 0.5em 0.5em 0.5em;background-color:gray;'>"+chrome.i18n.getMessage("extPopupTitleChangeSch")+"</div>";
         editing_div += '<div class="form_div"></div>';
-            
+
         editing_div += "</div>";
         sched_table += editing_div;
         sched_table += "</div>";
     }
-    
+
     // Add tips if there is no schedule
     if (sched_table == "") {
         sched_table = "<div id='div_tips' style='text-align:center;font-size:0.8em;padding:1em 1em 1em 1em;'>"+chrome.i18n.getMessage("extPopupTitleNoSch")+"</div>";
     }
-    
+
     // Add '+' sign
-    sched_table += 
+    sched_table +=
                    "<div id='div_add' style='text-align:center;padding:1px 0 1px 0;' class='div_sched_inner'>" +
                    "<table class='sched_item_table'><tr>"+
                    "<td><img class='popup-menu-item' title='"+chrome.i18n.getMessage("extPopupTitleNewSch")+"' alt='New' src='popup_add.png' height='20px' width='20px'></td>"+
@@ -243,10 +242,10 @@ function getSchedulesByTime(obj) {
                    "<td><img src='Empty.png' height='20px' width='20px'></td>"+
                    "</tr></table>"+
                    "</div>";
-    
-    var adding_div = 
+
+    var adding_div =
         "<div id='div_new' style='display:none;font-size:0.6em;' class='div_sched_inner'>" +
-        
+
         "<div id='div_submit' style='text-align:center;font-size:16px;padding:1px 0 1px 0;'>" +
         "<table class='sched_item_table'><tr>"+
         "<td><img class='popup-menu-item' title='"+chrome.i18n.getMessage("extPopupTitleSave")+"' alt='New_Save' src='popup_add.png' height='20px' width='20px'></td>"+
@@ -255,17 +254,17 @@ function getSchedulesByTime(obj) {
         "</tr></table>"+
         "</div>" +
         '<div class="form_div"></div>' +
-        
+
         "</div>";
     sched_table += adding_div;
-    
+
     $('#sched').html(sched_table);
     $('#sched .div_sched_inner tr:odd').addClass('tr-odd');
     $('#sched .div_sched_inner tr:even').addClass('tr-even');
-    
+
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
-    
+
     $('.content').cluetip();
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
@@ -296,7 +295,7 @@ function getSchedulesByTime(obj) {
                     // change icon
                     $(this)[0].src = "Edit-ing-New-mouseover.png";
                     $(this).attr("editing", "1");
-                    
+
                     // Show
                     $("#" + sched_id + "_edit").css("display", "block");
                     $("#" + sched_id + "_edit div.form_div").html(form_div_html);
@@ -324,7 +323,7 @@ function getSchedulesByTime(obj) {
                         // change icon
                         $(this)[0].src = "Edit-New-mouseover.png";
                         $(this).attr("editing", "0");
-                        
+
                         // Hide and save and refresh
                         $("#" + sched_id + "_edit").css("display", "none");
                         $("#" + sched_id + "_edit div.form_div").html('');
@@ -387,7 +386,7 @@ function getSchedulesByTime(obj) {
                 getSchedulesByTime(obj);
             }
             // else: time is wrong, flash div_time
-            else { 
+            else {
                 parentId = "div_new";
                 var origin_color = $("#"+parentId+" > div > div#div_time")[0].style.background;
                 for (var i=0; i<1200; i+= 400) {
@@ -395,14 +394,14 @@ function getSchedulesByTime(obj) {
                     setTimeout(function(){$("#"+parentId+" > div > div#div_time")[0].style.background=origin_color;}, i+200);
                 }
             }
-            
+
         } else if (action == "New_Cancel") {
             // Hide Adding, Show tip and adding button
             $("#div_new").css("display", "none");
             $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
             $("#div_new div.form_div").html('');
-            
+
         }else if (action == "help") {
             // Open tab "Help.html"
             chrome.tabs.create({"url":chrome.i18n.getMessage("extHelpPage")});
@@ -435,7 +434,7 @@ function getSchedulesByTime(obj) {
             console.log('Not supported');
         }
     });
-    
+
     $("img.popup-menu-item").mouseout(function(){
         var action = $(this).attr("alt");
         if ($(this).attr("editing") == "0") {
@@ -460,7 +459,6 @@ function getSchedulesByTime(obj) {
             console.log('Not supported');
         }
     });
-
 }
 
 // Save the schedule edited or added.
