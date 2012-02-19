@@ -210,6 +210,33 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $('#div_' + sched_id).remove();
         } else if (action == "Edit") {
             self.port.emit('getScheduleById', sched_id);
+        } else if (action == "New") {
+            // Show Adding, Hide tip and adding button
+            $("#div_new").css("display", "block");
+            $("#div_new div.form_div").html(form_div_html);
+            $("#div_tips").css("display", "none");
+            $("#div_add").css("display", "none");
+
+            var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
+            $("#div_new div.form_div #div_time > input#year")[0]["value"] = time.getFullYear().toString();
+            $("#div_new div.form_div #div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
+            $("#div_new div.form_div #div_time > input#day")[0]["value"] = time.getDate().toString();
+            $("#div_new div.form_div #div_time > input#hour")[0]["value"] = time.getHours().toString();
+            strMin = time.getMinutes().toString();
+            if (strMin.length == 1) strMin = '0'+strMin;
+            $("#div_new div.form_div #div_time > input#minute")[0]["value"] = strMin;
+            $("#div_new div.form_div #div_content > #content")[0]["value"] = '';
+            $("#div_new div.form_div #div_remind > #remindTime")[0]["value"] = 15;
+            $("#div_new div.form_div #div_remind > #remindUnit").val("minute");
+            $("#div_new div.form_div #div_loop > #easycal_loop").val(0);
+        } else if (action == "New_Save") {
+            self.port.emit('getNewScheduleId');
+        } else if (action == "New_Cancel") {
+            // Hide Adding, Show tip and adding button
+            $("#div_new").css("display", "none");
+            $("#div_tips").css("display", "block");
+            $("#div_add").css("display", "block");
+            $("#div_new div.form_div").html('');
         } else {
             console.warn("Not supported yet!"+action);
         }
@@ -323,6 +350,29 @@ self.port.on('sendScheduleById', function(schedule_str) {
                 setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background='#FFD0D0';}, i);
                 setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time")[0].style.background=origin_color;}, i+200);
             }
+        }
+    }
+});
+
+self.port.on('sendNewScheduleId', function(sched_index) {
+    var s = {}; // empty schedule object
+    s.id = sched_index;
+    // Save form
+    if (saveSchedule("#div_new", s) == true) {
+        // refresh schedule list
+        //g_ScheduleList = getSchedulesList();
+        // refresh jsDatePick
+        g_globalObject.repopulateMainBox();
+        // refresh sched
+        self.port.emit('getSchedulesByTime', obj);
+    }
+    // else: time is wrong, flash div_time
+    else {
+        parentId = "div_new";
+        var origin_color = $("#div_new > div > div#div_time")[0].style.background;
+        for (var i=0; i<1200; i+= 400) {
+            setTimeout(function(){$("#div_new > div > div#div_time")[0].style.background='#FFD0D0';}, i);
+            setTimeout(function(){$("#div_new > div > div#div_time")[0].style.background=origin_color;}, i+200);
         }
     }
 });
