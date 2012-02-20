@@ -225,9 +225,6 @@ JsDatePick.prototype.setConfiguration = function(aConf){
 	this.oConfiguration.imgPath			= (g_jsDatePickImagePath.length != null) ? g_jsDatePickImagePath : "img/";
 	this.oConfiguration.weekStartDay   	= (aConf["weekStartDay"] != null) ? aConf["weekStartDay"] : 1;
 	
-	// Wangheda added, to enable display of state having schedule.
-	g_ScheduleList = (aConf["SchedulesList"] != null) ? aConf["SchedulesList"] : {};
-	
 	this.selectedDayObject = {};
 	this.flag_DayMarkedBeforeRepopulation = false;
 	this.flag_aDayWasSelected = false;
