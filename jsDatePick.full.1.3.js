@@ -56,12 +56,6 @@
 */
 // The language array - change these values to your language to better fit your needs!
 g_l = [];
-//g_l["MONTHS"] = ["Janaury","February","March","April","May","June","July","August","September","October","November","December"];
-//g_l["DAYS_3"] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-//g_l["MONTH_FWD"] = "Move a month forward";
-//g_l["MONTH_BCK"] = "Move a month backward";
-//g_l["YEAR_FWD"] = "Move a year forward";
-//g_l["YEAR_BCK"] = "Move a year backward";
 g_l["MONTHS"] = [chrome.i18n.getMessage("extDateMonth1"),
                  chrome.i18n.getMessage("extDateMonth2"),
                  chrome.i18n.getMessage("extDateMonth3"),
@@ -122,7 +116,8 @@ g_currentDateObject.year = g_currentDateObject.dateObject.getFullYear();
 
 JsgetElem = function(id){ return document.getElementById(id); };
 
-g_ScheduleList = {}
+// Global variable. Updated by popup.js
+g_ScheduleList = {};
 
 String.prototype.trim = function() {
 	return this.replace(/^\s+|\s+$/g,"");
@@ -247,9 +242,6 @@ JsDatePick.prototype.setConfiguration = function(aConf){
 	this.oConfiguration.dateFormat		= (aConf["dateFormat"] != null) ? aConf["dateFormat"] : "%m-%d-%Y";
 	this.oConfiguration.imgPath			= (g_jsDatePickImagePath.length != null) ? g_jsDatePickImagePath : "img/";
 	this.oConfiguration.weekStartDay   	= (aConf["weekStartDay"] != null) ? aConf["weekStartDay"] : 1;
-	
-	// Wangheda added, to enable display of state having schedule.
-	g_ScheduleList = (aConf["SchedulesList"] != null) ? aConf["SchedulesList"] : {};
 	
 	this.selectedDayObject = {};
 	this.flag_DayMarkedBeforeRepopulation = false;
@@ -685,9 +677,7 @@ JsDatePick.prototype.populateMainBox = function(aMainBox){
 		
 		aDayDiv.setAttribute("globalNumber",this.globalNumber);
 		
-		//
 		aDayDiv.setAttribute("easycal_this_day", this.currentYear.toString()+'-'+cmpMonth.toString()+'-'+this_Date.toString());
-		    
 		
 		if (columnNumber == 7){
 			if (g_jsDatePickDirectionality == "ltr"){

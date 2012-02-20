@@ -3,12 +3,11 @@ var CONSTANT_CONTENT_LENGTH = 20;
 g_globalObject = {};
 
 window.onload = function(){
-    var sl = getSchedulesList();
+    g_ScheduleList = getSchedulesList();
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
         target:"calendar",
-        SchedulesList:sl,
     });
 
     // Display schedules of today.
