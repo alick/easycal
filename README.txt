@@ -1,8 +1,8 @@
-This is EasyCal, an appealing and easy-to-use calendar app as an
+This is !EasyCal, an appealing and easy-to-use calendar app as an
 Chrome extension or a Firefox addon. You can install it right at
 [https://chrome.google.com/webstore/detail/jigbmbnnlofcabgibnakoocachndoifm Chrome Webstore].
 
-EasyCal aims at erasing the pain when you use some other calendar
+!EasyCal aims at erasing the pain when you use some other calendar
 software. You need fewer clicks and typing to manage your schedule with
 easycal.
 
@@ -15,7 +15,7 @@ Chrome), or in the simple storage (by Firefox). In both cases the data
 are persistent across browser restarts, and you don't need Internet
 connection to access the stored schedules.
 
-EasyCal struggles to be simple and smart. Hope you will like it.
+!EasyCal struggles to be simple and smart. Hope you will like it.
 
 Bug reports and feature requests are welcomed at the Issues
 tab(http://code.google.com/p/easycal/issues/list).
