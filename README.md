@@ -21,4 +21,4 @@ Bug reports and feature requests are welcomed at the Issues
 tab(http://code.google.com/p/easycal/issues/list).
 
 Code contribution are also welcome. You can find more info about our
-development in the Wiki tab.
+development in the Wiki tab(http://code.google.com/p/easycal/w/list).
