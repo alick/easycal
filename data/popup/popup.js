@@ -2,6 +2,7 @@ console.debug('Hello from popup.js');
 var CONSTANT_CONTENT_LENGTH = 20;
 
 g_globalObject = {};
+//g_ScheduleList = {}; // global var in jsDatePick.js
 
 // The form inner HTML used when editing and adding schedules.
 var form_div_html =
@@ -44,12 +45,11 @@ _("extEditLabelBefore") +
 "</div>";
 
 self.port.on('show_popup', function(){
-    //sl = getSchedulesList(storage);
+    self.port.emit('getSchedulesList');
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
         target:"calendar",
-        //SchedulesList:sl,
         /*selectedDate:{
           day:5,
           month:9,
@@ -199,9 +199,9 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         if (action == "Remove") {
             console.log("To remove " + sched_id);
             self.port.emit('removeSchedule', sched_id);
-            // TODO
-            // refresh schedule list
-            // g_ScheduleList = getSchedulesList();
+            // FIXME
+            // Refresh schedule list transmits too much data
+            self.port.emit('getSchedulesList');
             // refresh jsDatePick
             g_globalObject.repopulateMainBox();
             // refresh sched
@@ -337,7 +337,7 @@ self.port.on('sendScheduleById', function(schedule_str) {
             $("#" + sched_id + "_edit").css("display", "none");
             $("#" + sched_id + "_edit div.form_div").html('');
             // refresh schedule list
-            //g_ScheduleList = getSchedulesList();
+            self.port.emit('getSchedulesList');
             // refresh jsDatePick
             g_globalObject.repopulateMainBox();
             // refresh sched
@@ -360,7 +360,7 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     // Save form
     if (saveSchedule("#div_new", s) == true) {
         // refresh schedule list
-        //g_ScheduleList = getSchedulesList();
+        self.port.emit('getSchedulesList');
         // refresh jsDatePick
         g_globalObject.repopulateMainBox();
         // refresh sched
@@ -428,6 +428,11 @@ function saveSchedule(sched_div_id, s) {
 
     return true;
 }
+
+self.port.on('sendSchedulesList', function(has_schedule_map){
+    // Set the global g_ScheduleList.
+    g_ScheduleList = has_schedule_map;
+});
 
 // DEBUGGING CODE
 // Warning Duplicate IDs
