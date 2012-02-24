@@ -1,0 +1,61 @@
+body {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+	font-style: normal;
+	background-color: #CCC;
+	background-position: center top;
+	overflow: scroll;
+	position: absolute;
+	visibility: inherit;
+	height: auto;
+	width: auto;
+	left: 10em;
+	top: 1em;
+	right: 10em;
+	bottom: 10em;
+}
+#main_div {
+	background-color: #FFF;
+	background-position: center top;
+	text-align: left;
+	vertical-align: middle;
+	width: auto;
+	padding: 1em;
+	position: relative;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 20px;
+	font-style: normal;
+	border: 1px solid #999;
+	display: block;
+	margin-bottom: 1em;
+}
+#rights {
+	text-align: center;
+	padding: 0.5em;
+}
+
+hr.separate {
+	color: #EFEFEF;
+}
+
+#title_div {
+	font-size: xx-large;
+	text-align: center;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+div {
+	padding: 0.5em;
+}
+.div_img {
+	text-align: center;
+}
+.answer {
+	text-indent: 0;
+	padding-left: 2em;
+	font-size: 16px;
+}
+.ask {
+	font-size: 20px;
+	text-decoration: underline;
+}
