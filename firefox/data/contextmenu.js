@@ -10,8 +10,6 @@ self.on("click", function (node, data) {
     var schedule = {
         id: -1, // id unknown
         content: text,
-        sched_time: timestamp + 1000 * 60 * 60 * 24,  // Using the same time tomorrow as the schedule time
-        sched_remindtime: 1000*60*15,//remind the user 15min before the deadline
         add_time: timestamp,
     };
 

@@ -80,7 +80,6 @@ exports.main = function(options, callbacks) {
     });
 
     editcalPanel.port.on('close', function(){
-        storage.dumpAllItems();
         editcalPanel.hide();
     });
     editcalPanel.port.on('save', function(schedule){

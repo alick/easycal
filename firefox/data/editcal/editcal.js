@@ -1,9 +1,22 @@
 console.debug('This is from editcal.js!');
 var sched_id = -1;
 var form_html = '';
-//$(document).ready(function(){
-    //form_html = $('#form_fill').html();
-//});
+
+$('#easycal-form-submit').hover(
+        function(){
+            console.debug("%%%%%%%%%%%%%%%%%%%%%%");
+            $('#easycal-form-submit').attr('src', "save_mouseover.png");
+        },
+        function(){
+            $('#easycal-form-submit').attr('src', "save.png");
+        });
+$('#easycal-form-cancel').hover(
+        function(){
+            $('#easycal-form-cancel').attr('src', "cancel_mouseover.png");
+        },
+        function(){
+            $('#easycal-form-cancel').attr('src', "cancel.png");
+        });
 
 $('#easycal-form-cancel').on('click', function(){
     self.port.emit('close');
@@ -74,25 +87,8 @@ $('#easycal-form-submit').on('click', function(){
 
     self.port.emit('save', schedule);
 
- 
     return false;
 });
-
-/*
-    $('#easycal-editcal #easycal-form-submit').bind('mouseenter', function(){
-        $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/save_mouseover.png");//imgSave_onmouseover;
-    });
-    $('#easycal-editcal #easycal-form-cancel').bind('mouseenter', function(){
-        $('#easycal-editcal #easycal-form-cancel')[0].src = chrome.extension.getURL("easycal_img/cancel_mouseover.png");//imgCancel_onmouseover;
-    });
-    $('#easycal-editcal #easycal-form-submit').bind('mouseleave', function(){
-        $('#easycal-editcal #easycal-form-submit')[0].src = chrome.extension.getURL("easycal_img/save.png");//imgSave;
-    });
-    $('#easycal-editcal #easycal-form-cancel').bind('mouseleave', function(){
-        $('#easycal-editcal #easycal-form-cancel')[0].src = chrome.extension.getURL("easycal_img/cancel.png");//imgCancel;
-    });
-});
-*/
 
 self.port.on('reset_html', function() {
     $('#saved_img').css('display', 'none');
@@ -100,7 +96,6 @@ self.port.on('reset_html', function() {
 });
 self.port.on('fillform', function(schedule) {
     console.debug("begin to fill the form...");
-    console.log("schedule: " + JSON.stringify(schedule));
     sched_id = schedule.id;
     var time = new Date(schedule.sched_time);
     $('#easycal_year').val(time.getFullYear());
@@ -111,6 +106,7 @@ self.port.on('fillform', function(schedule) {
 
     $('#easycal_content').val(schedule.content);
     $('#easycal_remindTime').val('15');
+
 });
 
 self.port.on('save_response', function(response) {
