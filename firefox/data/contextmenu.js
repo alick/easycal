@@ -1,5 +1,9 @@
 // When this item is clicked, post a message back with the schedule
-self.on("click", function () {
+self.on("click", function (node, data) {
+    if (data === "disabled") {
+        return;
+    }
+
     var text = window.getSelection().toString();
     var this_time = new Date();
     var timestamp = this_time.getTime();

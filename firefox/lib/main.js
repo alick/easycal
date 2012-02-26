@@ -3,6 +3,7 @@ var widgets = require("widget");
 var tabs = require("tabs");
 var contextMenu = require("context-menu");
 var panels = require("panel");
+var ss = require('simple-storage');
 
 var notifications = require("notifications");
 var privateBrowsing = require('private-browsing');
@@ -25,12 +26,15 @@ console.log("To start the main function...");
 exports.main = function(options, callbacks) {
     console.log(options.loadReason);
 
+    var label_enabled  = "Add Selection to EasyCal";
+    var label_disabled = "Add Selection Disabled";
     // Create a new context menu item.
     var menuItem = contextMenu.Item({
-        label: "Add Selection to EasyCal",
+        label: label_enabled,
         // Show this item when a selection exists.
         context: contextMenu.SelectionContext(),
         contentScriptFile: data.url('contextmenu.js'),
+        data: "enabled",
         // When we receive a message, set the right sched_id
         onMessage: function (schedule) {
             console.debug('contextMenu receive msg...');
@@ -164,4 +168,22 @@ exports.main = function(options, callbacks) {
         // Open tab "Help.html"
         tabs.open(data.url('help/Help.html'));
     }
+
+    ss.on("OverQuota", function () {
+        notifications.notify({
+            title: 'Storage space exceeded',
+            text: 'Please remove some outdated schedules.'});
+    });
+
+    privateBrowsing.on('start', function() {
+        widget.contentURL = data.url('widget/easycal-small-off.png');
+        menuItem.label = label_disabled;
+        menuItem.data = "disabled";
+    });
+
+    privateBrowsing.on('stop', function() {
+        widget.contentURL = data.url('widget/easycal-small-on.png');
+        menuItem.label = label_enabled;
+        menuItem.data = "enabled";
+    });
 };
