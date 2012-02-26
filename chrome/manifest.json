@@ -1,7 +1,7 @@
 {
     "name": "__MSG_extName__",
     "description": "__MSG_extDescript__",
-    "version": "1.6",
+    "version": "1.7",
     "icons": {
         "16": "huaci-small.png",
         "48": "huaci.png",
