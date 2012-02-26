@@ -144,7 +144,7 @@ exports.main = function(options, callbacks) {
         storage.setItem('sched_index', ++sched_index);
     });
     popupPanel.port.on('open_help_page', function(){
-        tabs.open(data.url('help/Help.html'));
+        tabs.open(data.url('help/Help-en.html'));
     });
     var widget = widgets.Widget({
         id: "easycal-popup",
@@ -164,8 +164,8 @@ exports.main = function(options, callbacks) {
     // Show help at first install.
     if (storage.getItem("InitiallyShowHelp") === undefined) {
         storage.setItem("InitiallyShowHelp", "Done");
-        // Open tab "Help.html"
-        tabs.open(data.url('help/Help.html'));
+        // Open tab "Help-en.html"
+        tabs.open(data.url('help/Help-en.html'));
     }
 
     ss.on("OverQuota", function () {
