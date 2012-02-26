@@ -64,7 +64,7 @@ exports.main = function(options, callbacks) {
 
     var editcalPanel= panels.Panel({
         width: 450,
-        height: 280,
+        height: 270,
         contentURL: data.url('editcal/editcal.html'),
         contentScriptWhen: 'ready',
         contentScriptFile: [data.url('jquery.js'),
@@ -88,8 +88,8 @@ exports.main = function(options, callbacks) {
     });
 
     var popupPanel = panels.Panel({
-        width: 550,
-        height: 280,
+        width: 538,
+        height: 265,
         contentURL: data.url('popup/popup.html'),
         contentScriptWhen: 'ready',
         contentScriptFile: [data.url('jquery.js'),

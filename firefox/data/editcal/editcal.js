@@ -117,8 +117,14 @@ self.port.on('save_response', function(response) {
     if (response === "OK") {
         console.log("Your schedule has been successfully saved ^_^");
 
+        var w = $("#form_fill").css('width');
+        var h = $("#form_fill").css('height');
         $("#form_fill").css('display', 'none');
         $('#saved_img').css('display', 'block');
+        $('#saved_img').css('width', w);
+        $('#saved_img').css('height', h);
+
+        console.debug('body size: ' + $('body').css('width') + ', ' + $('body').css('height'));
 
         setTimeout(
             function(){
