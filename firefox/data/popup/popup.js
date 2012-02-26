@@ -81,11 +81,6 @@ self.port.on('show_popup', function(){
         $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
         self.port.emit('getSchedulesByTime', obj);
     });
-
-    $('#schedhead_help').unbind();
-    $('#schedhead_help').click(function(){
-        self.port.emit('open_help_page');
-    });
 });
 
 self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
@@ -237,8 +232,10 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
             $("#div_new div.form_div").html('');
+        } else if (action == "help") {
+            self.port.emit('open_help_page');
         } else {
-            console.warn("Not supported yet!"+action);
+            console.warn("Action not supported yet:" + action);
         }
     });
 
