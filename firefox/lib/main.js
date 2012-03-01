@@ -14,17 +14,18 @@ var storage = require("storage");
 var schedules = require("schedule");
 var remind = require("remind");
 
-var easycalIsOn = true;
-
-function toggleActivation () {
-    easycalIsOn = !easycalIsOn;
-    return easycalIsOn;
+// Whether we are in develop mode:
+var devmode = true;
+function $debug(msg) {
+    if (devmode === true && msg) {
+        console.debug(msg);
+    } else {
+        ; // Keep silent.
+    }
 }
 
-console.log("To start the main function...");
-
 exports.main = function(options, callbacks) {
-    console.log(options.loadReason);
+    $debug(options.loadReason);
 
     var label_enabled  = "Add Selection to EasyCal";
     var label_disabled = "Add Selection Disabled";
@@ -37,13 +38,9 @@ exports.main = function(options, callbacks) {
         data: "enabled",
         // When we receive a message, set the right sched_id
         onMessage: function (schedule) {
-            console.debug('contextMenu receive msg...');
-            console.log('schedule: ' + JSON.stringify(schedule));
             // Get uniqe key
             var sched_index = storage.getItem('sched_index');
-            console.log('sched_index: "'+sched_index+'"');
             if ((sched_index === null) || (sched_index === undefined)) {
-                console.debug('set initial sched_index');
                 sched_index = 0;
             } else {
                 sched_index = parseInt(sched_index);
@@ -53,14 +50,9 @@ exports.main = function(options, callbacks) {
             // If the schedule is not stored at last,
             // then one hole is born.
             storage.setItem('sched_index', sched_index + 1);
-            console.log('just stored sched_index: "' +
-                    storage.getItem('sched_index') + '"');
 
-            console.debug('contextMenu id set...');
-            console.log('schedule: ' + JSON.stringify(schedule));
             // NOTE this is shallow copy.
             editcalPanel.schedule = schedule;
-            editcalPanel.contentURL = data.url('editcal/editcal.html');
             editcalPanel.port.emit('reset_html');
             editcalPanel.show();
         }
@@ -83,8 +75,6 @@ exports.main = function(options, callbacks) {
         editcalPanel.hide();
     });
     editcalPanel.port.on('save', function(schedule){
-        console.debug('editcalPanel save schedule...');
-        console.log('schedule: ' + JSON.stringify(schedule));
         var storekey = "sched" + schedule.id;
         storage.setItem(storekey, JSON.stringify(schedule));
         editcalPanel.port.emit('save_response', 'OK');
@@ -101,20 +91,17 @@ exports.main = function(options, callbacks) {
                             data.url('popup/jquery.cluetip.min.js'),
                             data.url('popup/popup.js')],
         onShow: function() {
-            console.debug('popupPanel on the show');
             this.port.emit('show_popup');
         }
     });
     popupPanel.port.on('getSchedulesByTime', function(date_obj){
-        console.debug('getSchedulesByTime...');
         var sched_list = schedules.getSchedulesByTime(date_obj);
         sched_list.forEach(function(element, index, array){
-            console.log('sched_list[' + index + ']:' + JSON.stringify(element));
+            $debug('sched_list[' + index + ']:' + JSON.stringify(element));
         });
         popupPanel.port.emit('sendSchedulesByTime', sched_list);
     });
     popupPanel.port.on('getSchedulesList', function(){
-        console.log('getSchedulesList...');
         var sched_list = schedules.getSchedulesList();
         popupPanel.port.emit('sendSchedulesList', sched_list);
     });
@@ -127,8 +114,6 @@ exports.main = function(options, callbacks) {
         popupPanel.port.emit('sendScheduleById', schedule_str);
     });
     popupPanel.port.on('saveSchedule', function(schedule){
-        console.debug('popupPanel save schedule...');
-        console.log('schedule: ' + JSON.stringify(schedule));
         var storekey = "sched" + schedule.id;
         storage.setItem(storekey, JSON.stringify(schedule));
         //popupPanel.port.emit('saveSchedule_response', 'OK');
@@ -151,7 +136,7 @@ exports.main = function(options, callbacks) {
         label: "Click to manage the schedules.",
         contentURL: data.url("widget/easycal-small-on.png"),
         onClick: function() {
-            console.log('Show the calendar and schedule list...');
+            $debug('Show the calendar and schedule list...');
         },
         contentScriptWhen: 'ready',
         contentScriptFile: data.url('widget/widget.js'),
