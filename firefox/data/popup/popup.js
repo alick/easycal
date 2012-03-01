@@ -1,4 +1,3 @@
-console.debug('Hello from popup.js');
 var CONSTANT_CONTENT_LENGTH = 20;
 
 g_globalObject = {};

@@ -6,7 +6,6 @@ var self = require("self");
 var myIconURL = self.data.url("easycal-64x64.png");
 
 function periodCheck() {
-    console.log('EasyCal Period Check at ' + Date().toString());
     for (var key in ss.storage) {
         // First make sure key is of format 'sched<num>'
         if ((key.indexOf('sched') < 0) || isNaN(parseInt(key.substr(5)))) {

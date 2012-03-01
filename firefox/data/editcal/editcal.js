@@ -1,4 +1,3 @@
-console.debug('This is from editcal.js!');
 var sched_id = -1;
 var form_html = '';
 
