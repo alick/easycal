@@ -1,5 +1,5 @@
 var ss = require('simple-storage');
-var logging = true;
+var logging = false;
 
 // code originally from:
 // http://stackoverflow.com/questions/2153070/do-chrome-extensions-have-access-to-local-storage
