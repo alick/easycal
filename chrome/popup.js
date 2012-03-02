@@ -263,7 +263,7 @@ function getSchedulesByTime(obj) {
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
 
-    $('.content').cluetip();
+    $('td.content a').cluetip({splitTitle:"\n", showTitle:false});
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
