@@ -3,8 +3,6 @@
     vertical-align:top;
     padding: 0.7em 0.7em 0.7em 0.7em;
     background:rgb(220,230,245);
-    -webkit-border-horizontal-spacing: 1px;
-    -webkit-border-vertical-spacing: 0;
 }
 
 td.td_outer {
@@ -143,9 +141,6 @@ div#div_new table tbody tr td{
     outline-width: 0; /* override Chrome's default outline style */
 }
 
-.sched_item_table {
-    -webkit-border-horizontal-spacing: 0;
-}
 .sch_div > input {
     border: #ECF1F9 solid 1px;
 }
@@ -157,27 +152,4 @@ div#div_new table tbody tr td{
 }
 #div_submit {
     font-size: 16px;
-}
-
-/* Let's get this party started */
-::-webkit-scrollbar {
-    width: 15px;
-}
- 
-/* Track */
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: rgba(247,250,253,0.8); 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}
-::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(247,250,253,0.4); 
 }
