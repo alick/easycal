@@ -123,7 +123,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         }
         sched_html += '</td>';
 
-        sched_html += '<td class="content"  style="vertical-align:middle;">';
+        sched_html += '<td class="content" style="vertical-align:middle;">';
         sched_html += '<a href="#" title="' + s.content + '">';
         var disp_str = s.content;
         if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
@@ -184,7 +184,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     var imgEdit = "Edit-New.png";
     var imgEdit_mouseover = "Edit-New-mouseover.png";
 
-    $('.content').cluetip();
+    $('td.content a').cluetip({splitTitle: "\n", showTitle: false});
     console.debug('Binding click function...');
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
