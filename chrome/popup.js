@@ -204,9 +204,16 @@ function getSchedulesByTime(obj) {
         }
         sched_html += '</td>';
 
-        sched_html += '<td class="content"  style="vertical-align:middle;">';
-        sched_html += '<a href="#" title="' + s.content + '">';
-        var disp_str = s.content;
+        // NOTE: escape HTML tags/quotes! It is about security.(injection)
+        // Some credits goes to
+        // http://bigdingus.com/2007/12/29/html-escaping-in-javascript/
+        var disp_str = s.content.replace(/</g, "&lt;")
+                                .replace(/>/g, "&gt;")
+                                .replace(/&/g, "&amp;")
+                                .replace(/"/g, "&#34;")
+                                .replace(/'/g, "&#39;");
+        sched_html += '<td class="content" style="vertical-align:middle;">';
+        sched_html += '<a href="#" title="' + disp_str + '">';
         if (disp_str.length > CONSTANT_CONTENT_LENGTH) {
             disp_str = disp_str.substr(0, CONSTANT_CONTENT_LENGTH-1) + '...';
         }
