@@ -9,7 +9,7 @@
     width:33em;
     font: 13px serif normal;
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 #editcal_label_time,#editcal_label_loop,#editcal_label_content,#editcal_label_remind {
@@ -40,8 +40,6 @@
     color:rgb(0,0,0);
     padding:0;
     margin:0;
-    -webkit-border-horizontal-spacing: 0;
-    -webkit-border-vertical-spacing: 0;
     vertical-align:middle;
     background-color:rgb(182, 209, 238);
     border:0;

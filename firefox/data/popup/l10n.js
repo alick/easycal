@@ -114,7 +114,6 @@ g_messages = {
 
 function _(key) {
     var translation = g_messages[key]["message"];
-    console.debug('translation:' + translation);
     if (translation === undefined) {
         return key;
     } else {
