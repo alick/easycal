@@ -3,7 +3,6 @@ var form_html = '';
 
 $('#easycal-form-submit').hover(
         function(){
-            console.debug("%%%%%%%%%%%%%%%%%%%%%%");
             $('#easycal-form-submit').attr('src', "save_mouseover.png");
         },
         function(){
@@ -32,7 +31,7 @@ $('#easycal-form-submit').on('click', function(){
 
     var schedule = {};
     if (sched_id === -1) {
-        console.warn('schedule id invalid');
+        console.warn('Invalid schedule id!');
         return false;
     }
     schedule.id = sched_id;
@@ -81,9 +80,6 @@ $('#easycal-form-submit').on('click', function(){
         schedule.sched_remindtime.setTime(schedule.sched_time.getTime() - timebefore*1000*60);
     }
 
-    console.log('schedule from user input:');
-    console.log(JSON.stringify(schedule));
-
     self.port.emit('save', schedule);
 
     return false;
@@ -94,7 +90,6 @@ self.port.on('reset_html', function() {
     $("#form_fill").css('display', 'block');
 });
 self.port.on('fillform', function(schedule) {
-    console.debug("begin to fill the form...");
     sched_id = schedule.id;
     var time = new Date(schedule.sched_time);
     $('#easycal_year').val(time.getFullYear());
@@ -110,16 +105,12 @@ self.port.on('fillform', function(schedule) {
 
 self.port.on('save_response', function(response) {
     if (response === "OK") {
-        console.log("Your schedule has been successfully saved ^_^");
-
         var w = $("#form_fill").css('width');
         var h = $("#form_fill").css('height');
         $("#form_fill").css('display', 'none');
         $('#saved_img').css('display', 'block');
         $('#saved_img').css('width', w);
         $('#saved_img').css('height', h);
-
-        console.debug('body size: ' + $('body').css('width') + ', ' + $('body').css('height'));
 
         setTimeout(
             function(){
@@ -128,6 +119,6 @@ self.port.on('save_response', function(response) {
             1000
             );
     } else {
-        console.log("Your schedule has NOT been successfully saved -_-");
+        console.warn("Oh no, we failed to save your schedule.");
     }
 });

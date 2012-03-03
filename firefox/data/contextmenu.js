@@ -137,6 +137,5 @@ function timeExtraction(my_selection) {
             now_time.setHours(19, 0, 0, 0);
         }
     }
-    console.log('time detected: '+now_time.toLocaleString());
     return now_time.getTime();
 }

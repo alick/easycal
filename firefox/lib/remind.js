@@ -27,7 +27,6 @@ function periodCheck() {
                 strTitle += sched_time.getMinutes().toString();
             }
             var showNotify = function(){
-                console.log('Show the notification.');
                 notifications.notify({
                     title: strTitle,
                     text: s.content,
@@ -35,7 +34,6 @@ function periodCheck() {
                 });
             };
             timers.setTimeout(showNotify, millisecond_left);
-            console.log('to remind at ' + time.toString());
         } else if (millisecond_left < 0) {
             var enableRemind = false;
             var minutes_left = Math.floor(millisecond_left/(60 * 1000));
@@ -68,7 +66,6 @@ function periodCheck() {
                     strTitle += sched_time.getMinutes().toString();
                 }
                 var showNotify = function(){
-                    console.log('Show the notification.');
                     notifications.notify({
                         title: strTitle,
                         text: s.content,
@@ -76,7 +73,6 @@ function periodCheck() {
                     });
                 };
                 timers.setTimeout(showNotify, millisecond_left);
-                console.log('to remind at ' + time.toString());
             }
         }
     }
