@@ -15,7 +15,7 @@ var schedules = require("schedule");
 var remind = require("remind");
 
 // Whether we are in develop mode:
-var devmode = true;
+var devmode = false;
 function $debug(msg) {
     if (devmode === true && msg) {
         console.debug('[devmode]' + msg);
@@ -96,9 +96,6 @@ exports.main = function(options, callbacks) {
     });
     popupPanel.port.on('getSchedulesByTime', function(date_obj){
         var sched_list = schedules.getSchedulesByTime(date_obj);
-        sched_list.forEach(function(element, index, array){
-            $debug('sched_list[' + index + ']:' + JSON.stringify(element));
-        });
         popupPanel.port.emit('sendSchedulesByTime', sched_list);
     });
     popupPanel.port.on('getSchedulesList', function(){
