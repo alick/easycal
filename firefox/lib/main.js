@@ -18,7 +18,7 @@ var remind = require("remind");
 var devmode = true;
 function $debug(msg) {
     if (devmode === true && msg) {
-        console.debug(msg);
+        console.debug('[devmode]' + msg);
     } else {
         ; // Keep silent.
     }
@@ -136,7 +136,7 @@ exports.main = function(options, callbacks) {
         label: "Click to manage the schedules.",
         contentURL: data.url("widget/easycal-small-on.png"),
         onClick: function() {
-            $debug('Show the calendar and schedule list...');
+            $debug('widget: show the popupPanel');
         },
         contentScriptWhen: 'ready',
         contentScriptFile: data.url('widget/widget.js'),

@@ -1,7 +1,6 @@
 var ss = require('simple-storage');
 
 function getSchedulesByTime (date_obj) {
-    console.debug('Begin getSchedulesByTime...');
     var ScheduleList = [];
     for (var key in ss.storage) {
         // First make sure key is of format 'sched<num>'
@@ -41,14 +40,7 @@ function getSchedulesByTime (date_obj) {
             ScheduleList.push(s);
         }
     }
-    //ScheduleList.forEach(function(element, index, array){
-        //console.log('ScheduleList[' + index + ']:' + JSON.stringify(element));
-    //});
     ScheduleList.sort(cmpSchedule);
-    //ScheduleList.forEach(function(element, index, array){
-        //console.log('ScheduleList[' + index + ']:' + JSON.stringify(element));
-    //});
-    console.debug('End getSchedulesByTime...');
     return ScheduleList;
 }
 

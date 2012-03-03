@@ -1,7 +1,10 @@
 var CONSTANT_CONTENT_LENGTH = 20;
 
-g_globalObject = {};
-//g_ScheduleList = {}; // global var in jsDatePick.js
+g_globalObject = new JsDatePick({
+    useMode:1,
+    isStripped:true,
+    target:"calendar",
+});
 
 // The form inner HTML used when editing and adding schedules.
 var form_div_html =
@@ -44,22 +47,6 @@ _("extEditLabelBefore") +
 "</div>";
 
 self.port.on('show_popup', function(){
-    g_globalObject = new JsDatePick({
-        useMode:1,
-        isStripped:true,
-        target:"calendar",
-        /*selectedDate:{
-          day:5,
-          month:9,
-          year:2006
-          },
-          yearsRange:[1978,2020],
-          limitToToday:false,
-          cellColorScheme:"beige",
-          dateFormat:"%m-%d-%Y",
-          imgPath:"img/",
-          weekStartDay:1*/
-    });
     self.port.emit('getSchedulesList');
 
     // Display schedules of today.
@@ -70,6 +57,9 @@ self.port.on('show_popup', function(){
         day: today.getDate(),
     };
     $('#schedhead_today').text(today_obj.year + "-" + today_obj.month + "-" + today_obj.day);
+    // TODO
+    // obj is a global variable.
+    // Give obj a more proper name.
     self.port.emit('getSchedulesByTime', today_obj);
     obj = today_obj;
 
@@ -192,7 +182,6 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
     var imgEdit_mouseover = "Edit-New-mouseover.png";
 
     $('td.content a').cluetip({splitTitle: "\n", showTitle: false});
-    console.debug('Binding click function...');
     $(".popup-menu-item").unbind();
     $(".popup-menu-item").click(function(){
         var action = $(this).attr("alt");
