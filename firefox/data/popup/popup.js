@@ -66,7 +66,6 @@ self.port.on('show_popup', function(){
     g_globalObject.setOnSelectedDelegate(function(){
         // Make obj global.
         obj = g_globalObject.getSelectedDay();
-        console.log("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
         $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
         self.port.emit('getSchedulesByTime', obj);
     });
@@ -187,7 +186,6 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         var action = $(this).attr("alt");
         var sched_id = $(this).parent().parent().attr("id");
         if (action == "Remove") {
-            console.log("To remove " + sched_id);
             self.port.emit('removeSchedule', sched_id);
             // FIXME
             // Refresh schedule list transmits too much data
@@ -228,7 +226,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         } else if (action == "help") {
             self.port.emit('open_help_page');
         } else {
-            console.warn("Action not supported yet:" + action);
+            console.warn("Action not recognized:" + action);
         }
     });
 
@@ -253,7 +251,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         } else if (action == "help") {
             $(this)[0].src="label/help_mouseover.png";
         } else {
-            console.log('Not supported');
+            console.warn("Action not recognized:" + action);
         }
     });
 
@@ -278,12 +276,9 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         } else if (action == "help") {
             $(this)[0].src="label/help.png";
         } else {
-            console.log('Not supported');
+            console.warn("Action not recognized:" + action);
         }
     });
-
-    // Do one check.
-    checkDupId();
 });
 
 self.port.on('sendScheduleById', function(schedule_str) {
@@ -381,7 +376,6 @@ function saveSchedule(sched_div_id, s) {
             s.sched_time.getSeconds() != userSecond) {
 
         console.warn("Invalid time setting!");
-
         return false;
     }
 
@@ -407,8 +401,6 @@ function saveSchedule(sched_div_id, s) {
         s.sched_remindtime.setTime(s.sched_time.getTime() - timebefore*1000*60);
     }
 
-    console.log('sched:'+JSON.stringify(s));
-
     // Store into the storage.
     self.port.emit('saveSchedule', s);
 
@@ -421,14 +413,3 @@ self.port.on('sendSchedulesList', function(has_schedule_map){
     // refresh jsDatePick calendar
     g_globalObject.repopulateMainBox();
 });
-
-// DEBUGGING CODE
-// Warning Duplicate IDs
-// from: http://stackoverflow.com/questions/482763/jquery-to-check-for-duplicate-ids-in-a-dom
-function checkDupId() {
-    $('[id]').each(function(){
-        var ids = $('[id="'+this.id+'"]');
-        if(ids.length>1 && ids[0]==this)
-        console.warn('Multiple IDs #'+this.id);
-    });
-}

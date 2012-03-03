@@ -45,6 +45,7 @@ function removeItem(key) {
     return value;
 }
 
+// Mainly for debugging.
 function dumpAllItems() {
     console.log("<<<<<<<<<<<<<<<");
     for (var key in ss.storage) {

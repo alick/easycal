@@ -107,7 +107,6 @@ exports.main = function(options, callbacks) {
     });
     popupPanel.port.on('removeSchedule', function(sched_id){
         storage.removeItem(sched_id);
-        storage.dumpAllItems();
     });
     popupPanel.port.on('getScheduleById', function(sched_id){
         var schedule_str = storage.getItem(sched_id);
