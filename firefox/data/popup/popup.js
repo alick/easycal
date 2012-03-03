@@ -44,7 +44,6 @@ _("extEditLabelBefore") +
 "</div>";
 
 self.port.on('show_popup', function(){
-    self.port.emit('getSchedulesList');
     g_globalObject = new JsDatePick({
         useMode:1,
         isStripped:true,
@@ -61,6 +60,7 @@ self.port.on('show_popup', function(){
           imgPath:"img/",
           weekStartDay:1*/
     });
+    self.port.emit('getSchedulesList');
 
     // Display schedules of today.
     var today = new Date();
@@ -203,8 +203,6 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             // FIXME
             // Refresh schedule list transmits too much data
             self.port.emit('getSchedulesList');
-            // refresh jsDatePick
-            g_globalObject.repopulateMainBox();
             // refresh sched
             //getSchedulesByTime(storage, obj);
             // Just remove the div
@@ -341,8 +339,6 @@ self.port.on('sendScheduleById', function(schedule_str) {
             $("#" + sched_id + "_edit div.form_div").html('');
             // refresh schedule list
             self.port.emit('getSchedulesList');
-            // refresh jsDatePick
-            g_globalObject.repopulateMainBox();
             // refresh sched
             self.port.emit('getSchedulesByTime', obj);
         }
@@ -364,8 +360,6 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     if (saveSchedule("#div_new", s) == true) {
         // refresh schedule list
         self.port.emit('getSchedulesList');
-        // refresh jsDatePick
-        g_globalObject.repopulateMainBox();
         // refresh sched
         self.port.emit('getSchedulesByTime', obj);
     }
@@ -435,6 +429,8 @@ function saveSchedule(sched_div_id, s) {
 self.port.on('sendSchedulesList', function(has_schedule_map){
     // Set the global g_ScheduleList.
     g_ScheduleList = has_schedule_map;
+    // refresh jsDatePick calendar
+    g_globalObject.repopulateMainBox();
 });
 
 // DEBUGGING CODE
