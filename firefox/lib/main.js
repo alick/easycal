@@ -16,7 +16,7 @@ var schedules = require("schedule");
 var remind = require("remind");
 
 // Whether we are in develop mode:
-var devmode = false;
+var devmode = true;
 function $debug(msg) {
     if (devmode === true && msg) {
         console.debug('[devmode]' + msg);
@@ -149,8 +149,8 @@ exports.main = function(options, callbacks) {
                             data.url('debug.js'),
                             data.url('advanced/advanced.js')],
         onAttach: function(worker) {
-            worker.port.on('export', function(message) {
-                console.log('export:' + message);
+            worker.port.on('export', function(option) {
+                $debug('export:' + JSON.stringify(option));
             });
         }
     });
