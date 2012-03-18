@@ -16,6 +16,10 @@ var schedules = require("schedule");
 var remind = require("remind");
 var expsched = require("expsched");
 
+// The low-level interface. Necessary for file-IO.
+var {Cc, Ci} = require("chrome");
+var file = require("file");
+
 // Whether we are in develop mode:
 var devmode = true;
 function $debug(msg) {
@@ -153,7 +157,20 @@ exports.main = function(options, callbacks) {
             worker.port.on('export', function(option) {
                 $debug('export:' + JSON.stringify(option));
                 var ics = expsched.exportSchedules(option);
-                worker.port.emit('sendICS', ics);
+                // Get unique file name under tmp dir.
+                var f = Cc["@mozilla.org/file/directory_service;1"].
+                        getService(Ci.nsIProperties).
+                        get("TmpD", Ci.nsIFile);
+                f.append("easycal-exported.ics");
+                f.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0666);
+                $debug('path:'+f.path);
+
+                var writer = file.open(f.path, "w");
+                // TODO
+                // Consider using async write
+                writer.write(ics);
+                writer.close();
+                tabs.open("file://" + f.path);
             });
         }
     });

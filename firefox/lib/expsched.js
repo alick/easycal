@@ -1,7 +1,7 @@
 var ss = require('simple-storage');
 
 function exportSchedules(option) {
-    var ics = 'contents of file';
+    var ics = 'contents of file\r\n';
     for (var key in ss.storage) {
         // First make sure key is of format 'sched<num>'
         if ((key.indexOf('sched') < 0) || isNaN(parseInt(key.substr(5)))) {
