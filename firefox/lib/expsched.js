@@ -40,16 +40,20 @@ function exportSchedules(option) {
 function meetExportReq(schedule, option) {
     if (option.type === "all") {
         return true;
+    } else {
+        return false;
     }
 }
 
 function toICSDate(js_date) {
+    var js_date_str;
     if (typeof(js_date) === 'object') {
         js_date_str = js_date.toISOString();
     } else if (typeof(js_date) === 'string') {
         js_date_str = js_date;
     } else {
         console.error('toICSdate: input is not a date or a string');
+        return '';
     }
     return js_date_str.replace(/[-:]|(\.\d+)/g,'');
 }
@@ -68,6 +72,8 @@ function formatContent(content) {
 }
 
 exports.exportSchedules = exportSchedules;
+exports.formatContent = formatContent;
+exports.toICSDate = toICSDate;
 
 /*
  * A sample

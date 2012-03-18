@@ -176,7 +176,9 @@ exports.main = function(options, callbacks) {
                         getService(Ci.nsIProperties).
                         get("TmpD", Ci.nsIFile);
                 f.append("easycal-exported.ics");
-                f.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0666);
+                // Ah, octal literal 0xxx is deprecated in ES5.
+                // (666)_8 = (438)_10
+                f.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 438);
                 $debug('path:' + f.path);
 
                 var writer = file.open(f.path, "w");
