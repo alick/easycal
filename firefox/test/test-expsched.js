@@ -17,6 +17,11 @@ exports.test_formatContent = function(test) {
     var cases = {
         '' : '',
         'a\nb\ncc' : 'a\\nb\\ncc',
+        'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab' :
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+            '\r\n b',
+        '中中中中中中中中中中中中中中中中中中中中文' :
+            '中中中中中中中中中中中中中中中中中中中中\r\n 文',
     };
     for (var c in cases) {
         test.assertEqual(expsched.formatContent(c), cases[c]);
