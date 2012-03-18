@@ -4,6 +4,7 @@ var tabs = require("tabs");
 var contextMenu = require("context-menu");
 var panels = require("panel");
 var ss = require('simple-storage');
+var pageMod = require("page-mod");
 
 var notifications = require("notifications");
 var privateBrowsing = require('private-browsing');
@@ -127,6 +128,9 @@ exports.main = function(options, callbacks) {
     popupPanel.port.on('open_help_page', function(){
         tabs.open(data.url('help/Help-en.html'));
     });
+    popupPanel.port.on('open_advanced_page', function(){
+        tabs.open(data.url('advanced/advanced.html'));
+    });
     var widget = widgets.Widget({
         id: "easycal-popup",
         label: "Click to manage the schedules.",
@@ -137,6 +141,11 @@ exports.main = function(options, callbacks) {
         contentScriptWhen: 'ready',
         contentScriptFile: data.url('widget/widget.js'),
         panel: popupPanel,
+    });
+
+    pageMod.PageMod({
+        include: "resource://jid1-dzy2ln9wv9xzrw-at-jetpack/easycal/data/advanced/advanced.html",
+        contentScript: 'console.debug("Page matches ruleset");'
     });
 
     // Remind

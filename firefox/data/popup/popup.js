@@ -225,6 +225,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_new div.form_div").html('');
         } else if (action == "help") {
             self.port.emit('open_help_page');
+        } else if (action == "advanced") {
+            self.port.emit('open_advanced_page');
         } else {
             console.warn("Action not recognized:" + action);
         }
@@ -250,6 +252,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $(this)[0].src="Delete-New-mouseover.png";
         } else if (action == "help") {
             $(this)[0].src="label/help_mouseover.png";
+        } else if (action == "advanced") {
+            $(this)[0].src="label/help_mouseover.png";
         } else {
             console.warn("Action not recognized:" + action);
         }
@@ -274,6 +278,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         } else if (action == "New_Cancel") {
             $(this)[0].src="Delete-New.png";
         } else if (action == "help") {
+            $(this)[0].src="label/help.png";
+        } else if (action == "advanced") {
             $(this)[0].src="label/help.png";
         } else {
             console.warn("Action not recognized:" + action);
