@@ -14,6 +14,7 @@ var data = require("self").data;
 var storage = require("storage");
 var schedules = require("schedule");
 var remind = require("remind");
+var expsched = require("expsched");
 
 // Whether we are in develop mode:
 var devmode = true;
@@ -151,6 +152,8 @@ exports.main = function(options, callbacks) {
         onAttach: function(worker) {
             worker.port.on('export', function(option) {
                 $debug('export:' + JSON.stringify(option));
+                var ics = expsched.exportSchedules(option);
+                worker.port.emit('sendICS', ics);
             });
         }
     });
