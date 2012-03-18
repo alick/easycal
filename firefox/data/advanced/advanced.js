@@ -16,3 +16,6 @@ $('#export').click(function(){
     self.port.emit('export', option);
 });
 
+self.port.on('warnNoSchedule', function(){
+    alert('No schedule is in the date range. So nothing was exported.');
+});

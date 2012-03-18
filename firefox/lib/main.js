@@ -157,13 +157,19 @@ exports.main = function(options, callbacks) {
             worker.port.on('export', function(option) {
                 $debug('export:' + JSON.stringify(option));
                 var ics = expsched.exportSchedules(option);
+
+                if (ics === '') {
+                    worker.port.emit('warnNoSchedule');
+                    return;
+                }
+
                 // Get unique file name under tmp dir.
                 var f = Cc["@mozilla.org/file/directory_service;1"].
                         getService(Ci.nsIProperties).
                         get("TmpD", Ci.nsIFile);
                 f.append("easycal-exported.ics");
                 f.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0666);
-                $debug('path:'+f.path);
+                $debug('path:' + f.path);
 
                 var writer = file.open(f.path, "w");
                 // TODO
@@ -171,6 +177,8 @@ exports.main = function(options, callbacks) {
                 writer.write(ics);
                 writer.close();
                 tabs.open("file://" + f.path);
+                // TODO
+                // Remove the tmp file after it is downloaed/saved.
             });
         }
     });
