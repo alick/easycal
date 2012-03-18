@@ -162,6 +162,14 @@ exports.main = function(options, callbacks) {
                     worker.port.emit('warnNoSchedule');
                     return;
                 }
+                // Provide the head and tail.
+                // TODO
+                // Replace hardcoded easycal version num.
+                ics = 'BEGIN:VCALENDAR\r\n' +
+                      'VERSION:2.0\r\n' +
+                      'PRODID:-//EasyCal Team//NONSGML EasyCal 1.8//EN\r\n' +
+                      ics +
+                      'END:VCALENDAR\r\n';
 
                 // Get unique file name under tmp dir.
                 var f = Cc["@mozilla.org/file/directory_service;1"].
