@@ -18,10 +18,14 @@ exports.test_formatContent = function(test) {
         '' : '',
         'a\nb\ncc' : 'a\\nb\\ncc',
         'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab' :
-            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-            '\r\n b',
-        '中中中中中中中中中中中中中中中中中中中中文' :
-            '中中中中中中中中中中中中中中中中中中中中\r\n 文',
+            'aaaaaaaaaaaaaaa\r\n aaaaaaaaaaaaaaa\r\n aaaaaaaaaaaaaaa\r\n ' +
+            'aaaaaaaaaaaaaaa' + '\r\n b',
+        '中中中中中中中中中中中中中中中文文文文文test' :
+            '中中中中中中中中中中中中中中中\r\n 文文文文文test',
+        // \uD834\uDD2A == U+1D12A represented by a UTF-16 surrogate pair
+        // JavaScript say it has length of 2, though.
+        // cf http://rosettacode.org/wiki/String_length#Byte_Length_27
+        //'\uD834\uDD2A\uD834\uDD2A' : '',
     };
     for (var c in cases) {
         test.assertEqual(expsched.formatContent(c), cases[c]);

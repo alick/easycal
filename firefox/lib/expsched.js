@@ -59,8 +59,10 @@ function toICSDate(js_date) {
 }
 
 function formatContent(content) {
-    // At most 60 char (excluding line break) in one line.
-    var linelen = 60;
+    // At most 15 char (excluding line break) in one line.
+    // That means at most 60 bytes using UTF-8.
+    // Plus 12 bytes of 'DESCRIPTION:', 75 octets limitation is honored.
+    var linelen = 15;
     // Replace newline char.
     var tmp_res = content.replace(/\n/g, '\\n');
     var nline = Math.floor(tmp_res.length / linelen) + 1;
