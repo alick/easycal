@@ -145,7 +145,14 @@ exports.main = function(options, callbacks) {
 
     pageMod.PageMod({
         include: "resource://jid1-dzy2ln9wv9xzrw-at-jetpack/easycal/data/advanced/advanced.html",
-        contentScript: 'console.debug("Page matches ruleset");'
+        contentScriptFile: [data.url('jquery.js'),
+                            data.url('debug.js'),
+                            data.url('advanced/advanced.js')],
+        onAttach: function(worker) {
+            worker.port.on('export', function(message) {
+                console.log('export:' + message);
+            });
+        }
     });
 
     // Remind
