@@ -9,6 +9,11 @@ var LOOP_VAL_MAX = 29;
 var ERROR_TIME_SETTING = -1;
 var ERROR_LOOP_VAL = -2;
 
+// Indicator of whether we are editing/adding the schedule.
+// If editing_mode is true, we should keep the data from
+// being lost accidentally.
+var editing_mode = false;
+
 g_globalObject = new JsDatePick({
     useMode:1,
     isStripped:true,
@@ -57,6 +62,7 @@ _("extEditLabelBefore") +
 "</div>";
 
 self.port.on('show_popup', function(){
+    editing_mode = false;
     self.port.emit('getSchedulesList');
 
     // Display schedules of today.
@@ -74,6 +80,11 @@ self.port.on('show_popup', function(){
     obj = today_obj;
 
     g_globalObject.setOnSelectedDelegate(function(){
+        if (editing_mode === true) {
+            // We are in editing_mode, warn here to keep editing.
+            warnEditing($('div.form_div'));
+            return;
+        }
         // Make obj global.
         obj = g_globalObject.getSelectedDay();
         $('#schedhead_today').text(obj.year + "-" + obj.month + "-" + obj.day);
@@ -198,6 +209,10 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         var action = $(this).attr("alt");
         var sched_id = $(this).parent().parent().attr("id");
         if (action == "Remove") {
+            if (editing_mode === true) {
+                warnEditing($('div.form_div'));
+                return;
+            }
             self.port.emit('removeSchedule', sched_id);
             // FIXME
             // Refresh schedule list transmits too much data
@@ -209,6 +224,10 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
         } else if (action == "Edit") {
             self.port.emit('getScheduleById', sched_id);
         } else if (action == "New") {
+            if (editing_mode === true) {
+                warnEditing($('div.form_div'));
+                return;
+            }
             // Show Adding, Hide tip and adding button
             $("#div_new").css("display", "block");
             $("#div_new div.form_div").html(form_div_html);
@@ -229,6 +248,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_new div.form_div #div_loop > #easycal_loop").val(0);
 
             allowOtherLoopVal();
+            editing_mode = true;
 
         } else if (action == "New_Save") {
             self.port.emit('getNewScheduleId');
@@ -238,6 +258,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_tips").css("display", "block");
             $("#div_add").css("display", "block");
             $("#div_new div.form_div").html('');
+            editing_mode = false;
         } else if (action == "help") {
             self.port.emit('open_help_page');
         } else {
@@ -306,6 +327,10 @@ self.port.on('sendScheduleById', function(schedule_str) {
     var sched_id = 'sched' + s.id;
     var img_selector = '#' + sched_id + ' img[alt="Edit"]';
     if ($("#" + sched_id + "_edit")[0].style.display == 'none') {
+        if (editing_mode === true) {
+            warnEditing($('div.form_div'));
+            return;
+        }
         // change icon
         $(img_selector).attr("src", "Edit-ing-New-mouseover.png");
         $(img_selector).attr("editing", "1");
@@ -337,8 +362,9 @@ self.port.on('sendScheduleById', function(schedule_str) {
         }
 
         allowOtherLoopVal();
+        editing_mode = true;
     } else {
-        // == Edit_Save but the relative position of DOM tree is different
+        // == Edit_Save
         var ret = saveSchedule("#" + sched_id + "_edit", s);
         if (ret === true) {
             // change icon
@@ -348,6 +374,8 @@ self.port.on('sendScheduleById', function(schedule_str) {
             // Hide and save and refresh
             $("#" + sched_id + "_edit").css("display", "none");
             $("#" + sched_id + "_edit div.form_div").html('');
+            editing_mode = false;
+
             // refresh schedule list
             self.port.emit('getSchedulesList');
             // refresh sched
@@ -356,18 +384,10 @@ self.port.on('sendScheduleById', function(schedule_str) {
         //TODO
         // Merge duplicate routine into reusable function.
         else if (ret === ERROR_TIME_SETTING){
-            var origin_color = $("#"+sched_id+"_edit > div > div#div_time").css('background-color');
-            for (var i=0; i<1200; i+= 400) {
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', '#FFD0D0');}, i);
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', origin_color);}, i+200);
-            }
+            warnEditing($("#"+sched_id+"_edit > div > div#div_time"));
         }
         else if (ret === ERROR_LOOP_VAL) {
-            var origin_color = $("#"+sched_id+"_edit > div > div#div_loop").css('background-color');
-            for (var i=0; i<1200; i+= 400) {
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_loop").css('background-color', '#FFD0D0');}, i);
-                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_loop").css('background-color', origin_color);}, i+200);
-            }
+            warnEditing($("#"+sched_id+"_edit > div > div#div_loop"));
         } else {
             // Should never be here.
             console.error('Unknown error in saveSchedule!');
@@ -381,6 +401,7 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     // Save form
     var ret = saveSchedule("#div_new", s);
     if (ret === true) {
+        editing_mode = false;
         // refresh schedule list
         self.port.emit('getSchedulesList');
         // refresh sched
@@ -388,18 +409,10 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     }
     // else: time is wrong, flash div_time
     else if (ret === ERROR_TIME_SETTING) {
-        var origin_color = $("#div_new > div > div#div_time").css('background-color');
-        for (var i=0; i<1200; i+= 400) {
-            setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', '#FFD0D0');}, i);
-            setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', origin_color);}, i+200);
-        }
+        warnEditing($("#div_new > div > div#div_time"));
     }
     else if (ret === ERROR_LOOP_VAL) {
-        var origin_color = $("#div_new > div > div#div_loop").css('background-color');
-        for (var i=0; i<1200; i+= 400) {
-            setTimeout(function(){$("#div_new > div > div#div_loop").css('background-color', '#FFD0D0');}, i);
-            setTimeout(function(){$("#div_new > div > div#div_loop").css('background-color', origin_color);}, i+200);
-        }
+        warnEditing($("#div_new > div > div#div_loop"));
     } else {
         // Should never be here.
         console.error('Unknown error in saveSchedule!');
@@ -483,4 +496,13 @@ function allowOtherLoopVal() {
             $('div#div_loop').append(other_choice);
         }
     });
+}
+
+// @param selector: jQuery selector
+function warnEditing(selector) {
+    var origin_color = selector.css('background-color');
+    for (var i=0; i<1200; i+= 400) {
+        setTimeout(function(){selector.css('background-color', '#FFD0D0');}, i);
+        setTimeout(function(){selector.css('background-color', origin_color);}, i+200);
+    }
 }
