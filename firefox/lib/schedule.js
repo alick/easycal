@@ -70,22 +70,22 @@ function getSchedulesList() {
         // TODO
         // Might need clean ups.
         var loop = parseInt(s.loop);
-        if (loop > 0 && loop <= 7) {
-            // 1 2 or 7
+        if (loop > 0 && loop <= 29) {
+            // 1 2 or 7 or other user defined value
             var newTime = new Date(time);
             for (var j=0; j<31; j++) {
                 SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
                 newTime.setDate(newTime.getDate()+loop);
             }
         } else if (loop == 30) {
-            // 30
+            // 30 means monthly
             var newTime = new Date(time);
             for (var j=0; j<20; j++) {
                 SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
                 newTime.setMonth(newTime.getMonth()+1);
             }
         } else if (loop == 365) {
-            // 365
+            // 365 means yearly
             var newTime = new Date(time);
             for (var j=0; j<10; j++) {
                 SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
@@ -94,20 +94,8 @@ function getSchedulesList() {
         } else if (loop == 0) {
             SchedulesList[time.getFullYear().toString()+'-'+time.getMonth().toString()+'-'+time.getDate().toString()] = 1;
         } else {
-            // Some user defined repeating duration
-            var newTime = new Date(time);
-            var max = 30;
-            if (loop > 365) {
-                max = 10;
-            } else if (loop > 30) {
-                max = 20;
-            } else {
-                max = 30;
-            }
-            for (var j=0; j<max; j++) {
-                SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
-                newTime.setDate(newTime.getDate()+loop);
-            }
+            // Should not be here
+            console.error('Invalid loop value!');
         }
     }
     return SchedulesList;

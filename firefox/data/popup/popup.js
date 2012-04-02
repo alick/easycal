@@ -1,4 +1,10 @@
 var CONSTANT_CONTENT_LENGTH = 20;
+// Maximum user defined repeating(loop) duration (in days)
+// Setting to a higher value might cause api changes
+// because loop == 30 actually means repeating monthly.
+// Also I doubt whether setting to a higher value makes sense
+// in practice.
+var LOOP_VAL_MAX = 29;
 
 var ERROR_TIME_SETTING = -1;
 var ERROR_LOOP_VAL = -2;
@@ -325,7 +331,7 @@ self.port.on('sendScheduleById', function(schedule_str) {
         } else {
             $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(-1);
             var other_choice = '<span id="loop_other">Every ' +
-                               '<input type="text" maxlength="4" value="' + s.loop +
+                               '<input type="text" maxlength="2" value="' + s.loop +
                                '" /> Days</span>';
             $('div#div_loop').append(other_choice);
         }
@@ -426,7 +432,7 @@ function saveSchedule(sched_div_id, s) {
     if (s.loop === -1) {
         // Other user defined value
         var value = parseInt($(sched_div_id + " #loop_other input").val(), 10);
-        if (value > 0 && value < 10000) {
+        if (value > 0 && value <= LOOP_VAL_MAX) {
             s.loop = value;
         } else {
             return ERROR_LOOP_VAL;
@@ -473,7 +479,7 @@ function allowOtherLoopVal() {
             $('div#div_loop #loop_other').remove();
         } else {
             var other_choice = '<span id="loop_other">Every ' +
-                               '<input type="text" maxlength="4" /> Days</span>';
+                               '<input type="text" maxlength="2" /> Days</span>';
             $('div#div_loop').append(other_choice);
         }
     });
