@@ -1,5 +1,8 @@
 var CONSTANT_CONTENT_LENGTH = 20;
 
+var ERROR_TIME_SETTING = -1;
+var ERROR_LOOP_VAL = -2;
+
 g_globalObject = new JsDatePick({
     useMode:1,
     isStripped:true,
@@ -27,6 +30,7 @@ var form_div_html =
 "<option value='7'>"+_("extEditLabelEveryWeek")+"</option>" +
 "<option value='30'>"+_("extEditLabelEveryMonth")+"</option>" +
 "<option value='365'>"+_("extEditLabelEveryYear")+"</option>" +
+"<option value='-1'>"+_("Other")+"</option>" +
 "</select>" +
 "</div>" +
 // Schedule content
@@ -215,6 +219,9 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_new div.form_div #div_remind > #remindTime")[0]["value"] = 15;
             $("#div_new div.form_div #div_remind > #remindUnit").val("minute");
             $("#div_new div.form_div #div_loop > #easycal_loop").val(0);
+
+            allowOtherLoopVal();
+
         } else if (action == "New_Save") {
             self.port.emit('getNewScheduleId');
         } else if (action == "New_Cancel") {
@@ -311,9 +318,12 @@ self.port.on('sendScheduleById', function(schedule_str) {
         $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
         $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
+
+        allowOtherLoopVal();
     } else {
         // == Edit_Save but the relative position of DOM tree is different
-        if (saveSchedule("#" + sched_id + "_edit", s) == true) {
+        var ret = saveSchedule("#" + sched_id + "_edit", s);
+        if (ret === true) {
             // change icon
             $(img_selector)[0].src = "Edit-New-mouseover.png";
             $(img_selector).attr("editing", "0");
@@ -326,13 +336,24 @@ self.port.on('sendScheduleById', function(schedule_str) {
             // refresh sched
             self.port.emit('getSchedulesByTime', obj);
         }
-        // else: time is wrong, flash div_time
-        else {
+        //TODO
+        // Merge duplicate routine into reusable function.
+        else if (ret === ERROR_TIME_SETTING){
             var origin_color = $("#"+sched_id+"_edit > div > div#div_time").css('background-color');
             for (var i=0; i<1200; i+= 400) {
                 setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', '#FFD0D0');}, i);
                 setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_time").css('background-color', origin_color);}, i+200);
             }
+        }
+        else if (ret === ERROR_LOOP_VAL) {
+            var origin_color = $("#"+sched_id+"_edit > div > div#div_loop").css('background-color');
+            for (var i=0; i<1200; i+= 400) {
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_loop").css('background-color', '#FFD0D0');}, i);
+                setTimeout(function(){$("#"+sched_id+"_edit > div > div#div_loop").css('background-color', origin_color);}, i+200);
+            }
+        } else {
+            // Should never be here.
+            console.error('Unknown error in saveSchedule!');
         }
     }
 });
@@ -341,19 +362,30 @@ self.port.on('sendNewScheduleId', function(sched_index) {
     var s = {}; // empty schedule object
     s.id = sched_index;
     // Save form
-    if (saveSchedule("#div_new", s) == true) {
+    var ret = saveSchedule("#div_new", s);
+    if (ret === true) {
         // refresh schedule list
         self.port.emit('getSchedulesList');
         // refresh sched
         self.port.emit('getSchedulesByTime', obj);
     }
     // else: time is wrong, flash div_time
-    else {
+    else if (ret === ERROR_TIME_SETTING) {
         var origin_color = $("#div_new > div > div#div_time").css('background-color');
         for (var i=0; i<1200; i+= 400) {
             setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', '#FFD0D0');}, i);
             setTimeout(function(){$("#div_new > div > div#div_time").css('background-color', origin_color);}, i+200);
         }
+    }
+    else if (ret === ERROR_LOOP_VAL) {
+        var origin_color = $("#div_new > div > div#div_loop").css('background-color');
+        for (var i=0; i<1200; i+= 400) {
+            setTimeout(function(){$("#div_new > div > div#div_loop").css('background-color', '#FFD0D0');}, i);
+            setTimeout(function(){$("#div_new > div > div#div_loop").css('background-color', origin_color);}, i+200);
+        }
+    } else {
+        // Should never be here.
+        console.error('Unknown error in saveSchedule!');
     }
 });
 
@@ -376,10 +408,19 @@ function saveSchedule(sched_div_id, s) {
             s.sched_time.getSeconds() != userSecond) {
 
         console.warn("Invalid time setting!");
-        return false;
+        return ERROR_TIME_SETTING;
     }
 
-    s.loop = $(sched_div_id + " > div > div#div_loop > #easycal_loop").val();
+    s.loop = parseInt($(sched_div_id + " > div > div#div_loop > #easycal_loop").val());
+    if (s.loop === -1) {
+        // Other user defined value
+        var value = parseInt($(sched_div_id + " #loop_other input").val(), 10);
+        if (value > 0 && value < 10000) {
+            s.loop = value;
+        } else {
+            return ERROR_LOOP_VAL;
+        }
+    }
 
     s.content = $(sched_div_id + " > div > div#div_content > #content")[0]["value"];
 
@@ -413,3 +454,16 @@ self.port.on('sendSchedulesList', function(has_schedule_map){
     // refresh jsDatePick calendar
     g_globalObject.repopulateMainBox();
 });
+
+function allowOtherLoopVal() {
+    $('select#easycal_loop').unbind();
+    $('select#easycal_loop').change(function(){
+        if ($(this).val() != -1) {
+            $('div#div_loop #loop_other').remove();
+        } else {
+            var other_choice = '<span id="loop_other">Every ' +
+                               '<input type="text" maxlength="4" /> Days</span>';
+            $('div#div_loop').append(other_choice);
+        }
+    });
+}

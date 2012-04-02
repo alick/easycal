@@ -141,7 +141,7 @@ div#div_new table tbody tr td{
     outline-width: 0; /* override Chrome's default outline style */
 }
 
-.sch_div > input {
+.sch_div input {
     border: #ECF1F9 solid 1px;
 }
 .sch_div > textarea {
@@ -152,4 +152,9 @@ div#div_new table tbody tr td{
 }
 #div_submit {
     font-size: 16px;
+}
+
+#loop_other > input {
+    width: 2.5em;
+    height: 1em;
 }
