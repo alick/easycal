@@ -59,6 +59,11 @@ _("extEditLabelBefore") +
 "<option value='hour'>"+_("extEditLabelRemindHour")+"</option>" +
 "<option value='minute' selected='selected'>"+_("extEditLabelRemindMinute")+"</option>" +
 "</select>" +
+"</div>" +
+// Save and Cancel Button
+"<div class='sch_div' id='div_action' style='padding:0.1em 0.1em 0em 0.2em;'>" +
+"<input type='button' value='Save' /> " +
+"<input type='button' value='Cancel' />" +
 "</div>";
 
 self.port.on('show_popup', function(){

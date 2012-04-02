@@ -158,3 +158,10 @@ div#div_new table tbody tr td{
     width: 1.5em;
     height: 1em;
 }
+
+#div_action {
+    text-align: right;
+}
+#div_action input {
+    width: 5em;
+}
