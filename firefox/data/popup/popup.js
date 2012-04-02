@@ -215,7 +215,7 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             $("#div_tips").css("display", "none");
             $("#div_add").css("display", "none");
 
-            var time = new Date(obj.year, obj.month-1, obj.day, 7, 0);
+            var time = new Date(obj.year, obj.month-1, obj.day, 17, 0);
             $("#div_new div.form_div #div_time > input#year")[0]["value"] = time.getFullYear().toString();
             $("#div_new div.form_div #div_time > input#month")[0]["value"] = (time.getMonth()+1).toString();
             $("#div_new div.form_div #div_time > input#day")[0]["value"] = time.getDate().toString();
