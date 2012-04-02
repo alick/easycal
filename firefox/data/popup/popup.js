@@ -62,8 +62,8 @@ _("extEditLabelBefore") +
 "</div>" +
 // Save and Cancel Button
 "<div class='sch_div' id='div_action' style='padding:0.1em 0.1em 0em 0.2em;'>" +
-"<input type='button' value='Save' /> " +
-"<input type='button' value='Cancel' />" +
+"<input type='button' class='action_save' value='Save' /> " +
+"<input type='button' class='action_cancel' value='Cancel' />" +
 "</div>";
 
 self.port.on('show_popup', function(){
@@ -338,7 +338,7 @@ self.port.on('sendScheduleById', function(schedule_str) {
         }
         // change icon
         $(img_selector).attr("src", "Edit-ing-New-mouseover.png");
-        $(img_selector).attr("editing", "1");
+        $(img_selector).attr('editing', '1');
 
         // Show
         $("#" + sched_id + "_edit").css("display", "block");
@@ -368,35 +368,47 @@ self.port.on('sendScheduleById', function(schedule_str) {
 
         allowOtherLoopVal();
         editing_mode = true;
-    } else {
-        // == Edit_Save
-        var ret = saveSchedule("#" + sched_id + "_edit", s);
-        if (ret === true) {
-            // change icon
-            $(img_selector)[0].src = "Edit-New-mouseover.png";
-            $(img_selector).attr("editing", "0");
 
-            // Hide and save and refresh
+        $('input.action_save').unbind();
+        $('input.action_save').click(function(){
+            // == Edit_Save
+            var ret = saveSchedule("#" + sched_id + "_edit", s);
+            if (ret === true) {
+                // change icon
+                $(img_selector).attr('src', "Edit-New-mouseover.png");
+                $(img_selector).attr('editing', '0');
+
+                // Hide and save and refresh
+                $("#" + sched_id + "_edit").css("display", "none");
+                $("#" + sched_id + "_edit div.form_div").html('');
+                editing_mode = false;
+
+                // refresh schedule list
+                self.port.emit('getSchedulesList');
+                // refresh sched
+                self.port.emit('getSchedulesByTime', obj);
+            }
+            else if (ret === ERROR_TIME_SETTING){
+                warnEditing($("#"+sched_id+"_edit > div > div#div_time"));
+            }
+            else if (ret === ERROR_LOOP_VAL) {
+                warnEditing($("#"+sched_id+"_edit > div > div#div_loop"));
+            } else {
+                // Should never be here.
+                console.error('Unknown error in saveSchedule!');
+            }
+        });
+        $('input.action_cancel').unbind();
+        $('input.action_cancel').click(function(){
+            // change icon
+            $(img_selector).attr('src', "Edit-New-mouseover.png");
+
+            // Hide
             $("#" + sched_id + "_edit").css("display", "none");
             $("#" + sched_id + "_edit div.form_div").html('');
-            editing_mode = false;
 
-            // refresh schedule list
-            self.port.emit('getSchedulesList');
-            // refresh sched
-            self.port.emit('getSchedulesByTime', obj);
-        }
-        //TODO
-        // Merge duplicate routine into reusable function.
-        else if (ret === ERROR_TIME_SETTING){
-            warnEditing($("#"+sched_id+"_edit > div > div#div_time"));
-        }
-        else if (ret === ERROR_LOOP_VAL) {
-            warnEditing($("#"+sched_id+"_edit > div > div#div_loop"));
-        } else {
-            // Should never be here.
-            console.error('Unknown error in saveSchedule!');
-        }
+            editing_mode = false;
+        });
     }
 });
 
