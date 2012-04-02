@@ -111,6 +111,8 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
                 sched_html += "Repeat every month";
             } else if (loop == 365) {
                 sched_html += "Repeat every year";
+            } else {
+                sched_html += "Repeat every " + loop + " days";
             }
             sched_html += '" height="20px" width="20px" class="easycal_label" style="">';
         }

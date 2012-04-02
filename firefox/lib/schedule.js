@@ -19,7 +19,7 @@ function getSchedulesByTime (date_obj) {
         var shed_day = new Date(time.getFullYear(), time.getMonth(), time.getDate());
         var loop = parseInt(s.loop);
         
-        if (loop > 0 && loop <= 7) {
+        if (loop > 0 && loop < 10000 && loop != 30 && loop != 365) {
             if (this_day.getTime() > shed_day.getTime() && (this_day.getTime() - shed_day.getTime())%(loop*24*60*60*1000) == 0) {
                 time.setFullYear(date_obj.year, date_obj.month-1, date_obj.day);
             }
@@ -67,6 +67,8 @@ function getSchedulesList() {
         var time = new Date(s.sched_time);
 
         // give limited display for DatePick
+        // TODO
+        // Might need clean ups.
         var loop = parseInt(s.loop);
         if (loop > 0 && loop <= 7) {
             // 1 2 or 7
@@ -89,8 +91,23 @@ function getSchedulesList() {
                 SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
                 newTime.setFullYear(newTime.getFullYear()+1);
             }
-        } else {
+        } else if (loop == 0) {
             SchedulesList[time.getFullYear().toString()+'-'+time.getMonth().toString()+'-'+time.getDate().toString()] = 1;
+        } else {
+            // Some user defined repeating duration
+            var newTime = new Date(time);
+            var max = 30;
+            if (loop > 365) {
+                max = 10;
+            } else if (loop > 30) {
+                max = 20;
+            } else {
+                max = 30;
+            }
+            for (var j=0; j<max; j++) {
+                SchedulesList[newTime.getFullYear().toString()+'-'+newTime.getMonth().toString()+'-'+newTime.getDate().toString()] = 1;
+                newTime.setDate(newTime.getDate()+loop);
+            }
         }
     }
     return SchedulesList;
