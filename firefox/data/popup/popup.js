@@ -255,6 +255,19 @@ self.port.on('sendSchedulesByTime', function (TodayScheduleList) {
             allowOtherLoopVal();
             editing_mode = true;
 
+            $('input.action_save').unbind();
+            $('input.action_save').click(function(){
+                self.port.emit('getNewScheduleId');
+            });
+            $('input.action_cancel').unbind();
+            $('input.action_cancel').click(function(){
+                // Hide Adding, Show tip and adding button
+                $("#div_new").css("display", "none");
+                $("#div_tips").css("display", "block");
+                $("#div_add").css("display", "block");
+                $("#div_new div.form_div").html('');
+                editing_mode = false;
+            });
         } else if (action == "New_Save") {
             self.port.emit('getNewScheduleId');
         } else if (action == "New_Cancel") {
@@ -402,6 +415,7 @@ self.port.on('sendScheduleById', function(schedule_str) {
         $('input.action_cancel').click(function(){
             // change icon
             $(img_selector).attr('src', "Edit-New-mouseover.png");
+            $(img_selector).attr('editing', '0');
 
             // Hide
             $("#" + sched_id + "_edit").css("display", "none");
