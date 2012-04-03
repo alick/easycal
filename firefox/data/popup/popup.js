@@ -369,7 +369,7 @@ self.port.on('sendScheduleById', function(schedule_str) {
         $("#" + sched_id + "_edit > div > div#div_remind > #remindTime")[0]["value"] = s.timebefore;
         $("#" + sched_id + "_edit > div > div#div_remind > #remindUnit").val(s.timestyle);
         var predefined_loop_val = new Array(0, 1, 2, 7, 30, 365);
-        if (predefined_loop_val.indexOf(s.loop) != -1) {
+        if (predefined_loop_val.indexOf(parseInt(s.loop)) != -1) {
             $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(s.loop);
         } else {
             $("#" + sched_id + "_edit > div > div#div_loop > #easycal_loop").val(-1);
