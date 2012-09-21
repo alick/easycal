@@ -101,17 +101,12 @@ JsgetElem = function(id){ return document.getElementById(id); };
 
 g_ScheduleList = {};
 
-String.prototype.trim = function() {
-	return this.replace(/^\s+|\s+$/g,"");
+trim = function(s) {
+	return s.replace(/^\s+|\s+$/g,"");
 };
-String.prototype.ltrim = function() {
-	return this.replace(/^\s+/,"");
-};
-String.prototype.rtrim = function() {
-	return this.replace(/\s+$/,"");
-};
-String.prototype.strpad=function(){
-	return (!isNaN(this) && this.toString().length==1)?"0"+this:this;
+
+strpad = function(s){
+	return (!isNaN(s) && s.toString().length==1)?"0"+s:s;
 };
 
 JsDatePick = function(configurationObject){
@@ -426,8 +421,9 @@ JsDatePick.prototype.determineFieldDate = function(){
 		});
 	} else {
 		aField = JsgetElem(this.oConfiguration.target);
+                aFieldvar = trim(aField.value);
 		
-		if (aField.value.trim().length == 0){
+		if (aFieldvar.length == 0){
 			this.unsetSelection();
 			
 			if (typeof(this.oConfiguration.selectedDate) == "object" && this.oConfiguration.selectedDate){
@@ -439,11 +435,11 @@ JsDatePick.prototype.determineFieldDate = function(){
 			}
 			
 		} else {
-			if (aField.value.trim().length > 5){
+			if (aFieldvar.length > 5){
 				divider = this.senseDivider(this.oConfiguration.dateFormat);
 				dateMold = this.oConfiguration.dateFormat;
-				array 	= aField.value.trim().split(divider);
-				array2 	= dateMold.trim().split(divider);
+				array 	= aFieldvar.split(divider);
+				array2 	= trim(dateMold).split(divider);
 				i=dI=yI=mI=0;
 				
 				for (i=0; i<array2.length; i++){
@@ -907,10 +903,10 @@ JsDatePick.prototype.getSelectedDayFormatted = function(){
 		
 		var dateStr = this.oConfiguration.dateFormat;
 		
-		dateStr = dateStr.replace("%d", this.selectedDayObject.day.toString().strpad());
+		dateStr = strpad(dateStr.replace("%d", this.selectedDayObject.day.toString()));
 		dateStr = dateStr.replace("%j", this.selectedDayObject.day);
 		
-		dateStr = dateStr.replace("%m", this.selectedDayObject.month.toString().strpad());
+		dateStr = strpad(dateStr.replace("%m", this.selectedDayObject.month.toString()));
 		dateStr = dateStr.replace("%M", g_l["MONTHS"][this.selectedDayObject.month-1].substr(0,3).toUpperCase());
 		dateStr = dateStr.replace("%n", this.selectedDayObject.month);
 		dateStr = dateStr.replace("%F", g_l["MONTHS"][this.selectedDayObject.month-1]);
