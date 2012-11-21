@@ -8,6 +8,8 @@ var ss = require('simple-storage');
 var notifications = require("notifications");
 var privateBrowsing = require('private-browsing');
 
+var pref = require("simple-prefs");
+
 var data = require("self").data;
 
 var storage = require("storage");
@@ -15,7 +17,7 @@ var schedules = require("schedule");
 var remind = require("remind");
 
 // Whether we are in develop mode:
-var devmode = false;
+var devmode = true;
 function $debug(msg) {
     if (devmode === true && msg) {
         console.debug('[devmode]' + msg);
@@ -137,6 +139,17 @@ exports.main = function(options, callbacks) {
         contentScriptWhen: 'ready',
         contentScriptFile: data.url('widget/widget.js'),
         panel: popupPanel,
+    });
+
+    pref.on('show_time', function(name){
+        $debug('prefs:' + JSON.stringify(pref.prefs));
+        $debug('show_time changed to: ' + pref.prefs[name]);
+        var show_time = pref.prefs[name];
+        if (show_time) {
+            widget.contentURL = data.url("widget/addon_bar_info.html");
+        } else {
+            widget.contentURL = data.url("widget/easycal-small-on.png");
+        }
     });
 
     // Remind

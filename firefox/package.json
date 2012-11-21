@@ -2,9 +2,23 @@
     "name": "easycal",
     "license": "GPL 3.0",
     "author": "The EasyCal Team (http://code.google.com/p/easycal/people/list)",
-    "version": "1.9.3",
+    "version": "1.9.3git",
     "fullName": "EasyCal",
     "description": "An appealing and easy-to-use calendar app.",
+    "preferences": [{
+        "name": "show_time",
+        "title": "show time",
+        "description": "Show current time in the addon bar",
+        "type": "bool",
+        "value": false
+    },
+    {
+        "name": "show_event",
+        "title": "show upcoming event number",
+        "description": "Show how many events to do in 24 hours in the addon bar",
+        "type": "bool",
+        "value": false
+    }],
     "homepage": "http://code.google.com/p/easycal/",
     "icon": "data/easycal-48x48.png",
     "icon64": "data/easycal-64x64.png",
