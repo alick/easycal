@@ -129,10 +129,12 @@ exports.main = function(options, callbacks) {
     popupPanel.port.on('open_help_page', function(){
         tabs.open(data.url('help/Help-en.html'));
     });
+    var logo_img_html = '<img src="' + data.url("widget/easycal-small-on.png") + '" />';
     var widget = widgets.Widget({
         id: "easycal-popup",
         label: "Click to manage the schedules.",
-        contentURL: data.url("widget/easycal-small-on.png"),
+        //contentURL: data.url("widget/easycal-small-on.png"),
+        content: logo_img_html,
         onClick: function() {
             $debug('widget: show the popupPanel');
         },
@@ -142,13 +144,17 @@ exports.main = function(options, callbacks) {
     });
 
     pref.on('show_time', function(name){
-        $debug('prefs:' + JSON.stringify(pref.prefs));
         $debug('show_time changed to: ' + pref.prefs[name]);
         var show_time = pref.prefs[name];
         if (show_time) {
-            widget.contentURL = data.url("widget/addon_bar_info.html");
+            var d = new Date();
+            var time = d.toTimeString().substr(0, 8);
+            console.log(time);
+            widget.content += '<span id="timer">' + time + '</span>';
+            widget.width += 80;
         } else {
-            widget.contentURL = data.url("widget/easycal-small-on.png");
+            widget.content = logo_img_html;
+            widget.width = 16;
         }
     });
 

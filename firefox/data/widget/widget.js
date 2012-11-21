@@ -8,3 +8,12 @@ this.addEventListener('click', function(event) {
     self.port.emit('right-click');
     event.preventDefault();
 }, true);
+var timer = document.getElementById('timer');
+if (timer !== null) {
+    console.log('setInterval');
+    setInterval(function(){
+        var d = new Date();
+        var time = d.toTimeString().substr(0, 8);
+        console.log('update time to: ' + time);
+        timer.innerHTML = time;}, 1000);
+}
