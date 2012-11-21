@@ -10,10 +10,16 @@ this.addEventListener('click', function(event) {
 }, true);
 var timer = document.getElementById('timer');
 if (timer !== null) {
-    console.log('setInterval');
     setInterval(function(){
         var d = new Date();
         var time = d.toTimeString().substr(0, 8);
         console.log('update time to: ' + time);
-        timer.innerHTML = time;}, 1000);
+        timer.innerHTML = '&nbsp;' + time;}, 1000);
+}
+var event_span = document.getElementById('event');
+if (event_span !== null) {
+    setInterval(function(){
+        console.log('refresh event number');
+        self.port.emit('refresh_event_num');
+    }, 1000*15);
 }

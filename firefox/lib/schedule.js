@@ -50,6 +50,26 @@ function cmpSchedule(s1, s2) {
     return t1 - t2;
 }
 
+function getUpcomingSchedulesNum() {
+    var num = 0;
+    var today = new Date();
+    var date_obj = {
+        year: today.getFullYear(),
+        month: today.getMonth() + 1,
+        day: today.getDate(),
+    };
+    var sched_list = getSchedulesByTime(date_obj);
+    for (var i = 0; i < sched_list.length; ++i) {
+        var s = sched_list[i];
+        stime = new Date(s.sched_time);
+        stime.setFullYear(date_obj.year, date_obj.month-1, date_obj.day);
+        if (stime.getTime() > today.getTime()) {
+            num += 1;
+        }
+    }
+    return num;
+}
+
 //FIXME
 // The function name is confusing.
 function getSchedulesList() {
@@ -103,3 +123,4 @@ function getSchedulesList() {
 
 exports.getSchedulesByTime = getSchedulesByTime;
 exports.getSchedulesList = getSchedulesList;
+exports.getUpcomingSchedulesNum = getUpcomingSchedulesNum;

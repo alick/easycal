@@ -130,6 +130,7 @@ exports.main = function(options, callbacks) {
         tabs.open(data.url('help/Help-en.html'));
     });
     var logo_img_html = '<img src="' + data.url("widget/easycal-small-on.png") + '" />';
+    var logo_img_html_off = '<img src="' + data.url("widget/easycal-small-off.png") + '" />';
     var widget = widgets.Widget({
         id: "easycal-popup",
         label: "Click to manage the schedules.",
@@ -143,19 +144,49 @@ exports.main = function(options, callbacks) {
         panel: popupPanel,
     });
 
+    var show_time = pref.prefs['show_time'];
+    var show_event = pref.prefs['show_event'];
+    if (show_time) {
+        var d = new Date();
+        var time = d.toTimeString().substr(0, 8);
+        widget.content += '<span id="timer">&nbsp;' + time + '</span>';
+        widget.width += 80;
+    }
+    if (show_event) {
+        widget.content += '<span id="event">&nbsp;_ events</span>';
+        widget.width += 80;
+    }
     pref.on('show_time', function(name){
-        $debug('show_time changed to: ' + pref.prefs[name]);
-        var show_time = pref.prefs[name];
+        show_time = pref.prefs[name];
         if (show_time) {
             var d = new Date();
             var time = d.toTimeString().substr(0, 8);
-            console.log(time);
-            widget.content += '<span id="timer">' + time + '</span>';
+            widget.content += '<span id="timer">&nbsp;' + time + '</span>';
             widget.width += 80;
         } else {
-            widget.content = logo_img_html;
-            widget.width = 16;
+            $debug('content: ' + widget.content);
+            widget.content = widget.content.replace(/<span id="timer">[^>]*<\/span>/g, '');
+            $debug('content: ' + widget.content);
+            widget.width -= 80;
         }
+    });
+    pref.on('show_event', function(name){
+        $debug('show_event changed to: ' + pref.prefs[name]);
+        show_event = pref.prefs[name];
+        if (show_event) {
+            widget.content += '<span id="event">&nbsp;_ events</span>';
+            widget.width += 80;
+        } else {
+            $debug('content: ' + widget.content);
+            widget.content = widget.content.replace(/<span id="event">[^>]*<\/span>/g, '');
+            $debug('content: ' + widget.content);
+            widget.width -= 80;
+        }
+    });
+    widget.port.on('refresh_event_num', function(){
+        $debug('to refresh_event_num');
+        var num = schedules.getUpcomingSchedulesNum();
+        widget.content = widget.content.replace(/[0-9_]+ events/g, num + ' events');
     });
 
     // Remind
@@ -175,13 +206,13 @@ exports.main = function(options, callbacks) {
     });
 
     privateBrowsing.on('start', function() {
-        widget.contentURL = data.url('widget/easycal-small-off.png');
+        widget.content = logo_img_html_off;
         menuItem.label = label_disabled;
         menuItem.data = "disabled";
     });
 
     privateBrowsing.on('stop', function() {
-        widget.contentURL = data.url('widget/easycal-small-on.png');
+        widget.content = logo_img_html;
         menuItem.label = label_enabled;
         menuItem.data = "enabled";
     });
