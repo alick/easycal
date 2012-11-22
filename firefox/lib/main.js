@@ -18,7 +18,7 @@ var schedules = require("schedule");
 var remind = require("remind");
 
 // Whether we are in develop mode:
-var devmode = true;
+var devmode = false;
 function $debug(msg) {
     if (devmode === true && msg) {
         console.debug('[devmode]' + msg);
