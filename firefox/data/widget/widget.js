@@ -8,18 +8,20 @@ this.addEventListener('click', function(event) {
     self.port.emit('right-click');
     event.preventDefault();
 }, true);
+// Update timer and/or event number info.
 var timer = document.getElementById('timer');
 if (timer !== null) {
     setInterval(function(){
         var d = new Date();
         var time = d.toTimeString().substr(0, 8);
-        console.log('update time to: ' + time);
         timer.innerHTML = '&nbsp;' + time;}, 1000);
 }
 var event_span = document.getElementById('event');
 if (event_span !== null) {
     setInterval(function(){
-        console.log('refresh event number');
         self.port.emit('refresh_event_num');
-    }, 1000*15);
+    }, 1000*30);
 }
+self.port.on('refresh_event_html', function(event_str){
+    event_span.innerHTML = '&nbsp;' + event_str;
+});

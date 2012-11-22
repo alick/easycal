@@ -9,6 +9,7 @@ var notifications = require("notifications");
 var privateBrowsing = require('private-browsing');
 
 var pref = require("simple-prefs");
+var _ = require("l10n").get;
 
 var data = require("self").data;
 
@@ -153,7 +154,9 @@ exports.main = function(options, callbacks) {
         widget.width += 80;
     }
     if (show_event) {
-        widget.content += '<span id="event">&nbsp;_ events</span>';
+        var num = schedules.getUpcomingSchedulesNum();
+        var event_str = _("event_id", num);
+        widget.content += '<span id="event">&nbsp;' + event_str + '</span>';
         widget.width += 80;
     }
     pref.on('show_time', function(name){
@@ -171,10 +174,11 @@ exports.main = function(options, callbacks) {
         }
     });
     pref.on('show_event', function(name){
-        $debug('show_event changed to: ' + pref.prefs[name]);
         show_event = pref.prefs[name];
         if (show_event) {
-            widget.content += '<span id="event">&nbsp;_ events</span>';
+            var num = schedules.getUpcomingSchedulesNum();
+            var event_str = _("event_id", num);
+            widget.content += '<span id="event">&nbsp;' + event_str + '</span>';
             widget.width += 80;
         } else {
             $debug('content: ' + widget.content);
@@ -184,9 +188,10 @@ exports.main = function(options, callbacks) {
         }
     });
     widget.port.on('refresh_event_num', function(){
-        $debug('to refresh_event_num');
+        $debug('to refresh event number...');
         var num = schedules.getUpcomingSchedulesNum();
-        widget.content = widget.content.replace(/[0-9_]+ events/g, num + ' events');
+        var event_str = _("event_id", num);
+        widget.port.emit('refresh_event_html', event_str);
     });
 
     // Remind
