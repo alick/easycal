@@ -147,6 +147,9 @@ exports.main = function(options, callbacks) {
 
     var show_time = pref.prefs['show_time'];
     var show_event = pref.prefs['show_event'];
+    // Remember widget content before switching to privacy mode.
+    var orig_widget_content = widget.content;
+    var orig_widget_width = widget.width;
     if (show_time) {
         var d = new Date();
         var time = d.toTimeString().substr(0, 8);
@@ -211,13 +214,17 @@ exports.main = function(options, callbacks) {
     });
 
     privateBrowsing.on('start', function() {
+        orig_widget_content = widget.content;
+        orig_widget_width = widget.width;
         widget.content = logo_img_html_off;
+        widget.width = 16;
         menuItem.label = label_disabled;
         menuItem.data = "disabled";
     });
 
     privateBrowsing.on('stop', function() {
-        widget.content = logo_img_html;
+        widget.content = orig_widget_content;
+        widget.width = orig_widget_width;
         menuItem.label = label_enabled;
         menuItem.data = "enabled";
     });
