@@ -135,8 +135,10 @@ exports.main = function(options, callbacks) {
     var widget = widgets.Widget({
         id: "easycal-popup",
         label: "Click to manage the schedules.",
-        //contentURL: data.url("widget/easycal-small-on.png"),
-        content: logo_img_html,
+        // The nbsp in content serves as a placeholder to make sure
+        // content will not become empty. Without it, exceptions will be
+        // throwed and users can not click the widget.
+        content: logo_img_html + '&nbsp;',
         onClick: function() {
             $debug('widget: show the popupPanel');
         },
@@ -147,6 +149,7 @@ exports.main = function(options, callbacks) {
 
     var show_time = pref.prefs['show_time'];
     var show_event = pref.prefs['show_event'];
+    var show_logo = pref.prefs['show_logo'];
     // Remember widget content before switching to privacy mode.
     var orig_widget_content = widget.content;
     var orig_widget_width = widget.width;
@@ -161,6 +164,10 @@ exports.main = function(options, callbacks) {
         var event_str = _("event_id", num);
         widget.content += '<span id="event">&nbsp;' + event_str + '</span>';
         widget.width += 80;
+    }
+    if (!show_logo) {
+        widget.content = widget.content.replace(logo_img_html, '');
+        widget.width -= 16;
     }
     pref.on('show_time', function(name){
         show_time = pref.prefs[name];
@@ -188,6 +195,16 @@ exports.main = function(options, callbacks) {
             widget.content = widget.content.replace(/<span id="event">[^>]*<\/span>/g, '');
             $debug('content: ' + widget.content);
             widget.width -= 80;
+        }
+    });
+    pref.on('show_logo', function(name){
+        show_logo = pref.prefs[name];
+        if (show_logo) {
+            widget.width += 16;
+            widget.content = logo_img_html + widget.content;
+        } else {
+            widget.content = widget.content.replace(logo_img_html, '');
+            widget.width -= 16;
         }
     });
     widget.port.on('refresh_event_num', function(){

@@ -18,6 +18,13 @@
         "description": "Show how many upcoming events today in the addon bar",
         "type": "bool",
         "value": false
+    },
+    {
+        "name": "show_logo",
+        "title": "show EasyCal logo",
+        "description": "Show EasyCal logo in the addon bar.",
+        "type": "bool",
+        "value": true
     }],
     "homepage": "http://code.google.com/p/easycal/",
     "icon": "data/easycal-48x48.png",
