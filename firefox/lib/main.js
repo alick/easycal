@@ -163,7 +163,7 @@ exports.main = function(options, callbacks) {
         var num = schedules.getUpcomingSchedulesNum();
         var event_str = _("event_id", num);
         widget.content += '<span id="event">&nbsp;' + event_str + '</span>';
-        widget.width += 80;
+        widget.width += 35;
     }
     if (!show_logo) {
         widget.content = widget.content.replace(logo_img_html, '');
@@ -189,12 +189,12 @@ exports.main = function(options, callbacks) {
             var num = schedules.getUpcomingSchedulesNum();
             var event_str = _("event_id", num);
             widget.content += '<span id="event">&nbsp;' + event_str + '</span>';
-            widget.width += 80;
+            widget.width += 35;
         } else {
             $debug('content: ' + widget.content);
             widget.content = widget.content.replace(/<span id="event">[^>]*<\/span>/g, '');
             $debug('content: ' + widget.content);
-            widget.width -= 80;
+            widget.width -= 35;
         }
     });
     pref.on('show_logo', function(name){
