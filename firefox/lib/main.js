@@ -134,7 +134,7 @@ exports.main = function(options, callbacks) {
     var logo_img_html_off = '<img src="' + data.url("widget/easycal-small-off.png") + '" />';
     var widget = widgets.Widget({
         id: "easycal-popup",
-        label: "Click to manage the schedules.",
+        label: _("click_to_manage_id"),
         // The nbsp in content serves as a placeholder to make sure
         // content will not become empty. Without it, exceptions will be
         // throwed and users can not click the widget.
