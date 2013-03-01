@@ -1,8 +1,8 @@
 // This is preserved for reminding
-var ss = require('simple-storage');
-var notifications = require("notifications");
-var timers = require("timers");
-var self = require("self");
+var ss = require('sdk/simple-storage');
+var notifications = require("sdk/notifications");
+var timers = require("sdk/timers");
+var self = require("sdk/self");
 var myIconURL = self.data.url("easycal-64x64.png");
 
 function periodCheck() {

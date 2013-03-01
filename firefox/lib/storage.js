@@ -1,4 +1,4 @@
-var ss = require('simple-storage');
+var ss = require('sdk/simple-storage');
 var logging = false;
 
 // code originally from:

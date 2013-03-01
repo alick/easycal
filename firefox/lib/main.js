@@ -1,21 +1,21 @@
 // Import the APIs we need.
-var widgets = require("widget");
-var tabs = require("tabs");
-var contextMenu = require("context-menu");
-var panels = require("panel");
-var ss = require('simple-storage');
+var widgets = require("sdk/widget");
+var tabs = require("sdk/tabs");
+var contextMenu = require("sdk/context-menu");
+var panels = require("sdk/panel");
+var ss = require('sdk/simple-storage');
 
-var notifications = require("notifications");
-var privateBrowsing = require('private-browsing');
+var notifications = require("sdk/notifications");
+var privateBrowsing = require('sdk/private-browsing');
 
-var pref = require("simple-prefs");
-var _ = require("l10n").get;
+var pref = require("sdk/simple-prefs");
+var _ = require("sdk/l10n").get;
 
-var data = require("self").data;
+var data = require("sdk/self").data;
 
-var storage = require("storage");
-var schedules = require("schedule");
-var remind = require("remind");
+var storage = require("./storage");
+var schedules = require("./schedule");
+var remind = require("./remind");
 
 // Whether we are in develop mode:
 var devmode = false;
