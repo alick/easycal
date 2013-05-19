@@ -6,7 +6,6 @@ var panels = require("sdk/panel");
 var ss = require('sdk/simple-storage');
 
 var notifications = require("sdk/notifications");
-var privateBrowsing = require('sdk/private-browsing');
 
 var pref = require("sdk/simple-prefs");
 var _ = require("sdk/l10n").get;
@@ -230,19 +229,4 @@ exports.main = function(options, callbacks) {
             text: 'Please remove some outdated schedules.'});
     });
 
-    privateBrowsing.on('start', function() {
-        orig_widget_content = widget.content;
-        orig_widget_width = widget.width;
-        widget.content = logo_img_html_off;
-        widget.width = 16;
-        menuItem.label = label_disabled;
-        menuItem.data = "disabled";
-    });
-
-    privateBrowsing.on('stop', function() {
-        widget.content = orig_widget_content;
-        widget.width = orig_widget_width;
-        menuItem.label = label_enabled;
-        menuItem.data = "enabled";
-    });
 };
